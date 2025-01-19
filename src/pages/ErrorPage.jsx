@@ -1,11 +1,11 @@
 import React from 'react'
 
-function SignUp() {
+function ErrorPage() {
   return (
     <div>
-      SignUp
+      Error Page
     </div>
   )
 }
 
-export default SignUp
+export default ErrorPage

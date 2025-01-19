@@ -3,11 +3,14 @@ import {
   } from "react-router-dom";
 import App from "../App";
 import Login from "../pages/Login";
-import ErrorPage from "../pages/errorPage";
-import Navbar from "../common/Navbar";
+import ErrorPage from "../pages/ErrorPage";
+import Navbar from "../components/naviagtion/Navbar";
 import Dashboard from "../pages/Dashboard";
-import { ProtectedRoute } from "./PrivateRoute";
-import Sidebar from "../common/Sidebar";
+// import { ProtectedRoute } from "./PrivateRoute";
+import SignUp from "../pages/SignUp";
+
+import Sidebar from "../components/naviagtion/SideBar";
+import  ProtectedRoute  from "./ProtectedRoute";
 
 
 
