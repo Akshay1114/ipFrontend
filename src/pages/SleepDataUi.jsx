@@ -3,7 +3,7 @@ import React from 'react'
 function SleepDataUi() {
   return (
     <div>
-      Sleep Data Ui
+      Sleep Data Ui Progress
     </div>
   )
 }
