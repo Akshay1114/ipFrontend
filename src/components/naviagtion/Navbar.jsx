@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function Navbar() {
   return (
     <div>
       <ul className="navbar">
         <li>
-          <Link class="active" href="#home">
+          <Link className="active" href="#home">
             Home
           </Link>
         </li>
@@ -20,6 +20,7 @@ function Navbar() {
           <Link href="#about">About</Link>
         </li>
       </ul>
+      <Outlet/>
     </div>
   );
 }
