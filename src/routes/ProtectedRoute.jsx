@@ -1,15 +1,16 @@
 import React,{useEffect} from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-const ProtectedRoute = ({ children }) => {
-
+const ProtectedRoute = ({ allowedRoles, children }) => {
+  const role = useSelector((state) => state.auth.role);
 const dispatch = useDispatch();
   useEffect(() => {
     console.log('ProtectedRoute')
     const handleStorageChange = () => {
       const storedToken = sessionStorage.getItem("token");
-      if (!storedToken) {
+      if (!storedToken || !allowedRoles.includes(role)) {
+        console.log('logout')
         dispatch(logout()); 
       }
     };
@@ -18,8 +19,17 @@ const dispatch = useDispatch();
     return () => window.removeEventListener("storage", handleStorageChange);
   }, [dispatch]);
   const isAuthenticated = useSelector((state) => state.auth.token);
+  
+  if (!isAuthenticated || !allowedRoles.includes(role)) {
+    return <Navigate to="/login" replace />;
+  }
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  // if (!allowedRoles.includes(role)) {
+  //   return <Navigate to="/unauthorized" replace />;
+  // }
+
+  // return <Outlet />;
+return children;
 };
 
 export default ProtectedRoute;

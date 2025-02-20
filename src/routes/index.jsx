@@ -12,6 +12,7 @@ import SignUp from "../pages/SignUp";
 import Sidebar from "../components/naviagtion/SideBar";
 import  ProtectedRoute  from "./ProtectedRoute";
 import SleepDataUi from "../pages/SleepDataUi";
+import AdminDashboard from "../components/AdminDashboard";
 
 
 
@@ -33,8 +34,8 @@ const router = createBrowserRouter([
     {
       path: "/sleepData",
       element: 
-      <ProtectedRoute>
-      <SleepDataUi/>
+      <ProtectedRoute allowedRoles={["admin"]}>
+      <AdminDashboard/>
       </ProtectedRoute>
       ,
       errorElement: <ErrorPage />,

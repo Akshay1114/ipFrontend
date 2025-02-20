@@ -3,18 +3,21 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Alert } from 'antd';
 
 export default function Login() {
   const [employeeID, setEmployeeID] = useState("123456");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = (e) => {
 
     axios.post("http://localhost:5001/user/login", {
-      email : "test@gmail.com",
+      // email : employeeID,
+      email : "admin@gmail.com",
       password,
       rememberMe,
     })
@@ -26,6 +29,7 @@ export default function Login() {
     )
     .catch((err) => {
       console.log(err);
+      setError("Invalid Credentials");
     } 
     );
   };
@@ -35,6 +39,7 @@ export default function Login() {
       <div className="login-box">
         <div className="profile-icon"></div>
         <h2 className="title">Get Started</h2>
+       {error && <Alert message={error} type="error" />}
         <div className="loginForm" >
           <input
             type="text"
