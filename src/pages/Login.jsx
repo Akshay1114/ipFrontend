@@ -1,14 +1,33 @@
+import axios from "axios";
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [employeeID, setEmployeeID] = useState("");
+  const [employeeID, setEmployeeID] = useState("123456");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Login Attempt:", { employeeID, password, rememberMe });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogin = (e) => {
+
+    axios.post("http://localhost:5001/user/login", {
+      email : "test@gmail.com",
+      password,
+      rememberMe,
+    })
+    .then((res) => {
+      console.log(res.data.data);
+      dispatch(loginSuccess(res.data.data))
+      navigate('/sleepData', { replace: true });
+    }
+    )
+    .catch((err) => {
+      console.log(err);
+    } 
+    );
   };
 
   return (
@@ -16,7 +35,7 @@ export default function Login() {
       <div className="login-box">
         <div className="profile-icon"></div>
         <h2 className="title">Get Started</h2>
-        <form onSubmit={handleSubmit}>
+        <div className="loginForm" >
           <input
             type="text"
             placeholder="Employee ID"
@@ -40,10 +59,10 @@ export default function Login() {
             <label htmlFor="rememberMe">Remember Me</label>
           </div>
 
-          <button type="submit" className="sign-in-btn">
+          <button onClick={handleLogin} className="sign-in-btn">
             Sign In
           </button>
-        </form>
+        </div>
         <p className="forgot-password">
           <a href="#">Forgot Password?</a>
         </p>

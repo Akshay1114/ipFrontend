@@ -11,6 +11,7 @@ import SignUp from "../pages/SignUp";
 
 import Sidebar from "../components/naviagtion/SideBar";
 import  ProtectedRoute  from "./ProtectedRoute";
+import SleepDataUi from "../pages/SleepDataUi";
 
 
 
@@ -27,6 +28,15 @@ const router = createBrowserRouter([
     {
       path: "/login",
       element: <Login/>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/sleepData",
+      element: 
+      <ProtectedRoute>
+      <SleepDataUi/>
+      </ProtectedRoute>
+      ,
       errorElement: <ErrorPage />,
     },
     ],

@@ -137,7 +137,7 @@ display: block;
   color: #474747;
 }
 
-form input {
+.loginForm input {
   width: 100%;
   padding: 14px;
   margin: 10px 0;
