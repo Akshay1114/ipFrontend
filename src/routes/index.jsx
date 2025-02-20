@@ -43,7 +43,7 @@ const router = createBrowserRouter([
     
     },
     {
-      element:<Sidebar/>,
+      element:<Navbar/>,
       errorElement: <ErrorPage />,
       children: [
       {
