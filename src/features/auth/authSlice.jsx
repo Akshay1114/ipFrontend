@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: sessionStorage.getItem("token") || null, // Load from session storage
-  user: null, // Store user details if needed
+  user: null,
+  role: sessionStorage.getItem("role") || null,
 };
 
 const authSlice = createSlice({
@@ -12,12 +13,16 @@ const authSlice = createSlice({
   reducers: {
     loginSuccess: (state, action) => {
       console.log("Login Success ==>>>>>>>>:", action.payload);
-      state.token = action.payload;
-      sessionStorage.setItem("token", action.payload.token); // Persist token
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      state.role = action.payload.user.role;
+      sessionStorage.setItem("role", action.payload.user.role);
+      sessionStorage.setItem("token", action.payload.token); 
     },
     logout: (state) => {
       state.token = null;
-      sessionStorage.removeItem("token"); // Clear token on logout
+      sessionStorage.removeItem("token"); 
+      sessionStorage.removeItem("role");
     },
   },
 });

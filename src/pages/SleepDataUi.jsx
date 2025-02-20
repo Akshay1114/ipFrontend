@@ -5,159 +5,84 @@ import _ from "lodash";
 
 function SleepDataUi() {
   const [schedule, setSchedule] = useState([]);
+  const [warnings, setWarnings] = useState([]);
 
   const MAX_HOURS_PER_DAY = 8;
-  const MIN_REST_HOURS = 10;
-  const WEEKLY_LIMIT = 40;
+  const MIN_SLEEP_HOURS = 6; // If sleep is less than this, no schedule assigned
 
-  // Pilots with availability preferences
   const pilots = [
-    {
-      id: "101",
-      name: "Captain John",
-      experience: "Senior",
-      qualification: ["International", "Night"],
-      availability: { days: ["Monday", "Wednesday", "Friday"], preferredStartHour: 10 },
-    },
-    {
-      id: "202",
-      name: "Pilot Jane",
-      experience: "Junior",
-      qualification: ["Cargo"],
-      availability: { days: ["Tuesday", "Thursday"], preferredStartHour: 14 },
-    },
+    { id: "123456", name: "Captain John", experience: "Senior", qualification: ["International", "Night"], availability: ["Monday", "Wednesday", "Friday"], preferredStartHour: 10 },
+    { id: "111222", name: "Pilot Jane", experience: "Junior", qualification: ["Cargo"], availability: ["Tuesday", "Thursday"], preferredStartHour: 14 },
+    { id: "222333", name: "Pilot Alex", experience: "Intermediate", qualification: ["Domestic", "Emergency"], availability: ["Monday", "Thursday", "Saturday"], preferredStartHour: 8 },
   ];
 
   // Sample sleep data
   const sleepData = [
-    { pilotId: "101", startTime: "2025-02-16T22:00:00Z", endTime: "2025-02-17T06:00:00Z" },
-    { pilotId: "202", startTime: "2025-02-16T23:00:00Z", endTime: "2025-02-17T07:00:00Z" },
+    { pilotId: "123456", startTime: "2025-02-16T22:00:00Z", endTime: "2025-02-17T05:00:00Z" }, // 7 hours (OK)
+    { pilotId: "111222", startTime: "2025-02-16T23:30:00Z", endTime: "2025-02-17T04:30:00Z" }, // 5 hours (Warning, No schedule)
+    { pilotId: "222333", startTime: "2025-02-16T21:00:00Z", endTime: "2025-02-17T03:00:00Z" }, // 6 hours (OK)
   ];
 
-  async function trainModel(pilotSleepData) {
-    const model = tf.sequential();
-    model.add(tf.layers.dense({ units: 10, inputShape: [2], activation: "relu" }));
-    model.add(tf.layers.dense({ units: 1, activation: "linear" }));
-    model.compile({ optimizer: "sgd", loss: "meanSquaredError" });
-
-    const xs = pilotSleepData.map(entry => [
-      moment(entry.endTime).diff(moment(entry.startTime), "hours"),
-      moment(entry.endTime).hour()
-    ]);
-
-    const ys = pilotSleepData.map(entry => [
-      moment(entry.endTime).add(MAX_HOURS_PER_DAY, "hours").hour()
-    ]);
-
-    await model.fit(tf.tensor2d(xs), tf.tensor2d(ys), { epochs: 100 });
-    return model;
-  }
-
-  async function generateSchedule() {
+  function generateSchedule() {
     let newSchedule = [];
-    const groupedByPilot = _.groupBy(sleepData, "pilotId");
+    let newWarnings = [];
 
-    for (let pilotId in groupedByPilot) {
-      const pilotSleepData = groupedByPilot[pilotId];
-      const model = await trainModel(pilotSleepData);
-      const pilotInfo = pilots.find(p => p.id === pilotId);
+    sleepData.forEach(entry => {
+      const pilot = pilots.find(p => p.id === entry.pilotId);
+      if (!pilot) return;
 
-      let lastWakeTime = null;
-      let weeklyHours = 0;
-      let assignedFlight = false; // New flag to ensure at least one flight is scheduled
+      const sleepHours = moment(entry.endTime).diff(moment(entry.startTime), "hours");
 
-      console.log(`Processing pilot: ${pilotInfo?.name}`);
-
-      for (let entry of pilotSleepData) {
-        const sleepHours = moment(entry.endTime).diff(moment(entry.startTime), "hours");
-        const wakeTime = moment(entry.endTime).hour();
-        const prediction = model.predict(tf.tensor2d([[sleepHours, wakeTime]])).dataSync();
-
-        let flightStart = moment(entry.endTime).set({ hour: Math.round(prediction[0]) });
-        let flightEnd = flightStart.clone().add(MAX_HOURS_PER_DAY, "hours");
-
-        console.log(`Pilot: ${pilotInfo.name}, Predicted Flight Time: ${flightStart.format()}`);
-
-        // Ensure minimum rest & FDTL compliance
-        if (lastWakeTime && flightStart.diff(lastWakeTime, "hours") < MIN_REST_HOURS) {
-          flightStart = lastWakeTime.clone().add(MIN_REST_HOURS, "hours");
-          flightEnd = flightStart.clone().add(MAX_HOURS_PER_DAY, "hours");
-        }
-
-        if (weeklyHours + MAX_HOURS_PER_DAY > WEEKLY_LIMIT) {
-          console.warn(`${pilotInfo.name} exceeded weekly limit.`);
-          continue;
-        }
-
-        // Check crew availability preference
-        const flightDay = flightStart.format("dddd"); // Get day name (Monday, Tuesday...)
-        if (!pilotInfo.availability.days.includes(flightDay)) {
-          console.warn(`${pilotInfo.name} is not available on ${flightDay}.`);
-          continue;
-        }
-
-        // Adjust to preferred start hour
-        if (flightStart.hour() < pilotInfo.availability.preferredStartHour) {
-          flightStart = flightStart.set({ hour: pilotInfo.availability.preferredStartHour });
-          flightEnd = flightStart.clone().add(MAX_HOURS_PER_DAY, "hours");
-        }
-
-        newSchedule.push({
-          pilotId,
-          name: pilotInfo?.name || "Unknown",
-          flightStart: flightStart.format(),
-          flightEnd: flightEnd.format(),
-          experience: pilotInfo?.experience || "Unknown",
-          qualification: pilotInfo?.qualification || [],
-        });
-
-        console.log(`Assigned flight: ${flightStart.format()} → ${flightEnd.format()}`);
-        lastWakeTime = flightStart;
-        weeklyHours += MAX_HOURS_PER_DAY;
-        assignedFlight = true;
+      if (sleepHours < MIN_SLEEP_HOURS) {
+        newWarnings.push(`⚠️ Warning: ${pilot.name} had only ${sleepHours} hours of sleep. No flights assigned.`);
+        return; // Skip scheduling for this pilot
       }
 
-      // If no flight was assigned, create a default flight within preferred hours
-      if (!assignedFlight) {
-        const preferredDay = pilotInfo.availability.days[0]; // Use the first available day
-        const flightStart = moment().day(preferredDay).set({ hour: pilotInfo.availability.preferredStartHour });
-        const flightEnd = flightStart.clone().add(MAX_HOURS_PER_DAY, "hours");
+      const availableDay = pilot.availability[0]; // First available day
+      const flightStart = moment().day(availableDay).set({ hour: pilot.preferredStartHour });
+      const flightEnd = flightStart.clone().add(MAX_HOURS_PER_DAY, "hours");
 
-        newSchedule.push({
-          pilotId,
-          name: pilotInfo?.name || "Unknown",
-          flightStart: flightStart.format(),
-          flightEnd: flightEnd.format(),
-          experience: pilotInfo?.experience || "Unknown",
-          qualification: pilotInfo?.qualification || [],
-        });
-
-        console.log(`Default flight assigned for ${pilotInfo.name}: ${flightStart.format()} → ${flightEnd.format()}`);
-      }
-    }
+      newSchedule.push({
+        pilotId: pilot.id,
+        name: pilot.name,
+        flightStart: flightStart.format(),
+        flightEnd: flightEnd.format(),
+        experience: pilot.experience,
+        qualification: pilot.qualification.join(", "),
+      });
+    });
 
     setSchedule(newSchedule);
+    setWarnings(newWarnings);
   }
 
   return (
     <div style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
       <h1>AI Pilot Scheduler</h1>
-      <div>
-        <h2>Pilots</h2>
-        <ol>
+       <ol>
           {pilots.map(pilot => (
             <li key={pilot.id}>
               <p>Pilot Name : <strong>{pilot.name}</strong></p>
-              <p>Pilot Availabilty : <strong>{pilot.availability.days.join(", ")}</strong></p>
+              {/* <p>Pilot Availabilty : <strong>{pilot.availability.days.join(", ")}</strong></p> */}
               <p>Pilot Experience : <strong>{pilot.experience}</strong></p>
-              <p>Pilot Qualification : <strong>{pilot.qualification.join(", ")}</strong></p>
+              {/* <p>Pilot Qualification : <strong>{pilot.qualification.join(", ")}</strong></p> */}
             </li>
           ))}
         </ol>
-      </div>
       <button onClick={generateSchedule} style={{ padding: "10px", marginBottom: "20px" }}>
         Generate AI Schedule
       </button>
+
+      {warnings.length > 0 && (
+        <div style={{ color: "red", marginBottom: "20px" }}>
+          <h2>⚠️ Warnings</h2>
+          <ul>
+            {warnings.map((w, index) => (
+              <li key={index}>{w}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <h2>Schedule</h2>
       {schedule.length > 0 ? (
@@ -165,7 +90,7 @@ function SleepDataUi() {
           {schedule.map((s, index) => (
             <li key={index}>
               <strong>{s.name} ({s.experience}):</strong> {s.flightStart} → {s.flightEnd}
-              <br /> <em>Qualification: {s.qualification.join(", ")}</em>
+              <br /> <em>Qualification: {s.qualification}</em>
             </li>
           ))}
         </ul>
