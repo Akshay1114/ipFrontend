@@ -104,9 +104,6 @@ display: block;
 
 /* ----- Login Page styling ------ */
 
-/* #container1 {
-  background-color: #D9D9D9;
-} */
 
 
 .login-container {
@@ -182,6 +179,121 @@ display: block;
 
 
 
+/* --------------- Add New User Styling ----------------- */
+
+
+.add-new-user-container {
+  padding: 20px;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+.add-new-user-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 40px 10px;
+}
+
+.add-new-user-title {
+  font-size: 32px;
+}
+
+.add-new-user-menu button {
+  /* width: 22%; */
+  padding: 15px 20px 15px 20px;
+  margin: .5rem;
+  cursor: pointer;
+  color: white;
+  background-color: #464646;
+  border-radius: 2rem;
+}
+
+.add-new-user-icons {
+  display: flex;
+  gap: 15px;
+}
+
+/* .add-new-user-icon {
+  background: #eaeaea;
+  padding: 8px;
+  border-radius: 50%;
+} */
+
+
+.add-new-user-container {
+  padding: 20px;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.add-new-user-form-container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.add-new-user-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  border-top: 1px solid #000000;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  padding-right: 4rem;
+}
+
+
+.add-new-user-field {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  padding-left: 8rem;
+}
+
+.add-new-user-field label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  /* padding-left: 4rem; */
+}
+
+
+.add-new-user-field input,
+.add-new-user-field select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.add-new-user-buttons {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+  gap: 1rem;
+}
+
+.add-new-user-cancel {
+  background: #9D9D9D;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3rem;
+  cursor: pointer;
+  color: white;
+}
+
+.add-new-user-submit {
+  background: #444444;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3rem;
+  cursor: pointer;
+}
+
 /* ----- Dashboard Page styling ------ */
 html, body {
   height: 100vh;
@@ -204,3 +316,4 @@ html, body {
   flex-grow: 1;
   overflow: auto;
 }
+

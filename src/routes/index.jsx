@@ -12,7 +12,11 @@ import SignUp from "../pages/SignUp";
 import Sidebar from "../components/naviagtion/SideBar";
 import  ProtectedRoute  from "./ProtectedRoute";
 import SleepDataUi from "../pages/SleepDataUi";
+
+import AddNewUser from "../pages/AddNewUser";
+
 import AdminDashboard from "../components/AdminDashboard";
+
 
 
 
@@ -40,6 +44,13 @@ const router = createBrowserRouter([
       ,
       errorElement: <ErrorPage />,
     },
+
+    {
+      path: "/addnewuser",
+      element: <AddNewUser/>,
+      errorElement: <ErrorPage />,
+    }
+
     ],
     
     },
