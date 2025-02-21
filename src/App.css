@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
 }
 
@@ -37,4 +37,164 @@
 
 .read-the-docs {
   color: #888;
+}
+
+
+/* Dashboard.jsx Dashboard Style - JS */
+/* Dashboard.css */
+body {
+  background-color: #f7fafc;
+  /* padding: 1rem; */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.schedule-card, .fatigue-card, .sleep-card, .health-card, .recommendation-card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.grid-span-2 {
+  grid-column: span 2;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.upcoming, .status, .date {
+  color: #000001;
+  margin-bottom: 0.5rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.date {
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.month {
+  color: #070d1a;
+}
+
+.day {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.details {
+  background-color: #f7fafc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  flex: 1;
+}
+
+.details-header, .times {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.flight, .time {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.fleet, .duration, .airport {
+  color: #151d2c;
+}
+
+.percentage, .sleep-time {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.risk-level, .hours {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #0d131f;
+}
+
+.risk-bar, .sleep-bar {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  height: 0.625rem;
+  margin-bottom: 1rem;
+}
+
+.risk-indicator, .sleep-indicator {
+  background-color: #6b7280;
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.details-button {
+  background-color: #e5e7eb;
+  color: #6b7280;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .insights-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.insight {
+  background-color: #f7fafc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.value {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.label {
+  color: #6b7280;
+}
+
+.message {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
 }
