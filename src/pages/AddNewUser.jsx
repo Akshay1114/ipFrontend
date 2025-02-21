@@ -32,7 +32,7 @@ function AddNewUser() {
   return (
     <div className="add-new-user-container">
       {/* Navigation Bar */}
-      <div className="add-new-user-nav">
+      {/* <div className="add-new-user-nav">
         <h1 className="add-new-user-title">WingWise</h1>
         <div className="add-new-user-menu">
           <button>Overview</button>
@@ -45,7 +45,7 @@ function AddNewUser() {
           <span className="add-new-user-icon">User-Icon</span>
         </div>
       </div>
-
+ */}
 
       {/* Form Section */}
       <div className="add-new-user-form-container">
