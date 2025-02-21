@@ -44,15 +44,15 @@ const router = createBrowserRouter([
     
     },
     {
-      element:<Sidebar/>,
+      element:<Navbar/>,
       errorElement: <ErrorPage />,
       children: [
       {
         path: "/dashboard",
         element: 
-        <ProtectedRoute>
+        // <ProtectedRoute>
         <Dashboard />
-        </ProtectedRoute>
+        // </ProtectedRoute>
     }
     ],
     
