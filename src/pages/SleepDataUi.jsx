@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import * as tf from "@tensorflow/tfjs";
 import moment from "moment";
 import _ from "lodash";
+import axios from 'axios';
 
 function SleepDataUi() {
   const [schedule, setSchedule] = useState([]);
@@ -12,48 +13,76 @@ function SleepDataUi() {
 
   const pilots = [
     { id: "123456", name: "Captain John", experience: "Senior", qualification: ["International", "Night"], availability: ["Monday", "Wednesday", "Friday"], preferredStartHour: 10 },
-    { id: "111222", name: "Pilot Jane", experience: "Junior", qualification: ["Cargo"], availability: ["Tuesday", "Thursday"], preferredStartHour: 14 },
+    { id: "111111", name: "Pilot Jane", experience: "Junior", qualification: ["Cargo"], availability: ["Tuesday", "Thursday"], preferredStartHour: 14 },
     { id: "222333", name: "Pilot Alex", experience: "Intermediate", qualification: ["Domestic", "Emergency"], availability: ["Monday", "Thursday", "Saturday"], preferredStartHour: 8 },
   ];
 
   // Sample sleep data
   const sleepData = [
-    { pilotId: "123456", startTime: "2025-02-16T22:00:00Z", endTime: "2025-02-17T05:00:00Z" }, // 7 hours (OK)
-    { pilotId: "111222", startTime: "2025-02-16T23:30:00Z", endTime: "2025-02-17T04:30:00Z" }, // 5 hours (Warning, No schedule)
-    { pilotId: "222333", startTime: "2025-02-16T21:00:00Z", endTime: "2025-02-17T03:00:00Z" }, // 6 hours (OK)
+    { employee_ID: "123456", startTime: "2025-02-16T22:00:00Z", endTime: "2025-02-17T05:00:00Z" }, // 7 hours (OK)
+    { employee_ID: "111111", startTime: "2025-02-16T23:30:00Z", endTime: "2025-02-17T04:30:00Z" }, // 5 hours (Warning, No schedule)
+    { employee_ID: "222333", startTime: "2025-02-16T21:00:00Z", endTime: "2025-02-17T03:00:00Z" }, // 6 hours (OK)
   ];
+const getToken = sessionStorage.getItem('token')
+  function saveSchedule({schedule, warnings}) {
+    axios.post("http://localhost:5001/api/schedule", {
+      schedule,
+      warnings
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${getToken}`
+      }
+    }
+    )
+    .then((res) => {
+      console.log(res.data);
+    }
+    )
+    .catch((err) => {
+      console.log(err);
+    } 
+    );
+  }
 
   function generateSchedule() {
     let newSchedule = [];
     let newWarnings = [];
 
+
     sleepData.forEach(entry => {
-      const pilot = pilots.find(p => p.id === entry.pilotId);
+      const pilot = pilots.find(p => p.id === entry.employee_ID);
       if (!pilot) return;
-
+      let  flightStart ;
+      let  flightEnd ;
       const sleepHours = moment(entry.endTime).diff(moment(entry.startTime), "hours");
-
+      let warningMsg = "";
       if (sleepHours < MIN_SLEEP_HOURS) {
+        warningMsg = `⚠️ Warning: ${pilot.name} had only ${sleepHours} hours of sleep. No flights assigned.`;
         newWarnings.push(`⚠️ Warning: ${pilot.name} had only ${sleepHours} hours of sleep. No flights assigned.`);
-        return; // Skip scheduling for this pilot
+        
+      } else{
+        const availableDay = pilot.availability[0]; // First available day
+       flightStart = moment().day(availableDay).set({ hour: pilot.preferredStartHour });
+       flightEnd = flightStart.clone().add(MAX_HOURS_PER_DAY, "hours");
       }
 
-      const availableDay = pilot.availability[0]; // First available day
-      const flightStart = moment().day(availableDay).set({ hour: pilot.preferredStartHour });
-      const flightEnd = flightStart.clone().add(MAX_HOURS_PER_DAY, "hours");
+      
 
       newSchedule.push({
-        pilotId: pilot.id,
+        employee_ID: pilot.id,
         name: pilot.name,
-        flightStart: flightStart.format(),
-        flightEnd: flightEnd.format(),
+        flightStart: flightStart? flightStart.format():"No flight alloted",
+        flightEnd: flightEnd ? flightEnd.format() : "No flight alloted",
         experience: pilot.experience,
         qualification: pilot.qualification.join(", "),
+        warnings: warningMsg,
       });
     });
 
     setSchedule(newSchedule);
     setWarnings(newWarnings);
+    saveSchedule({schedule: newSchedule, warnings: newWarnings});
   }
 
   return (

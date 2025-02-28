@@ -15,16 +15,16 @@ export default function Login() {
   const navigate = useNavigate();
   const handleLogin = (e) => {
 
-    axios.post("http://localhost:5001/user/login", {
+    axios.post("https://rsinnovates.com/api/user/login", {
       // email : employeeID,
-      email : "admin@gmail.com",
+      email : employeeID,
       password,
       rememberMe,
     })
     .then((res) => {
       console.log(res.data.data);
       dispatch(loginSuccess(res.data.data))
-      navigate('/sleepData', { replace: true });
+      navigate('/dashboard', { replace: true });
     }
     )
     .catch((err) => {

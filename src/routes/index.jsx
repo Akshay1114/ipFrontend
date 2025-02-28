@@ -44,6 +44,13 @@ const router = createBrowserRouter([
       ,
       errorElement: <ErrorPage />,
     },
+    {
+      path: "/dashboard",
+      element: 
+      <ProtectedRoute allowedRoles={["admin", "employee"]}>
+      <Dashboard />
+     </ProtectedRoute>
+  },
 
     {
       path: "/addnewuser",
