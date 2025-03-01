@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Alert } from 'antd';
 
 export default function Login() {
-  const [employeeID, setEmployeeID] = useState("123456");
+  const [employeeID, setEmployeeID] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
@@ -15,16 +15,16 @@ export default function Login() {
   const navigate = useNavigate();
   const handleLogin = (e) => {
 
-    axios.post("http://localhost:5001/user/login", {
-      // email : employeeID,
-      email : "admin@gmail.com",
+    axios.post("http://localhost:5001/api/user/login", {
+      email : employeeID,
+      // email : "admin@gmail.com",
       password,
       rememberMe,
     })
     .then((res) => {
       console.log(res.data.data);
       dispatch(loginSuccess(res.data.data))
-      navigate('/sleepData', { replace: true });
+      navigate('/dashboard', { replace: true });
     }
     )
     .catch((err) => {
@@ -43,7 +43,7 @@ export default function Login() {
         <div className="loginForm" >
           <input
             type="text"
-            placeholder="Employee ID"
+            placeholder="Employee ID/ Email"
             value={employeeID}
             onChange={(e) => setEmployeeID(e.target.value)}
           />
