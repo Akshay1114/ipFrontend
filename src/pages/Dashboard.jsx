@@ -9,7 +9,7 @@ function Dashboard(props) {
 {
   storedRole === "admin" ? (
     <div>
-      <AdminDashboard/>
+     <AdminDashboard/>
     </div>
   ) : (
     <div>
