@@ -6,7 +6,6 @@ const ProtectedRoute = ({ allowedRoles, children }) => {
   const role = useSelector((state) => state.auth.role);
 const dispatch = useDispatch();
   useEffect(() => {
-    console.log('ProtectedRoute')
     const handleStorageChange = () => {
       const storedToken = sessionStorage.getItem("token");
       if (!storedToken || !allowedRoles.includes(role)) {

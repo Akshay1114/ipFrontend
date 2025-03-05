@@ -16,6 +16,7 @@ import SleepDataUi from "../pages/SleepDataUi";
 import AddNewUser from "../pages/AddNewUser";
 
 import AdminDashboard from "../components/AdminDashboard";
+import Schedule from "../pages/Schedule";
 
 
 
@@ -44,6 +45,20 @@ const router = createBrowserRouter([
       ,
       errorElement: <ErrorPage />,
     },
+    {
+      path: "/dashboard",
+      element: 
+      <ProtectedRoute allowedRoles={["admin", "employee"]}>
+      <Dashboard />
+     </ProtectedRoute>
+  },
+    {
+      path: "/schedule",
+      element: 
+      <ProtectedRoute allowedRoles={["admin", "employee"]}>
+      <Schedule/>
+     </ProtectedRoute>
+  },
 
     {
       path: "/addnewuser",
