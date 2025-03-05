@@ -16,18 +16,16 @@ function Navbar() {
     <div>
       <ul className="navbar">
         <li>
-          <Link className="active" href="#home">
-            Home
+          <Link className="active" to='/dashboard'>
+            Overview
           </Link>
         </li>
+       
         <li>
-          <Link href="#news">News</Link>
+          <Link to='/schedule'>Schedule</Link>
         </li>
         <li>
-          <Link href="#contact">Contact</Link>
-        </li>
-        <li>
-          <Link href="#about">About</Link>
+          <Link href="#about">Health Insight</Link>
         </li>
         <li>
          { isAuthenticated?

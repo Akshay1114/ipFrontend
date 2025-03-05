@@ -30,7 +30,7 @@ let getUser = sessionStorage.getItem('employee_ID')
     )
   return (
     <div className="grid-container">
-        EMPLOYEE DASHBOARD
+        {/* EMPLOYEE DASHBOARD */}
     {/* Schedule Card */}
     <div className="schedule-card grid-span-2">
       <div className="header">
