@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { loginSuccess } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { Alert } from 'antd';
+import { wingWiseApi } from "../utils/AxiosInstance";
 
 export default function Login() {
   const [employeeID, setEmployeeID] = useState("");
@@ -15,7 +16,7 @@ export default function Login() {
   const navigate = useNavigate();
   const handleLogin = (e) => {
 
-    axios.post("http://localhost:5001/api/user/login", {
+    wingWiseApi.post("/user/login", {
     // axios.post("https://rsinnovates.com/api/user/login", {
       // email : employeeID,
       email : employeeID,

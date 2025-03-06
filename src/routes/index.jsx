@@ -17,6 +17,7 @@ import AddNewUser from "../pages/AddNewUser";
 
 import AdminDashboard from "../components/AdminDashboard";
 import Schedule from "../pages/Schedule";
+import ResetPass from "../pages/ResetPass";
 
 
 
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
     {
       path: "/addnewuser",
       element: <AddNewUser/>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/reset-password",
+      element: <ResetPass/>,
       errorElement: <ErrorPage />,
     }
 
