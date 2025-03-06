@@ -56,7 +56,7 @@ function ResetPass() {
         <CommonInput
             label="New Password"
             fields={{
-                placeholder: "New Password",
+                placeholder: "Enter New Password",
                 type: "password",
                 value: newPass,
                 onChange: (e) => setNewPass(e.target.value)

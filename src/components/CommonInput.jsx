@@ -6,7 +6,8 @@ function CommonInput(props) {
     <>
     <Typography.Title level={5}>{props.label}</Typography.Title>
     <Input {...props.fields} />
-    </>)
+    </>
+    )
 }
 
 export default CommonInput
