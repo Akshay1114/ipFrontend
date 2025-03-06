@@ -1,5 +1,5 @@
 import React from 'react'
-import CommonInput from '../commonInput'
+// import CommonInput from '../commonInput'
 import { DatePicker, Typography } from 'antd';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -32,7 +32,8 @@ function MakeRequest({setMakeRequest}) {
       <h3>
       Request Schedule Change
       </h3>
-      <CommonInput label="Select Flight Number: " fields={{ placeholder: "Enter Date", onChange:(e)=>setDate(e.target.value), value:date }} />
+      <Typography.Title level={5}>Select Flight Number:</Typography.Title>
+      <Input label="Select Flight Number: "  placeholder= "Enter Date" onChange={(e)=>setDate(e.target.value)} value={date}  />
       <Typography.Title level={5}>Current Flight Date:</Typography.Title>
       <DatePicker
     defaultValue={dayjs('2019-09-03', dateFormat)}
