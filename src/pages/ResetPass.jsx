@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 // import CommonInput from '../components/commonInput'
-import { Button, Input } from 'antd';
+import { Button, Input, Typography } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import { wingWiseApi } from '../utils/AxiosInstance';
 import { useLocation } from 'react-router-dom';
-import CommonInput from '../components/commonInput';
+// import CommonInput from '../components/commonInput';
 
 function ResetPass() {
     const [oldPass, setOldPass] = useState("");
@@ -45,7 +45,9 @@ function ResetPass() {
   return (
     <div>
         <ToastContainer />
-        <CommonInput
+        <Typography.Title level={3}>Old Password</Typography.Title>
+        <Input placeholder='Old Password' value={oldPass} type='password' onChange={(e) => setOldPass(e.target.value)} />
+        {/* <CommonInput
             label="Old Password"
             fields={{
                 placeholder: "Old Password",
@@ -53,8 +55,10 @@ function ResetPass() {
                 value: oldPass,
                 onChange: (e) => setOldPass(e.target.value)
             }}
-        />
-        <CommonInput
+        /> */}
+          <Typography.Title level={3}>New Password</Typography.Title>
+        <Input placeholder='Enter New Password' value={newPass} type='password' onChange={(e) => setNewPass(e.target.value)} />
+        {/* <CommonInput
             label="New Password"
             fields={{
                 placeholder: "Enter New Password",
@@ -62,8 +66,10 @@ function ResetPass() {
                 value: newPass,
                 onChange: (e) => setNewPass(e.target.value)
             }}
-        />
-        <CommonInput
+        /> */}
+          <Typography.Title level={3}>Confirm Password</Typography.Title>
+        <Input placeholder='Confirm Password' value={confirmPass} type='password' onChange={(e) => setConfirmPass(e.target.value)} />
+        {/* <CommonInput
             label="Confirm Password"
             fields={{
                 placeholder: "Confirm Password",
@@ -71,7 +77,7 @@ function ResetPass() {
                 value: confirmPass,
                 onChange: (e) => setConfirmPass(e.target.value),
             }}
-        />
+        /> */}
         <Button type="primary" onClick={handleConfirmPass}>Submit</Button>
     </div>
   )
