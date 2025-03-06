@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CommonInput from '../components/commonInput'
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import { wingWiseApi } from '../utils/AxiosInstance';
 import { useLocation } from 'react-router-dom';
