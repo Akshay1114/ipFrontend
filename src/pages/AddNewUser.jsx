@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { wingWiseApi } from "../utils/AxiosInstance";
+
 
 function AddNewUser() {
   const [formData, setFormData] = useState({
@@ -21,6 +25,9 @@ function AddNewUser() {
     sendInvitation: false,
   });
 
+  const [error, setError] = useState(""); 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     setFormData({
@@ -28,6 +35,37 @@ function AddNewUser() {
       [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
     });
   };
+  
+
+  const handleSignup = () => {
+    wingWiseApi.post("/user/signup", {
+        name: `${formData.firstName} ${formData.lastName}`,
+        mobile: formData.phone,
+        address: formData.address,
+        email: formData.email,
+        isDeleted: false,
+        qualification: formData.qualification,
+      })
+
+      
+      .then((res) => {
+        console.log("Signup Successful:", res.data);
+        navigate("/reset-password", { replace: true });
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.status === 409) {
+            setError("User already exists. Try a different email or phone number.");
+          } else {
+            setError(`Signup failed: ${err.response.data.message || "Unknown error"}`);
+          }
+        } else {
+          setError("Network error. Please try again.");
+        }
+        console.error("Signup Error:", err);
+      });
+  };
+  
 
   return (
     <div className="add-new-user-container">
@@ -80,6 +118,15 @@ function AddNewUser() {
               <input type="date" name="dob" onChange={handleChange} />
             </div>
             <div className="add-new-user-field">
+              <label>Qualification*</label>
+              <select name="qualification" onChange={handleChange}>
+                <option value="">Select Qualification</option>
+                <option value="APTL">ATPL</option>
+                <option value="CPL">CPL</option>
+                <option value="PPL">PPL</option>
+              </select>
+            </div>
+            <div className="add-new-user-field">
               <label>Qualification Certificates *</label>
               <input type="file" name="qualificationFile" onChange={handleChange} />
             </div>
@@ -99,7 +146,7 @@ function AddNewUser() {
               <select name="role" onChange={handleChange}>
                 <option value="">Select Role</option>
                 <option value="pilot">Pilot</option>
-                <option value="manager">Manager</option>
+                {/* <option value="manager">Manager</option> */}
               </select>
             </div>
             <div className="add-new-user-field">
@@ -154,7 +201,7 @@ function AddNewUser() {
         {/* Buttons */}
         <div className="add-new-user-buttons">
           <button className="add-new-user-cancel">Cancel</button>
-          <button className="add-new-user-submit">Add New User</button>
+          <button className="add-new-user-submit" onClick={handleSignup}>Add New User</button>
         </div>
       </div>
     </div>
