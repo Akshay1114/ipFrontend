@@ -2,8 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { io } from "socket.io-client";
-// const socket = io("http://localhost:5001/",  { transports: ["websocket", "polling"] });
-const socket = io("https://rsinnovates.com/",  { transports: ["websocket", "polling"] });
+const socket = io("http://localhost:5001/",  { transports: ["websocket", "polling"] });
+// const socket = io("wss://rsinnovates.com/",  { transports: ["websocket", "polling"] });
 
 function EmployeeDashboard() {
   const [notifications, setNotifications] = useState([]);
@@ -11,6 +11,7 @@ function EmployeeDashboard() {
 let getToken = sessionStorage.getItem('token')
 let getUser = sessionStorage.getItem('employee_ID')
 useEffect(() => {
+  console.log("userID USEEFFECT ==>", userID);
   if (!userID) return; // Prevent emitting if userID is empty
 
   // Register user with backend
@@ -23,7 +24,7 @@ useEffect(() => {
   return () => {
     socket.off("receive_notification");
   };
-}, []);
+}, [userID]);
     useEffect(() => {
 
         console.log('EmployeeDashboard', getUser)
@@ -44,8 +45,8 @@ useEffect(() => {
 
         }
         getScheduleData();
-    }
-    )
+    },[]);
+    
     console.log("notifications =>", notifications)
   return (
     <div className="grid-container">

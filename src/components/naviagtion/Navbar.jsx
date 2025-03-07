@@ -5,8 +5,8 @@ import { logout } from "../../features/auth/authSlice";
 import { io } from "socket.io-client";
 import { BellOutlined,ReloadOutlined  } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
-// const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
-const socket = io("https://rsinnovates.com/", { transports: ["websocket", "polling"] });
+const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
+// const socket = io("https://rsinnovates.com/", { transports: ["websocket", "polling"] });
 function Navbar() {
   const [userID, setUserID] = useState(sessionStorage.getItem("employee_ID") || "");
   const [notifications, setNotifications] = useState([]);
@@ -21,6 +21,7 @@ function Navbar() {
   }
 
   useEffect(() => {
+    console.log("userID USEEFFECT", userID);
     console.log("userID", userID);
     if (!userID) return; // Prevent emitting if userID is empty
     console.log("Connecting to socket...");
@@ -34,7 +35,7 @@ function Navbar() {
     return () => {
       socket.off("receive_notification");
     };
-  }, []);
+  }, [userID]);
   console.log("notifications =>", notifications)
   return (
     <div className="">
