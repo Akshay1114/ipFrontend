@@ -317,3 +317,47 @@ html, body {
   overflow: auto;
 }
 
+#Manager-dashboard-column1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+
+  h3{
+    font-size: 3rem;
+    margin: 0;
+  }
+
+}
+
+.MD-C1-card{
+  display: flex;
+  flex-direction: column;
+}
+
+.general-inline-text {
+  display: flex;
+  margin: 10px;
+  justify-content: space-between;
+}
+
+.MD-C1-btn{
+  background-color: #D6D6D6;
+  padding: .5rem .8rem;
+  border-radius: 20px;
+  text-decoration: underline;
+  font-size: small;
+  height: 50%;
+  margin: 10px;
+}
+
+.MD-C1-btn:hover{
+  background-color: #000000;
+  color: white;
+  border-color: none;
+}
+
+.AD-section1{
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  gap: 1rem;
+}

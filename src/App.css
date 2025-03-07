@@ -41,7 +41,8 @@
 }
 
 .card {
-  padding: 2em;
+  padding: 1em;
+  text-align: left;
 }
 
 .read-the-docs {
@@ -247,11 +248,13 @@ margin: 20px;
   -webkit-box-shadow: -1px 0px 18px -3px rgba(135,135,135,1);
 -moz-box-shadow: -1px 0px 18px -3px rgba(135,135,135,1);
 box-shadow: -1px 0px 18px -3px rgba(135,135,135,1);
-border-radius: 6px;
+border-radius: 20px;
+margin: 20px;
 }
 
 .adminDashboard{
   display: grid;
-  gap: 1rem;
+  gap: .2rem;
   /* grid-template-columns: 1fr 1fr; */
 }
+

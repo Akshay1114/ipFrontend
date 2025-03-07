@@ -25,7 +25,7 @@ function Navbar() {
           <Link to='/schedule'>Schedule</Link>
         </li>
         <li>
-          <Link href="#about">Health Insight</Link>
+          <Link to='/CrewInsights' href="#about">Health Insight</Link>
         </li>
         <li>
          { isAuthenticated?
