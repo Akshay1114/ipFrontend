@@ -8,6 +8,9 @@ const dateFormat = 'YYYY-MM-DD';
 import { Input, Radio } from 'antd';
 import Button from '../Button';
 import CommonModal from '../CommonModal';
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:5001/");
 const style = {
   display: 'flex',
   flexDirection: 'column',
@@ -15,17 +18,22 @@ const style = {
 };
 function MakeRequest({setMakeRequest}) {
   const [date, setDate] = React.useState("");
+  const [flight, setFlight] = React.useState("");
   const [value, setValue] = React.useState(1);
   const onChange = (e) => {
     setValue(e.target.value);
   };
   const handleCancel = () => {
-    console.log('Cancel');
-    setMakeRequest(false);
+    console.log('Cancel',date,value,flight);
+    // setMakeRequest(false);
   }
   const handelRequest = () => {
+
     console.log('Request Sent');
-    // API CODE HERE
+    console.log("Sending notification...");
+    const message = `Request for Schedule Change for Flight Number ${flight} on ${date} due to ${value}`;
+    socket.emit("send_notification", { message, recipient:'admin' });
+  
   }
   return (
     <div>
@@ -33,9 +41,10 @@ function MakeRequest({setMakeRequest}) {
       Request Schedule Change
       </h3>
       <Typography.Title level={5}>Select Flight Number:</Typography.Title>
-      <Input label="Select Flight Number: "  placeholder= "Enter Date" onChange={(e)=>setDate(e.target.value)} value={date}  />
+      <Input label="Select Flight Number: "  placeholder= "Enter Flight Number" onChange={(e)=>setFlight(e.target.value)} value={flight}  />
       <Typography.Title level={5}>Current Flight Date:</Typography.Title>
       <DatePicker
+      onChange={(value, dateString) => setDate(dateString)}
     defaultValue={dayjs('2019-09-03', dateFormat)}
     minDate={dayjs('2019-08-01', dateFormat)}
     maxDate={dayjs('2020-10-31', dateFormat)}
@@ -47,23 +56,23 @@ function MakeRequest({setMakeRequest}) {
       value={value}
       options={[
         {
-          value: 1,
+          value: 'Fatigue/ Health Issue',
           label: 'Fatigue/ Health Issue',
         },
         {
-          value: 2,
+          value: 'Flight Disruption or Delay',
           label: 'Flight Disruption or Delay',
         },
         {
-          value: 3,
+          value: 'Regulatory Rest Compliance',
           label: 'Regulatory Rest Compliance',
         },
         {
-          value: 4,
+          value: 'Crew Swap Request',
           label: 'Crew Swap Request',
         },
         {
-          value: 5,
+          value: 'Operational or Training Conflict',
           label: 'Operational or Training Conflict',
         },
         {
@@ -71,10 +80,12 @@ function MakeRequest({setMakeRequest}) {
           label: (
             <>
               Other...
-              {value === 4 && (
+              {value === 6 && (
                 <Input
                   variant="filled"
                   placeholder="please input"
+                  onChange={(e)=>setValue(e.target.value)}
+                  value={value}
                   style={{
                     width: 120,
                     marginInlineStart: 12,
