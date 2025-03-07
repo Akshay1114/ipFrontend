@@ -11,6 +11,7 @@ import CommonModal from '../CommonModal';
 import { io } from "socket.io-client";
 
 const socket = io("http://localhost:5001/");
+// const socket = io("https://rsinnovates.com/", { transports: ["websocket", "polling"] });
 const style = {
   display: 'flex',
   flexDirection: 'column',
@@ -25,14 +26,14 @@ function MakeRequest({setMakeRequest}) {
   };
   const handleCancel = () => {
     console.log('Cancel',date,value,flight);
-    // setMakeRequest(false);
+    setMakeRequest(false);
   }
   const handelRequest = () => {
-
+const employee_ID = sessionStorage.getItem('employee_ID');
     console.log('Request Sent');
     console.log("Sending notification...");
     const message = `Request for Schedule Change for Flight Number ${flight} on ${date} due to ${value}`;
-    socket.emit("send_notification", { message, recipient:'admin' });
+    socket.emit("send_notification_to_admin", { message, recipient:'admin', senderName:"john", senderID:employee_ID, scheduleID:"Schedule ID"  });
   
   }
   return (
