@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { io } from "socket.io-client";
 
 const socket = io("http://localhost:5001/");
+// const socket = io("https://rsinnovates.com/",  { transports: ["websocket", "polling"] });
+
 
 function SendNotification() {
     const [message, setMessage] = useState("");
@@ -9,7 +11,7 @@ function SendNotification() {
 
     const sendNotification = () => {
         console.log("Sending notification...");
-        socket.emit("send_notification", { message, recipient });
+        socket.emit("send_notification_to_user", { message, recipient, senderName:"admin", senderID:"admin", scheduleID:"Schedule ID"  });
         setMessage("");
       };
 
