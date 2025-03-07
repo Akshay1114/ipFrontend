@@ -72,13 +72,16 @@ max-width: 100%;
 height: auto;
 display: block;
 }
+
+/* --------------- Global Styling ----------------- */
+/* navbar */
+/* 
 .navbar {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #7f7f7f;
-  /* margin-bottom: 1rem; */
 }
 
 .navbar li {
@@ -100,6 +103,52 @@ display: block;
 .navbar .active {
   background-color: #04AA6D;
 }
+ */
+
+.navbar {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} 
+
+.navbar ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.navbar-center li{
+  display: grid;
+  place-items: center;
+  border-radius: 35px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  /* background-color: white; */
+  transition: all 0.4s;
+}
+
+.navbar-center li a{
+  color: #444444;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+.navbar-center li:hover{
+  background-color: #3859FF;
+  a{
+    color: white;
+  }
+}
+.navbar-center .active{
+  background-color: #1D3FEA;
+  a{
+    color: white;
+  }
+}
+
+
+
 
 
 /* ----- Login Page styling ------ */

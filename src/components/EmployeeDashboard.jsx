@@ -2,8 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { io } from "socket.io-client";
-const socket = io("http://localhost:5001/",  { transports: ["websocket", "polling"] });
-// const socket = io("https://rsinnovates.com/",  { transports: ["websocket", "polling"] });
+// const socket = io("http://localhost:5001/",  { transports: ["websocket", "polling"] });
+const socket = io("https://rsinnovates.com/",  { transports: ["websocket", "polling"] });
 
 function EmployeeDashboard() {
   const [notifications, setNotifications] = useState([]);
