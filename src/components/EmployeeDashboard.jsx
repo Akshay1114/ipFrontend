@@ -1,11 +1,27 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-
-
+import { io } from "socket.io-client";
+const socket = io("http://localhost:5001/",  { transports: ["websocket", "polling"] });
 function EmployeeDashboard() {
+  const [notifications, setNotifications] = useState([]);
+  const [userID, setUserID] = useState(sessionStorage.getItem("employee_ID") || "");
 let getToken = sessionStorage.getItem('token')
 let getUser = sessionStorage.getItem('employee_ID')
+useEffect(() => {
+  if (!userID) return; // Prevent emitting if userID is empty
+
+  // Register user with backend
+  socket.emit("register", userID);
+
+  // Listen for real-time notifications
+  socket.on("receive_notification", (message) => {
+    setNotifications((prev) => [...prev, { message }]);
+  })
+  return () => {
+    socket.off("receive_notification");
+  };
+}, [getUser]);
     useEffect(() => {
 
         console.log('EmployeeDashboard', getUser)
@@ -28,13 +44,14 @@ let getUser = sessionStorage.getItem('employee_ID')
         getScheduleData();
     }
     )
+    console.log("notifications =>", notifications)
   return (
     <div className="grid-container">
         {/* EMPLOYEE DASHBOARD */}
     {/* Schedule Card */}
     <div className="schedule-card grid-span-2">
       <div className="header">
-        <h2>Schedule</h2>
+        <h2>Schedule {notifications.length}</h2>
         <i className="fas fa-arrow-up-right"></i>
       </div>
       <div className="upcoming">Upcoming(3)</div>

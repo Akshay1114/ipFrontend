@@ -18,6 +18,7 @@ import AddNewUser from "../pages/AddNewUser";
 import AdminDashboard from "../components/AdminDashboard";
 import Schedule from "../pages/Schedule";
 import ResetPass from "../pages/ResetPass";
+import SendNotification from "../pages/SendNotification";
 
 
 
@@ -58,6 +59,13 @@ const router = createBrowserRouter([
       element: 
       <ProtectedRoute allowedRoles={["admin", "employee"]}>
       <Schedule/>
+     </ProtectedRoute>
+  },
+    {
+      path: "/sendNotification",
+      element: 
+      <ProtectedRoute allowedRoles={["admin", "employee"]}>
+      <SendNotification/>
      </ProtectedRoute>
   },
 
