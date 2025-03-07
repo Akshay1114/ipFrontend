@@ -10,7 +10,7 @@ function Tab1() {
 
     return(
         <div>
-            <h1>Tab1</h1>
+            <h1>crew-insgghtsss</h1>
             
         </div>
     )
