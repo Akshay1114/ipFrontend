@@ -26,6 +26,7 @@ const authSlice = createSlice({
       state.token = null;
       sessionStorage.removeItem("token"); 
       sessionStorage.removeItem("role");
+      sessionStorage.removeItem("employee_ID");
     },
   },
 });
