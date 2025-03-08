@@ -5,6 +5,7 @@ import { logout } from "../../features/auth/authSlice";
 import { io } from "socket.io-client";
 import { BellOutlined,ReloadOutlined  } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
+import { wingWiseApi } from "../../utils/AxiosInstance";
 const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
 // const socket = io("https://rsinnovates.com/", { transports: ["websocket", "polling"] });
 function Navbar() {
@@ -36,7 +37,31 @@ function Navbar() {
       socket.off("receive_notification");
     };
   }, [userID]);
+
+  useEffect(() => {
+    function getNotifications(){
+       if (!userID) return; // Prevent emitting if userID is empty
+       wingWiseApi.get(`/getNotification?userID=${userID}`)
+       .then((res) => {
+         console.log(res.data);
+         setNotifications(res.data);
+       }
+       )
+        .catch((err) => {
+          console.log(err);
+        }
+        );
+
+    }
+    getNotifications();
+  }, [userID]);
   console.log("notifications =>", notifications)
+  const handleNotification = () => {
+    console.log("notifications", notifications);
+    notifications.map((notification) => {
+      console.log(notification.message);
+    })
+  }
   return (
     <div className="">
       <div className="navbar">
@@ -63,7 +88,7 @@ function Navbar() {
             <ReloadOutlined  style={{ fontSize: '24px', color: '#1890ff' }} />
             </li>
             <li>
-              <BellOutlined style={{ fontSize: '24px', color: '#1890ff' }} />
+              <BellOutlined onClick={handleNotification} style={{ fontSize: '24px', color: '#1890ff' }} />
             </li>
             <li>
               {isAuthenticated ?
@@ -72,6 +97,13 @@ function Navbar() {
                 <Link to="/login">Login</Link>
               }
             </li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            {notifications.map((notification, index) => (
+              <li key={index}>{notification.message}</li>
+            ))}
           </ul>
         </div>
       </div>
