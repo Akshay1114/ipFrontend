@@ -20,6 +20,9 @@ import Schedule from "../pages/Schedule";
 import ResetPass from "../pages/ResetPass";
 import SendNotification from "../pages/SendNotification";
 
+import FlightSchedule from "../pages/FlightSchedule";
+
+
 
 
 
@@ -77,6 +80,12 @@ const router = createBrowserRouter([
     {
       path: "/reset-password",
       element: <ResetPass/>,
+      errorElement: <ErrorPage />,
+    },
+
+    {
+      path: "/flight-schedule",
+      element: <FlightSchedule/>,
       errorElement: <ErrorPage />,
     }
 

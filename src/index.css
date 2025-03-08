@@ -369,3 +369,191 @@ html, body {
   overflow: auto;
 }
 
+
+/* ---------------- Flight - Schedule Styling ----------------- */
+
+
+
+.flightSchedule-container {
+  width: 95%;
+  margin: auto;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flightSchedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.flightSchedule-date {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.flightSchedule-search input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 200px;
+}
+
+.flightSchedule-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.flightSchedule-prev,
+.flightSchedule-next {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.flightSchedule-content {
+  display: flex;
+  gap: 20px;
+}
+
+.flightSchedule-section {
+  flex: 1;
+}
+
+.flightSchedule-list {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.flightSchedule-card {
+  background: #eeeeee;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.flightSchedule-flightHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.flightSchedule-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Ensures location is below time */
+  text-align: center;
+}
+
+.flightSchedule-divider {
+  color: gray;
+}
+
+.flightSchedule-route {
+  font-size: 14px;
+  color: #555;
+}
+
+.flightSchedule-duration {
+  font-size: 14px;
+  color: #777;
+}
+
+.flightSchedule-crewInfo {
+  background: #ffffff;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto; 
+}
+
+/* --------------------------------- Popout Screen ------------------------------------- */
+
+
+
+
+.flightDetails-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 400px;
+  max-width: 90%;
+}
+
+.flightDetails-content {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.flightDetails-close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.flightDetails-content h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.flightDetails-content p {
+  font-size: 15px;
+  margin: 6px 0;
+  color: #333;
+}
+
+.flightDetails-content p strong {
+  font-weight: 600;
+}
+
+.modifySchedule-btn {
+  display: block;
+  margin: 15px auto 0;
+  padding: 8px 15px;
+  background: #4F4F4F;
+  color: white;
+  /* border: 1px solid #ccc; */
+  border-radius: 2rem;
+  cursor: pointer;
+  font-size: 20px;
+  padding: .7rem;
+}
+
+.modifySchedule-btn:hover {
+  background: #dcdcdc;
+}
+
+/* Overlay Background */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
