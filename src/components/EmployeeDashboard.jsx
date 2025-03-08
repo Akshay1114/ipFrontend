@@ -10,21 +10,21 @@ function EmployeeDashboard() {
   const [userID, setUserID] = useState(sessionStorage.getItem("employee_ID") || "");
 let getToken = sessionStorage.getItem('token')
 let getUser = sessionStorage.getItem('employee_ID')
-useEffect(() => {
-  console.log("userID USEEFFECT ==>", userID);
-  if (!userID) return; // Prevent emitting if userID is empty
+// useEffect(() => {
+//   console.log("userID USEEFFECT ==>", userID);
+//   if (!userID) return; // Prevent emitting if userID is empty
 
-  // Register user with backend
-  socket.emit("register", userID);
+//   // Register user with backend
+//   socket.emit("register", userID);
 
-  // Listen for real-time notifications
-  socket.on("receive_notification", (message) => {
-    setNotifications((prev) => [...prev, { message }]);
-  })
-  return () => {
-    socket.off("receive_notification");
-  };
-}, [userID]);
+//   // Listen for real-time notifications
+//   socket.on("receive_notification", (message) => {
+//     setNotifications((prev) => [...prev, { message }]);
+//   })
+//   return () => {
+//     socket.off("receive_notification");
+//   };
+// }, [userID]);
     useEffect(() => {
 
         console.log('EmployeeDashboard', getUser)
@@ -54,7 +54,7 @@ useEffect(() => {
     {/* Schedule Card */}
     <div className="schedule-card grid-span-2">
       <div className="header">
-        <h2>Schedule {notifications.length}</h2>
+        <h2>Schedule</h2>
         <i className="fas fa-arrow-up-right"></i>
       </div>
       <div className="upcoming">Upcoming(3)</div>

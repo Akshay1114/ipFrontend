@@ -104,8 +104,11 @@ display: block;
   background-color: #04AA6D;
 }
  */
-
+ .notificationList{
+  display: block !important;
+}
 .navbar {
+  position: relative;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
