@@ -28,23 +28,23 @@ let getUser = sessionStorage.getItem('employee_ID')
     useEffect(() => {
 
         console.log('EmployeeDashboard', getUser)
-        function getScheduleData(){
-            axios.get(`http://localhost:5001/api/schedule?id=${getUser}`, {
-                headers: {
-                    Authorization: `Bearer ${getToken}`
-                }
-            })
-            .then((res) => {
-                console.log(res.data);
-            }
-            )
-            .catch((err) => {
-                console.log(err);
-            }
-            );
+        // function getScheduleData(){
+        //     axios.get(`http://localhost:5001/api/schedule?id=${getUser}`, {
+        //         headers: {
+        //             Authorization: `Bearer ${getToken}`
+        //         }
+        //     })
+        //     .then((res) => {
+        //         console.log(res.data);
+        //     }
+        //     )
+        //     .catch((err) => {
+        //         console.log(err);
+        //     }
+        //     );
 
-        }
-        getScheduleData();
+        // }
+        // getScheduleData();
     },[]);
     
     console.log("notifications =>", notifications)

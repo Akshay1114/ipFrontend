@@ -24,26 +24,26 @@ function SleepDataUi() {
     { employee_ID: "222333", startTime: "2025-02-16T21:00:00Z", endTime: "2025-02-17T03:00:00Z" }, // 6 hours (OK)
   ];
 const getToken = sessionStorage.getItem('token')
-  function saveSchedule({schedule, warnings}) {
-    axios.post("http://localhost:5001/api/schedule", {
-      schedule,
-      warnings
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${getToken}`
-      }
-    }
-    )
-    .then((res) => {
-      console.log(res.data);
-    }
-    )
-    .catch((err) => {
-      console.log(err);
-    } 
-    );
-  }
+  // function saveSchedule({schedule, warnings}) {
+  //   axios.post("http://localhost:5001/api/schedule", {
+  //     schedule,
+  //     warnings
+  //   },
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${getToken}`
+  //     }
+  //   }
+  //   )
+  //   .then((res) => {
+  //     console.log(res.data);
+  //   }
+  //   )
+  //   .catch((err) => {
+  //     console.log(err);
+  //   } 
+  //   );
+  // }
 
   function generateSchedule() {
     let newSchedule = [];
@@ -82,7 +82,7 @@ const getToken = sessionStorage.getItem('token')
 
     setSchedule(newSchedule);
     setWarnings(newWarnings);
-    saveSchedule({schedule: newSchedule, warnings: newWarnings});
+    // saveSchedule({schedule: newSchedule, warnings: newWarnings});
   }
 
   return (

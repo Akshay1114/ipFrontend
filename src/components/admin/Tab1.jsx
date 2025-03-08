@@ -1,76 +1,53 @@
-import React from 'react'
-import SleepDataUi from '../pages/SleepDataUi'
-import CommonTable from './CommonTable'
+import React from "react";
+import Chart from "react-apexcharts";
 
-function AdminDashboard() {
-    console.log('AdminDashboard')
-  return (
-    <div>
-      <div>
-        <div className='adminDashboard'>
-          
-          <div className='AD-section1'>
-              <div >
-              <div id='Manager-dashboard-column1'>
-                  <div className='d-flex jc-between card MD-C1-card'>
-                    <h3>52</h3>
-                    <p>Total Employee</p>
-                  </div>
+function Tab1({ activeTab }) {
 
-                  <div className='d-flex jc-between card MD-C1-card'>
-                    <div className='general-inline-text'>
-                      <h3>22</h3>
-                      <button className='MD-C1-btn'>View &gt;</button>
+    const monitoringData = {
+        series: [
+            { name: "High Fatigue Risk", data: [0, 18, 14, 12, 10, 8, 14] },
+            { name: "FDTL Violation", data: [0, 5, 5, 5, 6, 5, 9] },
+        ],
+        options: {
+            chart: { type: "line" },
+            xaxis: { categories: ["January", "February", "March", "April", "May", "June", "July"] },
+            stroke: { width: 3 },
+            markers: { size: 6 },
+            colors: ["#F4D03F", "#A29BFE"],
+        },
+    };
+
+    return (
+
+        <div className="schedule-container">
+            {activeTab === "Monitoring" && (
+                <div className="monitoring-section">
+                    <div className="header-section-Schedule">
+                        <h1>February</h1>
+                        <button type="submit" className="search-CD"><input type="text" placeholder="Search" className="search-bar"/></button>
                     </div>
-                    <p>On Duty</p>
-                  </div>
+                    <p>2025</p>
 
-                  <div className='d-flex jc-between card MD-C1-card'>
-                    <div className='general-inline-text'>
-                      <h3>2</h3>
-                      <button className='MD-C1-btn'>View &gt;</button>
-                    </div>
-                    <p>High Fatigue Risk</p>
-                  </div>
-
-                  <div className='d-flex jc-between card MD-C1-card'>
-                    <div className='general-inline-text'>
-                      <h3>4</h3>
-                      <button className='MD-C1-btn'>View &gt;</button>
-                    </div>
-                    <p>Pending Requets</p>
-                  </div>
-
-              </div>
-
-              <div className='card'>
-                <div className='CrewRoastersHeading'>
-                  <h2>Today’s Flight Overview</h2>
-                  <div class="round-container">
-                      <i class="fa fa-arrow-up"></i>
-                  </div>
+                    <h3>Analytics</h3>
+                    <Chart options={monitoringData.options} series={monitoringData.series} type="line" height={350} />
                 </div>
-                <CommonTable
-                data={[{flightNumber: '05042024', fleet: 'A320neo', departure: '9:20 AM', arrival: '2:15 PM'}]}
-                columns={[{title: 'Flight Number', dataIndex: 'flightNumber'}, {title: 'Fleet', dataIndex: 'fleet'}, {title: 'Departure', dataIndex: 'departure'}, {title: 'Arrival', dataIndex: 'arrival'}]}
-                />
-              </div>
-              </div>
-              <div className='MD-C3 card'>
-                <h3>Urgent Look-Over</h3>
-                <div className='MD-C3-UrgentLookOver'>
-              </div>
-              </div>
-          </div>
+            )}
 
-          <div className='card'>
-            <div className='CrewRoastersHeading'>
-                <h2>Crew Roasters</h2>
-                <div class="round-container">
-                    <i class="fa fa-arrow-up"></i>
-                </div>
-            </div>
-          <div className="table-container">
+            {activeTab === "Crew Details" && (
+                <div className="crew-details-section">
+
+                    <div className="header-section-CD">
+                        <h1>February</h1>
+                        <button type="submit" className="search-CD"><input type="text" placeholder="Search" className="search-bar"/></button>
+                    </div>
+                    <p>2025</p>
+                    
+                    <div className="filter-section ">
+                        <button type="submit" className="search-CD"><i class="fa fa-search fa-lg"></i><input type="text" placeholder="Search" className="search-bar"/></button>
+                        <button className="filter-button">Filter &nbsp; <i class="fa fa-filter fa-lg"></i> </button>
+                    </div>
+
+                    <div className="table-container ">
                     <table>
                         <thead>
                             <tr>
@@ -147,13 +124,25 @@ function AdminDashboard() {
                         </tbody>
                     </table>
                     </div>
-          </div>
-          
-        </div>
-      </div>
+                    
+                </div>
+            )}
 
-    </div>
-  )
+            {activeTab === "Reports" && (
+                <div className="reports-section">
+                    <div className="header-section-Schedule">
+                        <h1>February</h1>
+                        <button type="submit" className="search-CD"><input type="text" placeholder="Search" className="search-bar"/></button>
+                    </div>
+                    <p>2025</p>
+                    
+                    <h2>Reports</h2>
+                    <Chart options={monitoringData.options} series={monitoringData.series} type="line" height={350} />
+                </div>
+            )}
+        </div>
+    );
 }
 
-export default AdminDashboard
+export default Tab1;
+

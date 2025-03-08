@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5001/");
+const socket = io("http://localhost:5001/",  { transports: ["websocket", "polling"] });
 // const socket = io("https://rsinnovates.com/",  { transports: ["websocket", "polling"] });
 
 
