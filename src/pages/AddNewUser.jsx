@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { wingWiseApi } from "../utils/AxiosInstance";
-
+import { ToastContainer, toast } from 'react-toastify';
 
 function AddNewUser() {
   const [formData, setFormData] = useState({
@@ -26,6 +26,7 @@ function AddNewUser() {
   });
 
   const [error, setError] = useState(""); 
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -50,7 +51,8 @@ function AddNewUser() {
       
       .then((res) => {
         console.log("Signup Successful:", res.data);
-        navigate("/reset-password", { replace: true });
+        toast.success("User added successfully");
+        // navigate("/dashboard", { replace: true });
       })
       .catch((err) => {
         if (err.response) {
@@ -69,6 +71,7 @@ function AddNewUser() {
 
   return (
     <div className="add-new-user-container">
+      <ToastContainer />
       {/* Navigation Bar */}
       {/* <div className="add-new-user-nav">
         <h1 className="add-new-user-title">WingWise</h1>

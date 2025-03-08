@@ -87,6 +87,11 @@ const router = createBrowserRouter([
       path: "/flight-schedule",
       element: <FlightSchedule/>,
       errorElement: <ErrorPage />,
+    },
+    {
+      path: "/generate-schedule",
+      element: <SleepDataUi/>,
+      errorElement: <ErrorPage />,
     }
 
     ],
