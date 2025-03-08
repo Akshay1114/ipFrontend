@@ -25,6 +25,31 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.notificationBox{
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  top: 100px;
+  background: white;
+  border: 1px solid;
+  padding: 10px;
+}
+
+.bellIcon{
+  position: relative;
+}
+.notificationCount{
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  font-size: 10px;
+  background: red;
+  padding: 3px 7px;
+  border-radius: 100%;
+  color: #ffffff;
+  font-weight: bold;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
