@@ -43,7 +43,8 @@ function Navbar() {
     socket.emit("register", userID);
     console.log("Connected to socket");
     // Listen for real-time notifications
-    const socketId = userID == "admin" ? "receive_admin_notification" : "receive_notification_admin";
+    const socketId = userID == "admin" ? "receive_admin_notification" : "receive_notification";
+    console.log("socketId", socketId);
     socket.on(socketId, (message) => {
       console.log(socketId, message);
       setNewMsg(true);
@@ -59,7 +60,7 @@ function Navbar() {
   useEffect(() => {
     function getNotifications() {
       if (!userID) return; // Prevent emitting if userID is empty
-      const endPoint = userID == "admin" ? "/getNotification/admin" : "/getNotification?userID=${userID}";
+      const endPoint = userID == "admin" ? "/getNotification/admin" : `/getNotification?userID=${userID}`;
       wingWiseApi
         .get(endPoint)
       // axios.get(`http://localhost:5001/api${endPoint}`)
