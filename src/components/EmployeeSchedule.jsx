@@ -2,6 +2,7 @@ import React from 'react'
 import Wrapper from './common/Wrapper'
 import Tab from './common/Tab'
 import Tab1 from './employee/Tab1';
+import Tab3 from './employee/Tab3';
 
 function EmployeeSchedule() {
 
@@ -21,7 +22,7 @@ function EmployeeSchedule() {
         {
           key: '3',
           label: 'Requests',
-          children: 'Requests',
+          children: <Tab3/>,
         },
       ];
 
