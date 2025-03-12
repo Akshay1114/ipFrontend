@@ -74,6 +74,7 @@ function Navbar() {
     }
     getNotifications();
   }, []);
+  
   console.log("notifications =>", notifications);
   const handleNotification = () => {
     console.log("notifications", notifications);
