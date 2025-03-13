@@ -8,6 +8,7 @@ const socket = io("http://localhost:5001/",  { transports: ["websocket", "pollin
 function EmployeeDashboard() {
   const [notifications, setNotifications] = useState([]);
   const [userID, setUserID] = useState(sessionStorage.getItem("employee_ID") || "");
+  const [sleepData, setSleepData] = useState({});
 let getToken = sessionStorage.getItem('token')
 let getUser = sessionStorage.getItem('employee_ID')
 // useEffect(() => {
@@ -28,23 +29,24 @@ let getUser = sessionStorage.getItem('employee_ID')
     useEffect(() => {
 
         console.log('EmployeeDashboard', getUser)
-        // function getScheduleData(){
-        //     axios.get(`http://localhost:5001/api/schedule?id=${getUser}`, {
-        //         headers: {
-        //             Authorization: `Bearer ${getToken}`
-        //         }
-        //     })
-        //     .then((res) => {
-        //         console.log(res.data);
-        //     }
-        //     )
-        //     .catch((err) => {
-        //         console.log(err);
-        //     }
-        //     );
+        function getScheduleData(){
+            axios.get(`http://localhost:5001/api/sleepData?id=${getUser}`, {
+                headers: {
+                    Authorization: `Bearer ${getToken}`
+                }
+            })
+            .then((res) => {
+                console.log(res.data);
+                setSleepData(res.data.data)
+            }
+            )
+            .catch((err) => {
+                console.log(err);
+            }
+            );
 
-        // }
-        // getScheduleData();
+        }
+        getScheduleData();
     },[]);
     
     console.log("notifications =>", notifications)
@@ -122,7 +124,7 @@ let getUser = sessionStorage.getItem('employee_ID')
         <h2>Sleep Data</h2>
         <i className="fas fa-arrow-up-right"></i>
       </div>
-      <div className="sleep-time">4h 2m</div>
+      <div className="sleep-time">{sleepData?.deep_sleep}</div>
       <div className="date">Today</div>
       <div className="hours">
         <div className="hour">11 AM</div>
