@@ -29,45 +29,7 @@ function SleepDataUi() {
     // ];
   
 
-  // Fetch sleep data from the API
-  useEffect(() => {
-    const fetchSleepData = () => {
-      setLoading(true);
-      setError("");
-  
-      console.log("Fetching sleep data..."); 
-      const id = sessionStorage.getItem("employee_ID"); // Get ID from session storage
-      
-      if (!id) {
-        console.error("Employee ID not found in session storage");
-        setError("Employee ID not found.");
-        setLoading(false);
-        return;
-      }
-  // const test1 = "any text" + id
-  // const test2 = `any text ${id}`
-      wingWiseApi.get(`/sleepData?id=${id}`) 
-        .then((res) => {
-          console.log("API Response:", res.data); 
-  
-          if (res.data && res.data.length > 0) {
-            setSleepData(res.data);
-          } else {
-            setSleepData([]);
-            console.log("No sleep data found."); 
-          }
-        })
-        .catch((err) => {
-          console.error("Error fetching sleep data:", err);
-          setError("Failed to fetch sleep data.");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    };
-  
-    fetchSleepData();
-  }, []);
+ 
   
 
   function generateSchedule() {
