@@ -3,6 +3,7 @@ import Wrapper from './common/Wrapper'
 import Tab from './common/Tab'
 import Tab1 from './employee/Tab1';
 import Tab3 from './employee/Tab3';
+import Tab2 from './employee/Tab2';
 
 function EmployeeSchedule() {
 
@@ -17,7 +18,7 @@ function EmployeeSchedule() {
         {
           key: '2',
           label: 'Duty Limits',
-          children: 'Duty Limits',
+          children: <Tab2/>,
         },
         {
           key: '3',
