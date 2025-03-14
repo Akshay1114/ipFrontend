@@ -6,6 +6,7 @@ import { io } from "socket.io-client";
 import { BellOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import { wingWiseApi } from "../../utils/AxiosInstance";
+import Logo from "../../assets/logo/WingWise-Logo.png"
 import axios from "axios";
 const socket = io("http://localhost:5001/", {
   transports: ["websocket", "polling"],
@@ -86,7 +87,10 @@ function Navbar() {
     <div className="">
       <div className="navbar">
         <div className="navbar-left">
-          <h2>Wing Wise</h2>
+          {/* <h2>Wing Wise</h2> */}
+          <Link to="/dashboard">
+          <img alt="logo" src={Logo} />
+          </Link>
         </div>
         <ul className="navbar-center">
           <li className={pathname == "/dashboard" ? "active" : ""}>
