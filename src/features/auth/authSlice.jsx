@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: sessionStorage.getItem("token") || null, // Load from session storage
-  user: null,
+  user: JSON.parse(sessionStorage.getItem("user")) || null,
   employee_ID:sessionStorage.getItem("employee_ID") || null,
   role: sessionStorage.getItem("role") || null,
 };
@@ -20,13 +20,15 @@ const authSlice = createSlice({
       state.employee_ID = action.payload.user.employeeId;
       sessionStorage.setItem("role", action.payload.user.role);
       sessionStorage.setItem("token", action.payload.token); 
-      sessionStorage.setItem("employee_ID", action.payload.user.employee_ID); 
+      sessionStorage.setItem("employee_ID", action.payload.user.employee_ID);
+      sessionStorage.setItem("user", JSON.stringify(action.payload.user));
     },
     logout: (state) => {
       state.token = null;
       sessionStorage.removeItem("token"); 
       sessionStorage.removeItem("role");
       sessionStorage.removeItem("employee_ID");
+      sessionStorage.removeItem("user");
     },
   },
 });
