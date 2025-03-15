@@ -107,6 +107,7 @@
 /* Dashboard.jsx Dashboard Style - JS */
 /* Dashboard.css */
 
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -285,10 +286,11 @@ margin: 20px;
   margin: 8px;
 }
 .card{
-  -webkit-box-shadow: -1px 0px 18px -3px rgba(135,135,135,1);
--moz-box-shadow: -1px 0px 18px -3px rgba(135,135,135,1);
-box-shadow: -1px 0px 18px -3px rgba(135,135,135,1);
-border-radius: 6px;
+  /* -webkit-box-shadow: -1px 0px 18px -3px rgb(255, 255, 255);
+-moz-box-shadow: -1px 0px 18px -3px rgb(255, 255, 255);
+box-shadow: -1px 0px 18px -3px rgb(255, 255, 255); */
+background-color: #FFFFFF;
+border-radius: 24px;
 }
 
 .adminDashboard{

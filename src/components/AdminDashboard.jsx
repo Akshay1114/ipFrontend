@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react';
 import SleepDataUi from '../pages/SleepDataUi';
 import CommonTable from './CommonTable';
 import { wingWiseApi } from "../utils/AxiosInstance"; 
+import axios from "axios";
+// import WeatherCloud from "../assets/logo/weather-cloud.svg";
 
 
 function AdminDashboard() {
+
     const [flightOverview, setFlightOverview] = useState([]);
     const [crewRoasters, setCrewRoasters] = useState([]);
+    const [weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
+
 
     useEffect(() => {
         setLoading(true); 
@@ -44,8 +49,22 @@ function AdminDashboard() {
         });
     
     }, [page, searchQuery]);  
-    
 
+    const [data, setData] = useState({
+        celcius: 10, name: 'London', humidity: 10, speed: 2,
+        })
+
+        useEffect(() => {
+
+        const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=SURREY&APPID=2d37f5bfa51262a1d9cceee1baf22e26&&units=metric';
+        axios.get(apiUrl)
+        .then (res => {
+                setData({...data, celcius: res.data.main.temp, name: res.data.name, type: res.data.weather.main, speed: res.data.wind.speed})
+                })
+        .catch(err => console. log(err));
+        }, [])
+    
+        
     return (
         <div>
             <div className='adminDashboard'>
@@ -80,37 +99,34 @@ function AdminDashboard() {
                         </div>
 
                         {/* Flight Overview Section */}
-                        <div className='card'>
-                            <div className='CrewRoastersHeading'>
-                                <h2>Today’s Flight Overview</h2>
-                                <div className="round-container">
-                                    <i className="fa fa-arrow-up"></i>
-                                </div>
-                            </div>
+                        <div className='card MD-C2'>
+                            <h2 id='Flight-overview'>Today’s Flight Overview</h2>
 
-                            <table>
+                            <table id='Flight-overview-table'>
                                 <thead>
-                                    <tr>
+                                    <tr >
                                         <th>Flight No.</th>
                                         <th>Departure</th>
                                         <th></th>
                                         <th>Arrival</th>
                                         <th>Aircraft</th>
-                                        <th>Captain</th>
                                         <th>Status</th>
                                         <th>Gate</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className='flight-overview-table-body'>
                                     {flightOverview.map((flight, index) => (
-                                        <tr key={index}>
-                                            <td>{flight.email}</td>
+                                        <tr key={index} id='overviewFlight'>
+                                            <td>{flight.employee_ID}</td>
                                             <td>{flight.name}</td>
-                                            <td></td>
+                                            <td>- - - - ✈️ - - - -</td>
                                             <td>{flight.role}</td>
                                             <td>{flight.aircraft}</td>
-                                            <td>{flight.captain}</td>
-                                            <td>{flight.status}</td>
+                                            <td className='fatigue-level-style'>
+                                                <div className="oval-border">
+                                                    <i className="fa fa-circle"><span> &nbsp; {flight.gate} </span></i>
+                                                </div>
+                                            </td>
                                             <td>{flight.gate}</td>
                                         </tr>
                                     ))}
@@ -119,9 +135,36 @@ function AdminDashboard() {
                         </div>
                     </div>
 
-                    <div className='MD-C3 card'>
-                        <h3>Urgent Look-Over</h3>
-                        <div className='MD-C3-UrgentLookOver'></div>
+                    <div className='MD-C3'>
+                        <div className='Live-weather'>
+                                {loading ? (
+                                <p>Loading weather...</p>
+                            ) : error ? (
+                                <p>Error: {error}</p>
+                            ) : (
+                                <div className='weather-container'>
+                                    <div className='weather-row1'>
+                                        <h2>Today's</h2>
+                                        <img src="/assets/logo/weather-cloud.svg" alt="weather" width="70" height="70" />
+                                    </div>
+                                    <div className='weather-row1'>
+                                        <div>
+                                            <h2>{data.name}</h2>
+                                        </div>
+                                        <div>
+                                            <h3>{data.celcius}°C</h3>
+                                            <p>{data.type}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        <div className='MD-C3-UrgentLookOver'>
+                            <h2>Urgent Look-Over</h2>
+                            {/* <div className='d-flex jc-between card MD-C3-card'>
+                                <h3>2</h3>
+                                <p>High Fatigue Risk</p> */}
+                        </div>
                     </div>
                 </div>
 
@@ -129,9 +172,6 @@ function AdminDashboard() {
                 <div className='card'>
                     <div className='CrewRoastersHeading'>
                         <h2>Crew Roasters</h2>
-                        <div className="round-container">
-                            <i className="fa fa-arrow-up"></i>
-                        </div>
                     </div>
 
                     <div className="table-container">
@@ -140,12 +180,10 @@ function AdminDashboard() {
                                 <tr>
                                     <th></th>
                                     <th>Crew Name</th>
-                                    <th>Employee ID</th>
                                     <th>Role</th>
                                     <th>Fatigue Level</th>
                                     <th>Duty Status</th>
                                     <th>Last Rest Hours</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -155,18 +193,16 @@ function AdminDashboard() {
                                             <div className="employee-image"></div>
                                         </td>
                                         <td>{crew.name}</td>
-                                        <td>{crew.employeeId}</td>
                                         <td>{crew.role}</td>
                                         <td className="fatigue-level-style">
                                             <div className="oval-border">
-                                                <i className="fa fa-circle"> &nbsp; {crew.fatigueLevel} </i>
+                                                <i className="fa fa-circle"><span> &nbsp; {crew.qualification} </span></i>
                                             </div>
                                         </td>
                                         <td className="duty-status-style">
-                                            <p className="oval-border">{crew.dutyStatus}</p>
+                                            <p className="oval-border">{crew.role}</p>
                                         </td>
                                         <td>{crew.lastRestHours}</td>
-                                        <td>Modify</td>
                                     </tr>
                                 ))}
                             </tbody>
