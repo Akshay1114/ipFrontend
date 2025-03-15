@@ -21,6 +21,7 @@ import ResetPass from "../pages/ResetPass";
 import SendNotification from "../pages/SendNotification";
 
 import FlightSchedule from "../pages/FlightSchedule";
+import GetData from "../components/employee/GetData";
 
 
 
@@ -92,7 +93,12 @@ const router = createBrowserRouter([
       path: "/generate-schedule",
       element: <SleepDataUi/>,
       errorElement: <ErrorPage />,
-    }
+    },
+    {
+      path: "/test",
+      element: <GetData/>,
+      errorElement: <ErrorPage />,
+    },
 
     ],
     
