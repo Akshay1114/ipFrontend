@@ -6,6 +6,7 @@ import WeatherCard from './WeatherCard';
 import './EmployeeDashboard.css';
 import BarGraph from './charts/BarGraph';
 import PiGraph from './charts/PiGraph';
+import Loader from './loader/Loader';
 
 const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
 // const socket = io("wss://rsinnovates.com/",  { transports: ["websocket", "polling"] });
@@ -57,6 +58,7 @@ function EmployeeDashboard() {
   console.log("notifications =>", notifications)
   return (
     <div className="employee-deshboard-grid-container">
+           <Loader />
       {/* EMPLOYEE DASHBOARD */}
       {/* Schedule Card */}
       {/* <div className="schedule-card grid-span-2">
