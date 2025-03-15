@@ -2,13 +2,9 @@ import React from "react";
 
 function Tab3() {
     return (
-        
         <div className="request-container">
-
             {/* Left Section: Request Summary + All Requests */}
             <div className="request-left">
-
-                
                 {/* Request Summary */}
                 <div className="request-summary">
                     <div className="request-card request-card1">
@@ -46,6 +42,11 @@ function Tab3() {
 
             {/* Right Section: Leave Balance */}
             <div className="request-right">
+                {/* Request Button at Top Right */}
+                <div className="request-top-button">
+                    <button className="request-button">+ New Request</button>
+                </div>
+
                 <div className="request-leave-balance">
                     <h3>Leave Balance</h3>
 
