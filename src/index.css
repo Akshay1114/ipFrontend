@@ -1067,6 +1067,7 @@ td.duty-status-style {
 
 
 
+
 /* --------------- REQUEST Styling ----------------- */
 
 .request-container {
@@ -1239,5 +1240,143 @@ td.duty-status-style {
   background: #ff6600;
   height: 5px;
   border-radius: 5px;
+}
+
+
+/* ------------------ Duty Limits Styling ----------------- */
+
+/* Main Container */
+.dutylimits-container {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Employee Info Section */
+.dutylimits-employee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 180px; 
+  height: 230px; 
+  justify-content: center;
+}
+
+/* Employee Image */
+.dutylimits-employee-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background: #ddd; /* Placeholder */
+}
+
+/* Employee Info */
+.dutylimits-employee-info h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.dutylimits-employee-info p {
+  font-size: 13px;
+  color: #555;
+  margin: 2px 0;
+}
+
+/* Right Section - Duty Limits */
+.dutylimits-content {
+  flex: 1;
+}
+
+/* Header Section */
+.dutylimits-header h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.dutylimits-header ul {
+  padding-left: 18px; 
+}
+
+.dutylimits-header ul li {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+  list-style-type: disc; 
+}
+
+/* Alert (No Bullet Point) */
+.dutylimits-alert {
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.dutylimits-alert ul li {
+  list-style-type: none; 
+}
+
+
+.dutylimits-recent {
+  margin-top: 20px;
+}
+
+.dutylimits-recent h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Table Styling */
+.dutylimits-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dutylimits-table th,
+.dutylimits-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.dutylimits-table th {
+  background: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.dutylimits-table td {
+  font-size: 14px;
+  color: #555;
+  background: none; 
+}
+
+.dutylimits-table tr {
+  box-shadow: 3px 2px 3px rgba(211, 211, 211, 0.851);
+}
+
+.dutylimits-table tr:last-child td {
+  border-bottom: none;
+}
+
+
+.dutylimits-status {
+  color: #008000; 
+  font-weight: bold;
+  cursor: pointer;
 }
 
