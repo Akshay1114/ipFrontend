@@ -1,15 +1,15 @@
 
 .employee-deshboard-grid-container {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    gap: 1rem;  
-    padding: 1rem; 
+	grid-template-rows: repeat(6, 1fr);
+	grid-template-columns: repeat(6, 1fr);
+	gap: 10px;
+	height: 100%; 
+    padding: 1rem;
 }
     
 .employee-dashboard-schedule-card {
-    grid-column: span 6 / span 6;
-    grid-row: span 4 / span 4;
+    grid-area: 1 / 1 / 4 / 5;
     background-color: var(--color-white);
   border-radius: 26px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -17,16 +17,11 @@
 }
 
 .employee-dashboard-weather-card {
-    grid-column: span 3 / span 3;
-    grid-row: span 2 / span 2;
-    grid-column-start: 7;
+    grid-area: 1 / 5 / 3 / 7;
 }
 
 .employee-dashboard-fatigue-card {
-    grid-column: span 3 / span 3;
-    grid-row: span 3 / span 3;
-    grid-column-start: 7;
-    grid-row-start: 3;
+    grid-area: 3 / 5 / 5 / 7;
     background-color: var(--color-white);
   border-radius: 26px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -34,9 +29,7 @@
 }
 
 .employee-dashboard-sleep-card {
-    grid-column: span 3 / span 3;
-    grid-row: span 4 / span 4;
-    grid-row-start: 5;
+    grid-area: 4 / 1 / 7 / 3;
     background-color: var(--color-white);
   border-radius: 26px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -44,10 +37,7 @@
 }
 
 .employee-dashboard-health-card {
-    grid-column: span 3 / span 3;
-    grid-row: span 4 / span 4;
-    grid-column-start: 4;
-    grid-row-start: 5;
+    grid-area: 4 / 3 / 7 / 5;
     background-color: var(--color-white);
   border-radius: 26px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -55,10 +45,7 @@
 }
 
 .employee-dashboard-recommendation-card {
-    grid-column: span 3 / span 3;
-    grid-row: span 3 / span 3;
-    grid-column-start: 7;
-    grid-row-start: 6;
+    grid-area: 5 / 5 / 7 / 7;
     background-color: var(--color-white);
   border-radius: 26px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -73,7 +60,6 @@
 .main-card {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
 }
 
@@ -144,7 +130,7 @@
 }
 
 .metrics-panel {
-    border-left: 1px solid var(--gray-200);
+    border-left: 1px solid black;
     padding-left: 1.5rem;
     display: flex;
     flex-direction: column;
