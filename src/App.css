@@ -1,8 +1,34 @@
-#root {
-  /* max-width: 1280px; */
-  margin: 0 auto;
+:root {
+  --font-family-primary: 'DM Sans', sans-serif;
+  --font-family-secondary: 'Noto Sans', sans-serif;
+
+  --color-primary: #1D3FEA;
+  --color-secondary: #3859FF;
+  --color-background: #F0F4F8;
+  --color-border: #F2F2F2;
+  --color-accent: #ff812e;
+  --color-text: #2C2C2C;
+  --color-text-secondary: #666666;
+  --color-white: #ffffff;
+  --color-green: #00A56B;
+  --color-red: #E53935;
+  --color-yellow: #FFAA00;
+
+  font-family: var(--font-family-secondary);
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+   margin: 0 auto;
   overflow: scroll;
 
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .d-flex {
@@ -80,10 +106,6 @@
 
 /* Dashboard.jsx Dashboard Style - JS */
 /* Dashboard.css */
-body {
-  background-color: #f7fafc;
-  /* padding: 1rem; */
-}
 
 .grid-container {
   display: grid;

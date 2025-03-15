@@ -1,0 +1,39 @@
+.weather-card {
+  background-color: #E0F0FF;
+  border-radius: 35px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  align-items: baseline;
+}
+
+.city-name h2 {
+  margin: 0;
+}
+
+.icon-temp {
+  display: flex;
+  align-items: center;
+}
+
+.icon-temp img {
+  margin-right: 10px;
+}
+
+.deg {
+  font-size: 1.5em;
+}
+
+.date {
+  grid-column: span 2;
+}
+
+.des-wind {
+  grid-column: span 2;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.2em;
+}
