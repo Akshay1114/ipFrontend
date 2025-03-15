@@ -5,7 +5,7 @@ function ErrorPage() {
   return (
     <div>
       Error Page
-      GO <Link to='/'>Home Page</Link>Home 
+      GO <Link to='/dashboard'>Home Page</Link>Home 
     </div>
   )
 }

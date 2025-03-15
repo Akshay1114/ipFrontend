@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux'
 import { io } from "socket.io-client";
 import WeatherCard from './WeatherCard';
 import './EmployeeDashboard.css';
+import BarGraph from './charts/BarGraph';
+import PiGraph from './charts/PiGraph';
 
 const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
 // const socket = io("wss://rsinnovates.com/",  { transports: ["websocket", "polling"] });
@@ -288,20 +290,9 @@ function EmployeeDashboard() {
       <div className="employee-dashboard-sleep-card">
         <div className="header">
           <h2>Sleep Data</h2>
-          <i className="fas fa-arrow-up-right"></i>
         </div>
         <div className="sleep-time">{sleepData?.deep_sleep}</div>
-        <div className="date">Today</div>
-        <div className="hours">
-          <div className="hour">11 AM</div>
-          <div className="hour">12 PM</div>
-          <div className="hour">1 PM</div>
-          <div className="hour">2 PM</div>
-          <div className="hour">3 PM</div>
-        </div>
-        <div className="sleep-bar">
-          <div className="sleep-indicator"></div>
-        </div>
+        <BarGraph title ="Sleep Data"/>
       </div>
       <div className="employee-dashboard-health-card">
         <div className="header">
@@ -316,6 +307,7 @@ function EmployeeDashboard() {
             <div className="value">32%</div>
             <div className="label">Stress Level</div>
           </div>
+          <PiGraph/>
         </div>
       </div>
       <div className="employee-dashboard-recommendation-card">

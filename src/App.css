@@ -200,19 +200,9 @@
   color: #0d131f;
 }
 
-.risk-bar, .sleep-bar {
-  width: 100%;
-  background-color: #e5e7eb;
-  border-radius: 9999px;
-  height: 0.625rem;
-  margin-bottom: 1rem;
-}
 
-.risk-indicator, .sleep-indicator {
-  background-color: #6b7280;
-  height: 100%;
-  border-radius: 9999px;
-}
+
+
 
 .details-button {
   background-color: #e5e7eb;
