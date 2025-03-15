@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 
 function Tab2() {
+    const value = useSelector((state) => state.auth);
+    console.log("value", value);
   return (
     <div className="dutylimits-container">
       
@@ -12,9 +15,9 @@ function Tab2() {
           <img src="placeholder.jpg" alt="Profile" />
         </div>
         <div className="dutylimits-employee-info">
-          <h3>PRINKLE</h3>
-          <p>Position: Pilot</p>
-          <p>Employee ID: 123456</p>
+          <h3>{value.user.name}</h3>
+          <p>Position: {value.user.designation}</p>
+          <p>Employee ID: {value.user.employee_ID}</p>
         </div>
       </div>
 

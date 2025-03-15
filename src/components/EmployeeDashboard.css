@@ -1,0 +1,195 @@
+
+.employee-deshboard-grid-container {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 1rem;  
+    padding: 1rem; 
+}
+    
+.employee-dashboard-schedule-card {
+    grid-column: span 6 / span 6;
+    grid-row: span 4 / span 4;
+    background-color: var(--color-white);
+  border-radius: 26px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.employee-dashboard-weather-card {
+    grid-column: span 3 / span 3;
+    grid-row: span 2 / span 2;
+    grid-column-start: 7;
+}
+
+.employee-dashboard-fatigue-card {
+    grid-column: span 3 / span 3;
+    grid-row: span 3 / span 3;
+    grid-column-start: 7;
+    grid-row-start: 3;
+    background-color: var(--color-white);
+  border-radius: 26px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.employee-dashboard-sleep-card {
+    grid-column: span 3 / span 3;
+    grid-row: span 4 / span 4;
+    grid-row-start: 5;
+    background-color: var(--color-white);
+  border-radius: 26px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.employee-dashboard-health-card {
+    grid-column: span 3 / span 3;
+    grid-row: span 4 / span 4;
+    grid-column-start: 4;
+    grid-row-start: 5;
+    background-color: var(--color-white);
+  border-radius: 26px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.employee-dashboard-recommendation-card {
+    grid-column: span 3 / span 3;
+    grid-row: span 3 / span 3;
+    grid-column-start: 7;
+    grid-row-start: 6;
+    background-color: var(--color-white);
+  border-radius: 26px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+        
+.main-container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.main-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.flight-list h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--gray-500);
+    margin-bottom: 1rem;
+}
+
+.flight-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.date-box {
+    text-align: center;
+    color: var(--gray-500);
+}
+
+.date-box h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+.flight-details {
+    flex: 1;
+    background: var(--gray-100);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.flight-header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--gray-500);
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.time-block h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.duration-block {
+    text-align: center;
+    color: var(--gray-500);
+}
+
+.metrics-panel {
+    border-left: 1px solid var(--gray-200);
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.metrics-header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--gray-500);
+}
+
+.percentage {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.progress-container {
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    height: 0.5rem;
+    background-color: var(--gray-200);
+    border-radius: 9999px;
+    overflow: hidden;
+    margin: 0.25rem 0;
+    width: 100%; 
+    background-color: var(--blue);
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 9999px;
+    width: 75%; 
+    background-color: var(--color-accent);
+}
+
+.fas {
+    color: var(--gray-500);
+}
+
+.risk-indicator{
+    width: "25%";
+}
+
+

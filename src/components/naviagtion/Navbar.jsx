@@ -25,7 +25,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.token);
 
-  console.log("isAuthenticated", isAuthenticated);
+  // console.log("isAuthenticated", isAuthenticated);
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -37,7 +37,7 @@ function Navbar() {
 
   useEffect(() => {
     console.log("userID USEEFFECT", userID);
-    console.log("userID", userID);
+    // console.log("userID", userID);
     if (!userID) return; // Prevent emitting if userID is empty
     console.log("Connecting to socket...");
     // Register user with backend
@@ -47,7 +47,7 @@ function Navbar() {
     const socketId = userID == "admin" ? "receive_admin_notification" : "receive_notification";
     console.log("socketId", socketId);
     socket.on(socketId, (message) => {
-      console.log(socketId, message);
+      // console.log(socketId, message);
       setNewMsg(true);
       let newArr = [...newMsgCount];
       newArr.push({ ...message });
@@ -66,7 +66,7 @@ function Navbar() {
         .get(endPoint)
       // axios.get(`http://localhost:5001/api${endPoint}`)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setNotifications(res.data);
         })
         .catch((err) => {
@@ -76,9 +76,9 @@ function Navbar() {
     getNotifications();
   }, []);
   
-  console.log("notifications =>", notifications);
+  // console.log("notifications =>", notifications);
   const handleNotification = () => {
-    console.log("notifications", notifications);
+    // console.log("notifications", notifications);
     setViewNotification(!viewNotification);
     setNewMsg(false);
   };
