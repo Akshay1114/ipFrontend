@@ -56,7 +56,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <div className="checkbox-container">
+          {/* <div className="checkbox-container">
             <input
               type="checkbox"
               id="rememberMe"
@@ -64,15 +64,15 @@ export default function Login() {
               onChange={() => setRememberMe(!rememberMe)}
             />
             <label htmlFor="rememberMe">Remember Me</label>
-          </div>
+          </div> */}
 
           <button onClick={handleLogin} className="sign-in-btn">
             Sign In
           </button>
         </div>
-        <p className="forgot-password">
+        {/* <p className="forgot-password">
           <a href="#">Forgot Password?</a>
-        </p>
+        </p> */}
       </div>
     </div>
   );
