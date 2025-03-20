@@ -180,6 +180,30 @@ display: block;
 /* ----- Login Page styling ------ */
 
 
+/* Sign up page  */
+
+.login-container .login-box{
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+.sign-in-btn{
+  background-color: #1D3FEA;
+  margin: 2.5rem 0rem 5rem 0rem;
+}
+
+.loginForm{
+  margin-top: 2rem;
+}
+
+.profile-icon{
+  position: absolute;
+  top: -40px;
+  align-items: center;
+  left: 43%;
+  right: 50%;
+}
+
 
 .login-container {
   display: flex;
@@ -193,15 +217,18 @@ display: block;
   padding: 30px;
   border-radius: 30px;
   text-align: center;
-  width: 400px;
+  width: 350px;
 }
 
 .profile-icon {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   background: #676767;
   border-radius: 25%;
   margin: 0 auto 10px;
+  background-image: url('./assets/logo/Fav_Icon_WingWise.png');
+  background-size: cover;
+  background-color: transparent;
 }
 
 .title {
@@ -251,7 +278,6 @@ display: block;
   color: #666;
   text-decoration: underline;
 }
-
 
 
 /* --------------- Add New User Styling ----------------- */
@@ -585,7 +611,7 @@ display: block;
 
 /* ------------------------KHUSHPREET CHANGES-------------------- */
 
-html, body 
+html, body {
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -626,7 +652,7 @@ html, body
 
 .adminDashboard {
   padding: 1rem 1.5rem;
-  background-color: #E8E8E8;
+  background-color: #F1F6FF;
 }
 
 .MD-C1-card{
@@ -872,16 +898,20 @@ table th {
 
 /* -------------------------Crew Details----------------------------- */
 
+.Live-weather{
+  height: 10rem;
+}
+
 .weather-container{
   background-color: #E0F0FF;
   padding: 1rem;
-  height: auto;
+  height: 80%;
   border-radius: 24px;
   text-align: top;
 }
 
 .MD-C3{
-  background-color: #E8E8E8;
+  background-color: #F1F6FF;
 }
 
 .MD-C3-UrgentLookOver{
@@ -909,6 +939,10 @@ table th {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.weather-row1.row2{
+  margin-top: 1.8rem;
 }
 
 #Flight-overview-table thead tr{

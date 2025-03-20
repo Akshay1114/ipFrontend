@@ -4,6 +4,8 @@ import CommonTable from './CommonTable';
 import { wingWiseApi } from "../utils/AxiosInstance"; 
 import axios from "axios";
 // import WeatherCloud from "../assets/logo/weather-cloud.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlane } from '@fortawesome/free-solid-svg-icons';
 
 
 function AdminDashboard() {
@@ -72,7 +74,10 @@ function AdminDashboard() {
                     <div>
                         <div id='Manager-dashboard-column1'>
                             <div className='d-flex jc-between card MD-C1-card'>
-                                <h3>52</h3>
+                                <div className='general-inline-text'>
+                                    <h3>52</h3>
+                                    <button className='MD-C1-btn'>View &gt;</button>
+                                </div>
                                 <p>Total Employee</p>
                             </div>
                             <div className='d-flex jc-between card MD-C1-card'>
@@ -119,7 +124,7 @@ function AdminDashboard() {
                                         <tr key={index} id='overviewFlight'>
                                             <td>{flight.employee_ID}</td>
                                             <td>{flight.name}</td>
-                                            <td>- - - - ✈️ - - - -</td>
+                                            <td>- - - - <FontAwesomeIcon icon={faPlane} /> - - - -</td>
                                             <td>{flight.role}</td>
                                             <td>{flight.aircraft}</td>
                                             <td className='fatigue-level-style'>
@@ -145,9 +150,9 @@ function AdminDashboard() {
                                 <div className='weather-container'>
                                     <div className='weather-row1'>
                                         <h2>Today's</h2>
-                                        <img src="/assets/logo/weather-cloud.svg" alt="weather" width="70" height="70" />
+                                        <img src="/Weather_cloud.svg" alt="weather" width="70" height="70" />
                                     </div>
-                                    <div className='weather-row1'>
+                                    <div className='weather-row1 row2'>
                                         <div>
                                             <h2>{data.name}</h2>
                                         </div>
