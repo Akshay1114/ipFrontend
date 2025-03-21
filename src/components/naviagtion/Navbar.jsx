@@ -100,8 +100,8 @@ function Navbar() {
           <li className={pathname == "/schedule" ? "active" : ""}>
             <Link to="/schedule">Schedule</Link>
           </li>
-          <li className={pathname == "/healthInsight" ? "active" : ""}>
-            <Link to="/healthInsight">Health Insight</Link>
+          <li className={pathname == "/health-insights" ? "active" : ""}>
+            <Link to="/health-insights">Health Insight</Link>
           </li>
         </ul>
         <div className="navbar-profile">

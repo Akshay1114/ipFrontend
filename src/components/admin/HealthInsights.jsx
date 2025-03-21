@@ -1,9 +1,10 @@
 import React from 'react'
 import Wrapper from '../common/Wrapper'
+import Tab from '../common/Tab'
 
 function HealthInsights() {
   return (
-    <div className={`AdminSchedule ${formattedClassName}`}>
+    <div className={`AdminSchedule`}>
     <Wrapper>
       <div className="schedule-header">
         <h2>Health Insights</h2>
@@ -11,7 +12,7 @@ function HealthInsights() {
       </div>
       
 
-        <Tab items={items} onChange={(key) => setActiveTab(items.find(i => i.key === key).label)} />
+        {/* <Tab items={items} onChange={(key) => setActiveTab(items.find(i => i.key === key).label)} /> */}
     </Wrapper>
 </div>
   )
