@@ -3,6 +3,8 @@ import SleepDataUi from '../pages/SleepDataUi';
 import CommonTable from './CommonTable';
 import { wingWiseApi } from "../utils/AxiosInstance"; 
 import axios from "axios";
+import WeatherCard from './WeatherCard';
+import Loader from './loader/Loader';
 // import WeatherCloud from "../assets/logo/weather-cloud.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlane } from '@fortawesome/free-solid-svg-icons';
@@ -69,6 +71,7 @@ function AdminDashboard() {
         
     return (
         <div>
+             {loading && <Loader />}
             <div className='adminDashboard'>
                 <div className='AD-section1'>
                     <div>
@@ -141,7 +144,7 @@ function AdminDashboard() {
                     </div>
 
                     <div className='MD-C3'>
-                        <div className='Live-weather'>
+                        {/* <div className='Live-weather'>
                                 {loading ? (
                                 <p>Loading weather...</p>
                             ) : error ? (
@@ -163,12 +166,11 @@ function AdminDashboard() {
                                     </div>
                                 </div>
                             )}
-                        </div>
+                        </div> */}
+                        <WeatherCard />
                         <div className='MD-C3-UrgentLookOver'>
                             <h2>Urgent Look-Over</h2>
-                            {/* <div className='d-flex jc-between card MD-C3-card'>
-                                <h3>2</h3>
-                                <p>High Fatigue Risk</p> */}
+                           
                         </div>
                     </div>
                 </div>

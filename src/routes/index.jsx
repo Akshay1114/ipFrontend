@@ -22,7 +22,9 @@ import SendNotification from "../pages/SendNotification";
 
 import FlightSchedule from "../pages/FlightSchedule";
 import GetData from "../components/employee/GetData";
-import HealthInsights from "../components/HealthInsights";
+
+import HealthInsights from "../components/admin/HealthInsights";
+
 
 
 
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
       element: 
       <ProtectedRoute allowedRoles={["admin", "employee"]}>
       <Schedule/>
+     </ProtectedRoute>
+  },
+    {
+      path: "/health-insights",
+      element: 
+      <ProtectedRoute allowedRoles={["admin", "employee"]}>
+      {/* <Schedule/> */}
+      <HealthInsights/>
      </ProtectedRoute>
   },
     {
