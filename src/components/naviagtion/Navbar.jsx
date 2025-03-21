@@ -102,6 +102,7 @@ function Navbar() {
           </li>
           <li className={pathname == "/health-insights" ? "active" : ""}>
             <Link to="/health-insights">Health Insight</Link>
+
           </li>
         </ul>
         <div className="navbar-profile">
