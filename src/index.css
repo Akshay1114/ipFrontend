@@ -187,13 +187,17 @@ display: block;
   position: relative;
 }
 
+.title {
+  margin-top: 1.2rem;
+}
+
 .sign-in-btn{
-  background-color: #1D3FEA;
-  margin: 2.5rem 0rem 5rem 0rem;
+  background-color: var(--color-primary);
+  margin: 2.5rem 0rem 0rem 0rem;
 }
 
 .loginForm{
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .profile-icon{
@@ -204,12 +208,14 @@ display: block;
   right: 50%;
 }
 
-
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  background: url(/public/background-login.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .login-box {
@@ -249,17 +255,17 @@ display: block;
 
 .checkbox-container {
   display: grid;
-  grid-template-columns: 1fr 10fr;
+  grid-template-columns: 1fr 3fr 5fr 2fr;
   align-items: center;
   font-size: 14px;
   margin-bottom: 15px;
 }
 
+
 .sign-in-btn {
   width: 100%;
   padding: 10px;
   color: #fff;
-  background-color: #444444;
   border-radius: 10px;
   font-size: 18px;
   cursor: pointer;
@@ -267,17 +273,14 @@ display: block;
 }
 
 
-
-.forgot-password {
-  margin-top: 10px;
-  font-size: 15px;
-}
-
 .forgot-password a {
   text-decoration: none;
   color: #666;
   text-decoration: underline;
 }
+
+
+
 
 
 /* --------------- Add New User Styling ----------------- */
