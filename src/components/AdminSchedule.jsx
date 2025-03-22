@@ -5,6 +5,7 @@ import Tab from "./common/Tab";
 // import Tab1 from "./admin/Tab1";
 import Tab1 from "./admin/schedule/Tab1";
 import Tab2 from "./admin/schedule/Tab2";
+import CreateSchedule from "./admin/schedule/CreateSchedule";
 
 function AdminSchedule() {
     const [activeTab, setActiveTab] = useState("Monitoring");
@@ -24,7 +25,7 @@ function AdminSchedule() {
         {
             key: "3",
             label: "Requests",
-            children: <Tab1 activeTab="Requests" />,
+            children: <CreateSchedule />,
         },
     ];
 
@@ -35,7 +36,7 @@ function AdminSchedule() {
             <Wrapper>
               <div className="schedule-header">
                 <h2>Schedule</h2>
-                <button type="submit" className="search-Schedule"><i class="fa fa-plus"></i><input type="text" placeholder="Add Crew Member" className="search-bar"/></button>
+                <button type="submit" className="search-Schedule"><i class="fa fa-plus"></i><input type="text" placeholder="Create Schedule" className="search-bar"/></button>
               </div>
               
 
