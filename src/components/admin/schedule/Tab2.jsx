@@ -4,8 +4,9 @@ import FullCalendar from '@fullcalendar/react';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { wingWiseApi } from '../../../utils/AxiosInstance';
-import './Tab2.css';
+import CommonModal from '../../CommonModal'; // Updated path to CommonModal
 import Loader from '../../loader/Loader';
+import './Tab2.css';
 
 function Tab2() {
   const [pilots, setPilots] = useState([]);
@@ -16,115 +17,150 @@ function Tab2() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date('2025-03-16')); // Start date from the image
   const [viewMode, setViewMode] = useState('day'); // 'day' or 'week'
-  const [selectedEvent, setSelectedEvent] = useState(null); // For the details modal
 
-  // Fetch pilot data from the backend
+  // Fetch pilot and flight data from the backend
   useEffect(() => {
-    const fetchPilots = () => {
+    const fetchData = async () => {
       setLoading(true);
+      setError(null);
 
-      wingWiseApi
-        .get(`/user?role=pilot&page=${page}${searchQuery ? `&search=${searchQuery}` : ''}`)
-        .then((res) => {
-          console.log('Pilots API Response:', res.data);
-          const pilotsData = res.data?.data || [];
+      try {
+        const response = await wingWiseApi.get(`/schedule/allSchedule`);
+        console.log('API Response:', response.data);
 
-          // Transform data for FullCalendar
-          const resourcesData = pilotsData.map((pilot) => ({
-            id: pilot._id.toString(),
-            title: pilot.name || `${pilot.firstName || ''} ${pilot.lastName || ''}`,
-            role: pilot.role || 'Pilot',
-            imageUrl: pilot.profilePicture || 'https://via.placeholder.com/40',
-          }));
+        const flightData = response.data.data?.getFlight || [];
+        const crewData = response.data.data?.getCrewSchedule || [];
 
-          // Create events for each pilot
-          const eventsData = [];
-          pilotsData.forEach((pilot) => {
-            // Since actual flight data isn't available, create sample events
-            const today = new Date(currentDate);
-            const startTime = new Date(today);
-            startTime.setHours(Math.floor(Math.random() * 12) + 6, 0, 0); // Random start time between 6 AM and 6 PM
+        // Filter pilots from crew data
+        const pilotsData = crewData.filter((crew) => 
+          crew.designation?.toLowerCase().includes('pilot') || crew.role?.toLowerCase().includes('pilot')
+        );
 
-            const endTime = new Date(startTime);
-            endTime.setHours(startTime.getHours() + 2); // 2-hour flight
+        // Apply search filter
+        const filteredPilots = searchQuery
+          ? pilotsData.filter((pilot) =>
+              (pilot.crewName || pilot.firstName || pilot.lastName || '')
+              .toLowerCase().includes(searchQuery.toLowerCase())
+            )
+          : pilotsData;
 
-            eventsData.push({
-              resourceId: pilot._id.toString(),
-              title: `Flight AC${Math.floor(Math.random() * 1000)}`,
-              start: startTime,
-              end: endTime,
-              backgroundColor: '#3788d8',
-              borderColor: '#3788d8',
+        // Apply pagination (client-side for simplicity; adjust if API supports server-side pagination)
+        const pageSize = 10;
+        const startIndex = (page - 1) * pageSize;
+        const paginatedPilots = filteredPilots.slice(startIndex, startIndex + pageSize);
+
+        // Transform pilots data for FullCalendar resources
+        const resourcesData = paginatedPilots.map((pilot) => ({
+          id: pilot.employee_ID?.toString() || Math.random().toString(),
+          title: pilot.crewName || `${pilot.firstName || ''} ${pilot.lastName || ''}`.trim() || 'Unknown Pilot',
+          role: pilot.designation || pilot.role || 'Pilot',
+          imageUrl: pilot.profilePicture || 'https://via.placeholder.com/40',
+          email: pilot.email || 'N/A',
+          phone: pilot.phone || 'N/A',
+        }));
+
+        // Create a map of flightId to flight details for quick lookup
+        const flightMap = flightData.reduce((map, flight) => {
+          map[flight.flightId] = flight;
+          return map;
+        }, {});
+
+        // Create events for each pilot
+        const eventsData = [];
+        paginatedPilots.forEach((pilot) => {
+          // Add flight events
+          if (pilot.assignedFlights && pilot.assignedFlights.length > 0) {
+            pilot.assignedFlights.forEach((flightId) => {
+              const flight = flightMap[flightId];
+              if (flight) {
+                const start = new Date(flight.departure);
+                const end = new Date(flight.arrival);
+
+                // Check if the flight is within the current view's date range
+                const viewStart = new Date(currentDate);
+                viewStart.setHours(0, 0, 0, 0);
+                
+                const viewEnd = new Date(currentDate);
+                if (viewMode === 'week') {
+                  viewEnd.setDate(viewEnd.getDate() + 6);
+                }
+                viewEnd.setHours(23, 59, 59, 999);
+
+                if (start >= viewStart && start <= viewEnd) {
+                  eventsData.push({
+                    resourceId: pilot.employee_ID?.toString() || Math.random().toString(),
+                    title: `Flight #${flightId} ${flight.departureLocation}-${flight.arrivalLocation}`,
+                    start: start,
+                    end: end,
+                    backgroundColor: '#3788d8',
+                    borderColor: '#3788d8',
+                    extendedProps: {
+                      flightDetails: {
+                        flightId: flightId,
+                        departure: flight.departure,
+                        arrival: flight.arrival,
+                        route: `${flight.departureLocation}-${flight.arrivalLocation}`,
+                        fleet: flight.category || flight.aircraft || 'A320neo',
+                      },
+                      pilotInfo: {
+                        name: pilot.crewName || `${pilot.firstName || ''} ${pilot.lastName || ''}`.trim(),
+                        id: pilot.employee_ID || 'N/A',
+                        role: pilot.designation || pilot.role || 'Pilot',
+                      }
+                    },
+                  });
+                }
+              }
             });
+          } else {
+            // If no flights are assigned, check for unavailability reasons
+            if (pilot.reasons && Object.keys(pilot.reasons).length > 0) {
+              Object.entries(pilot.reasons).forEach(([flightId, reason]) => {
+                // Since reasons are tied to flight IDs, we'll check if the flight exists
+                const flight = flightMap[flightId];
+                if (flight) {
+                  const unavailableDate = new Date(flight.departure);
+                  const start = new Date(unavailableDate);
+                  start.setHours(0, 0, 0, 0); // Start of the day
+                  const end = new Date(unavailableDate);
+                  end.setHours(23, 59, 59, 999); // End of the day
 
-            // Sample unavailability (optional)
-            if (Math.random() > 0.7) {
-              const unavailableStart = new Date(today);
-              unavailableStart.setHours(14, 0, 0); // 2:00 PM
-              const unavailableEnd = new Date(today);
-              unavailableEnd.setHours(16, 0, 0); // 4:00 PM
-
-              eventsData.push({
-                resourceId: pilot._id.toString(),
-                title: 'Unavailable: Rest',
-                start: unavailableStart,
-                end: unavailableEnd,
-                backgroundColor: '#ff4d4f',
-                borderColor: '#ff4d4f',
+                  eventsData.push({
+                    resourceId: pilot.employee_ID?.toString() || Math.random().toString(),
+                    title: `Unavailable: ${reason}`,
+                    start: start,
+                    end: end,
+                    backgroundColor: '#ff4d4f',
+                    borderColor: '#ff4d4f',
+                    allDay: true,
+                    extendedProps: {
+                      reason: reason,
+                      flightId: flightId,
+                      pilotInfo: {
+                        name: pilot.crewName || `${pilot.firstName || ''} ${pilot.lastName || ''}`.trim(),
+                        id: pilot.employee_ID || 'N/A',
+                        role: pilot.designation || pilot.role || 'Pilot',
+                      }
+                    }
+                  });
+                }
               });
             }
-
-            // When you have actual flight data, replace the above with:
-            /*
-            if (pilot.assignedFlights) {
-              pilot.assignedFlights.forEach((flight) => {
-                // If flight is a string like "Flight #AC101 2025-03-16 19:20-2:05 YYR-LAX"
-                const [flightInfo, date, time, route] = flight.split(' ');
-                const [flightNumber] = flightInfo.split('#');
-                const [startTime, endTime] = time.split('-');
-                const [startHour, startMinute] = startTime.split(':');
-                const [endHour, endMinute] = endTime.split(':');
-
-                eventsData.push({
-                  resourceId: pilot._id.toString(),
-                  title: `${flightNumber} ${route}`,
-                  start: new Date(`${date}T${startHour}:${startMinute}:00`),
-                  end: new Date(`${date}T${endHour}:${endMinute}:00`),
-                  backgroundColor: '#3788d8',
-                  borderColor: '#3788d8',
-                });
-              });
-            }
-
-            if (pilot.reasons) {
-              Object.entries(pilot.reasons).forEach(([date, reason]) => {
-                eventsData.push({
-                  resourceId: pilot._id.toString(),
-                  title: `Unavailable: ${reason}`,
-                  start: new Date(date),
-                  end: new Date(date),
-                  backgroundColor: '#ff4d4f',
-                  borderColor: '#ff4d4f',
-                  allDay: true,
-                });
-              });
-            }
-            */
-          });
-
-          setPilots(resourcesData);
-          setEvents(eventsData);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error('Error fetching pilots:', err);
-          setError('Failed to fetch pilots data.');
-          setLoading(false);
+          }
         });
+
+        setPilots(resourcesData);
+        setEvents(eventsData);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to fetch schedule data.');
+        setLoading(false);
+      }
     };
 
-    fetchPilots();
-  }, [page, searchQuery, currentDate]);
+    fetchData();
+  }, [page, searchQuery, currentDate, viewMode]);
 
   // Navigation handlers
   const handlePrev = () => {
@@ -178,10 +214,33 @@ function Tab2() {
     }
   };
 
+  // Format time for display
+  const formatTime = (timeStr) => {
+    if (!timeStr) return 'N/A';
+    
+    try {
+      const date = new Date(timeStr);
+      if (isNaN(date.getTime())) {
+        return 'Invalid time';
+      }
+      
+      return date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      });
+    } catch (e) {
+      console.error("Error formatting time:", e);
+      return 'Invalid time';
+    }
+  };
+
   if (loading) {
-    return <div className="loading">
+    return (
+      <div className="loading">
         <Loader />
-    </div>;
+      </div>
+    );
   }
 
   if (error) {
@@ -252,12 +311,74 @@ function Tab2() {
         eventContent={(eventInfo) => (
           <div className="event-content">
             <div>{eventInfo.event.title}</div>
-            <button
-              className="details-btn"
-              onClick={() => setSelectedEvent(eventInfo.event)}
-            >
-              Details
-            </button>
+            <CommonModal btnText="Details" title="Event Details" btnClassName="details-btn">
+              <div className="event-details-content">
+                <p>
+                  <strong>Title:</strong> {eventInfo.event.title}
+                </p>
+                <p>
+                  <strong>Start:</strong> {eventInfo.event.start.toLocaleString()}
+                </p>
+                <p>
+                  <strong>End:</strong> {eventInfo.event.end?.toLocaleString() || 'All Day'}
+                </p>
+                
+                {/* Pilot Information */}
+                {eventInfo.event.extendedProps.pilotInfo && (
+                  <>
+                    <h3>Pilot Information</h3>
+                    <p>
+                      <strong>Name:</strong> {eventInfo.event.extendedProps.pilotInfo.name}
+                    </p>
+                    <p>
+                      <strong>ID:</strong> {eventInfo.event.extendedProps.pilotInfo.id}
+                    </p>
+                    <p>
+                      <strong>Role:</strong> {eventInfo.event.extendedProps.pilotInfo.role}
+                    </p>
+                  </>
+                )}
+                
+                {/* Flight Details */}
+                {eventInfo.event.extendedProps.flightDetails && (
+                  <>
+                    <h3>Flight Information</h3>
+                    <p>
+                      <strong>Flight ID:</strong> {eventInfo.event.extendedProps.flightDetails.flightId}
+                    </p>
+                    <p>
+                      <strong>Route:</strong> {eventInfo.event.extendedProps.flightDetails.route}
+                    </p>
+                    <p>
+                      <strong>Departure:</strong> {formatTime(eventInfo.event.extendedProps.flightDetails.departure)}
+                    </p>
+                    <p>
+                      <strong>Arrival:</strong> {formatTime(eventInfo.event.extendedProps.flightDetails.arrival)}
+                    </p>
+                    <p>
+                      <strong>Fleet:</strong> {eventInfo.event.extendedProps.flightDetails.fleet}
+                    </p>
+                  </>
+                )}
+                
+                {/* Unavailability Reason */}
+                {eventInfo.event.extendedProps.reason && (
+                  <>
+                    <h3>Unavailability Information</h3>
+                    <p>
+                      <strong>Reason:</strong> {eventInfo.event.extendedProps.reason}
+                    </p>
+                    <p>
+                      <strong>Related Flight:</strong> {eventInfo.event.extendedProps.flightId || 'N/A'}
+                    </p>
+                  </>
+                )}
+                
+                <div className="modal-actions">
+                  <button className="modifySchedule-btn">Modify Schedule</button>
+                </div>
+              </div>
+            </CommonModal>
           </div>
         )}
         headerToolbar={false}
@@ -280,17 +401,6 @@ function Tab2() {
         resourceAreaWidth="200px"
         height="auto"
       />
-      {selectedEvent && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Event Details</h2>
-            <p>Title: {selectedEvent.title}</p>
-            <p>Start: {selectedEvent.start.toLocaleString()}</p>
-            <p>End: {selectedEvent.end?.toLocaleString() || 'All Day'}</p>
-            <button onClick={() => setSelectedEvent(null)}>Close</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
