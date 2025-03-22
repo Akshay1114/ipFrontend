@@ -404,7 +404,7 @@ display: block;
 } */
 
 #root {
-  height: 100vh;
+  height: 200vh;
   display: flex;
   flex-direction: column;
 }
@@ -612,14 +612,13 @@ display: block;
 /* ------------------------KHUSHPREET CHANGES-------------------- */
 
 html, body {
-  height: 100vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
 #root {
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -738,7 +737,7 @@ html, body {
 }
 
 .schedule-header h2 {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -1205,3 +1204,183 @@ td.duty-status-style {
 .monitoring-section h3{
   padding-top: 20px;
 }
+
+/* ----------------------- SCHEDULE FLIGHT------------------------ */
+
+.AdminSchedule.schedule-wrapper {
+  background-color: white;
+  border-radius: 20px;
+}
+
+.date-flight{
+  font-size: 2rem;
+}
+
+.header-flight, .today-flight-schedule{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+
+  h3{
+    font-weight: 500;
+  }
+}
+
+.today-flight-schedule{
+  margin-top: 1rem;
+  padding: 0rem 1.5rem;
+}
+
+.search-flight-container button{
+  padding: 0.3rem 0.5rem;
+  color: black;
+}
+
+.search-flight-container .SearchFlight{
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  border: 1px solid #E8E8E8;
+
+  .search-bar{
+    background-color: #FFFFFF;
+    font-size: .8rem;
+    color: black;
+    padding: 3px 4px;
+    margin-left: 4px;
+  }
+
+  .search-bar:active{
+    border: 1px solid black;
+    color: black;
+  }
+}
+
+.search-flight-container .SearchFlight.searchfilter{
+  width: 5rem;
+  margin-left: .3rem;
+
+  .search-bar{
+    width: 2rem;
+  }
+}
+
+.dateFlight-year{
+  top: -8px;
+  position: relative;
+}
+
+.schedule-header .search-Schedule, .search-bar{
+  background-color: #3859FF;
+  color: white;
+  border-radius: 20px;
+
+}
+
+.create-flight::placeholder {
+  color: white;
+  opacity: 1; 
+}
+
+.schedule-header .search-bar{
+  width: 7rem;
+}
+
+.TodayFlightSchedule{
+
+  background-color: #F0F4F8;
+  padding: 1rem 1.5rem;
+  border-radius: 25px;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 5rem;
+  position: relative;;
+
+  p{
+    display: flex;
+    gap: .5rem;
+    font-size: larger;
+    font-weight: bold;
+  }
+  
+}
+
+.PlaneDeparture_container, .PlaneArrival_container{
+  width: 100%;
+
+  .flight-details{
+    background-color: white;
+    margin-bottom: 1.5rem;
+
+    p{
+      margin: 0;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+  }
+
+}
+
+/* .PlaneArrival_container{
+  width: 100%;
+  .flight-details{
+    background-color: white;
+  }
+} */
+.dash_line{
+  position: absolute;
+  left: 50%;
+  top: 3rem;
+  transform: translateX(-50%);
+  width: 2px; 
+  height: 90%; 
+  background-color: #E1E1E1; 
+}
+
+.flightTiming{
+  display: flex;
+
+  .timeline{
+    width: 60%;
+    padding-right: 1rem;
+  }
+}
+
+.Crew_info-button{
+  display: flex;
+  justify-content: flex-end; /* Pushes button to the right */
+  /* width: 40%;  */
+
+  button.SearchFlight{
+    background-color: white;
+    border: 1px solid #888888;
+    border-radius: 12px;
+  }
+  button{
+    padding: .2rem .5rem;
+  }
+}
+
+.crew-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  padding: 2rem;
+
+  tr{
+    border-bottom: 1px solid #E1E1E1;
+  }
+
+  th{
+    background-color: white;
+    padding: 1rem 1rem .6rem 1rem;
+    margin-top: 1rem;
+    gap: 5rem;
+  }
+
+  td{
+    text-align: center;
+    padding: .5rem;
+  }
+}
+
