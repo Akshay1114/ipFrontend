@@ -23,7 +23,8 @@ import SendNotification from "../pages/SendNotification";
 import FlightSchedule from "../pages/FlightSchedule";
 import GetData from "../components/employee/GetData";
 
-import HealthInsights from "../components/admin/HealthInsights";
+// import HealthInsights from "../components/admin/HealthInsights";
+import HealthInsights from "../components/HealthInsights";
 import ConnectBit from "../components/fitBit/ConnectBit";
 import DisplaySleep from "../components/fitBit/DisplaySleep";
 import Callback from "../components/fitBit/Callback";
@@ -90,6 +91,7 @@ const router = createBrowserRouter([
       path: "/HealthInsights",
       element:
       <ProtectedRoute allowedRoles={["admin",'employee']}>
+      {/* <HealthInsights/> */}
       <HealthInsights/>
       </ProtectedRoute>
     },
