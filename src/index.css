@@ -1217,6 +1217,85 @@ td.duty-status-style {
 }
 
 
+
+/* ---------------------------- Duty Limits Styling ------------------------------------- */
+
+.duty-limits-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  padding: 40px;
+  background-color: white; 
+  border-top: 2px solid rgba(183, 182, 182, 0.501);
+}
+
+.dutylimits-card {
+  border-radius: 20px;
+  padding: 20px;
+  border: 1.5px solid rgba(162, 169, 177, 0.299);
+  min-height: 300px;
+}
+
+.duty-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+h1 {
+  font-size: 2rem;
+  color: var(--color-text);
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: var(--color-border);
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 18px;
+  border-radius: 18px;
+}
+
+.orange {
+  background-color: var(--color-accent);
+}
+
+.blue {
+  background-color: var(--color-primary);
+}
+
+.compliance-section {
+  grid-column: span 2;
+  border: none;
+}
+
+.compliance-section h4 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.guideline-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.guideline-card {
+  background-color: var(--color-background); 
+  border-radius: 12px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+
 /* --------------- REQUEST Styling ----------------- */
 
 .request-container {
