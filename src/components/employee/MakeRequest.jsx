@@ -1,119 +1,98 @@
-import React from 'react'
-// import CommonInput from '../commonInput'
-import { DatePicker, Typography } from 'antd';
-import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-dayjs.extend(customParseFormat);
-const dateFormat = 'YYYY-MM-DD';
-import { Input, Radio } from 'antd';
-import Button from '../Button';
+import React, { useState } from 'react';
+import { DatePicker, Input, Upload } from 'antd';
+import { InboxOutlined } from '@ant-design/icons';
 import CommonModal from '../CommonModal';
+import Button from '../Button';
 import { io } from "socket.io-client";
 
+
+const { Dragger } = Upload;
+
 const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
-// const socket = io("https://rsinnovates.com/", { transports: ["websocket", "polling"] });
-const style = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-};
-function MakeRequest({setMakeRequest}) {
-  const [date, setDate] = React.useState("");
-  const [flight, setFlight] = React.useState("");
-  const [value, setValue] = React.useState(1);
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
+
+const dateFormat = 'YYYY-MM-DD';
+
+function MakeRequest({ setMakeRequest }) {
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [flight, setFlight] = useState("");
+  const [value, setValue] = useState('');
+  const [reason, setReason] = useState("");
+
   const handleCancel = () => {
-    console.log('Cancel',date,value,flight);
     setMakeRequest(false);
   }
-  const handelRequest = () => {
-const employee_ID = sessionStorage.getItem('employee_ID');
-    console.log('Request Sent');
-    console.log("Sending notification...");
-    const message = `Request for Schedule Change for Flight Number ${flight} on ${date} due to ${value}`;
-    socket.emit("send_notification_to_admin", { message, recipient:'admin', senderName:"john", senderID:employee_ID, scheduleID:"Schedule ID"  });
-  
+
+  const handleRequest = () => {
+    const employee_ID = sessionStorage.getItem('employee_ID');
+    const message = `Request for Schedule Change for Flight Number ${flight} on ${dateFrom} due to ${value}`;
+    socket.emit("send_notification_to_admin", { message, recipient: 'admin', senderName: "john", senderID: employee_ID, scheduleID: "Schedule ID" });
   }
+
+  const uploadProps = {
+    name: 'file',
+    multiple: false,
+    maxCount: 1,
+  };
+
   return (
-    <div>
-      <h3>
-      Request Schedule Change
-      </h3>
-      <Typography.Title level={5}>Select Flight Number:</Typography.Title>
-      <Input label="Select Flight Number: "  placeholder= "Enter Flight Number" onChange={(e)=>setFlight(e.target.value)} value={flight}  />
-      <Typography.Title level={5}>Current Flight Date:</Typography.Title>
-      <DatePicker
-      onChange={(value, dateString) => setDate(dateString)}
-    defaultValue={dayjs('2019-09-03', dateFormat)}
-    minDate={dayjs('2019-08-01', dateFormat)}
-    maxDate={dayjs('2020-10-31', dateFormat)}
-  /> 
-      <Typography.Title level={5}>Reason for Change:</Typography.Title>
-      <Radio.Group
-      style={style}
-      onChange={onChange}
-      value={value}
-      options={[
-        {
-          value: 'Fatigue/ Health Issue',
-          label: 'Fatigue/ Health Issue',
-        },
-        {
-          value: 'Flight Disruption or Delay',
-          label: 'Flight Disruption or Delay',
-        },
-        {
-          value: 'Regulatory Rest Compliance',
-          label: 'Regulatory Rest Compliance',
-        },
-        {
-          value: 'Crew Swap Request',
-          label: 'Crew Swap Request',
-        },
-        {
-          value: 'Operational or Training Conflict',
-          label: 'Operational or Training Conflict',
-        },
-        {
-          value: 6,
-          label: (
-            <>
-              Other...
-              {value === 6 && (
-                <Input
-                  variant="filled"
-                  placeholder="please input"
-                  onChange={(e)=>setValue(e.target.value)}
-                  value={value}
-                  style={{
-                    width: 120,
-                    marginInlineStart: 12,
-                  }}
-                />
-              )}
-            </>
-          ),
-        },
-      ]}
-    />
-    <div className='buttonRequest'>
-    <Button classname="cancelBtn" onclick={handleCancel}>
-      Cancel
-    </Button>
-    {/* <Button classname="sendBtn" onclick={handelRequest}>
-      Send Request
-    </Button> */}
-    <CommonModal handleOk={handelRequest} btnText="Send Request" title="Sent Request!">
-      <p>
-      You Have successfully sent the request.
-      </p>
-    </CommonModal>
-    </div>
-  
+    <div className="makeRequest-container">
+      <div className="makeRequest-breadcrumb">Requests &gt; <span>New Request</span></div>
+      <h3 className="makeRequest-title">New Request</h3>
+
+      <div className="makeRequest-formGroup">
+        <label>Dates</label>
+        <div className="makeRequest-dateRange">
+          <DatePicker
+            onChange={(value, dateString) => setDateFrom(dateString)}
+            placeholder="From"
+            format={dateFormat}
+          />
+          <DatePicker
+            onChange={(value, dateString) => setDateTo(dateString)}
+            placeholder="To"
+            format={dateFormat}
+          />
+        </div>
+      </div>
+
+      <div className="makeRequest-formGroup">
+        <label>Flight Number (If Assigned)</label>
+        <Input value={flight} onChange={(e) => setFlight(e.target.value)} placeholder="Enter Flight Number" />
+      </div>
+
+      <div className="makeRequest-formGroup">
+        <label>Leave Type</label>
+        <Input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Select Leave Type" />
+      </div>
+
+      <div className="makeRequest-formGroup">
+        <label>Reason</label>
+        <Input.TextArea rows={3} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Type Reason of leave" />
+      </div>
+
+      <div className="makeRequest-formGroup">
+        <label>Attachments (Optional)</label>
+        <Dragger {...uploadProps}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">Drag your file(s) or <span className="makeRequest-browse">browse</span></p>
+          <p className="ant-upload-hint">Max 10 MB files are allowed</p>
+        </Dragger>
+      </div>
+
+      <div className="makeRequest-buttonSection">
+        <Button classname="makeRequest-cancelBtn" onclick={handleCancel}>
+          Cancel
+        </Button>
+
+        <CommonModal handleOk={handleRequest} btnText="Send Request" title="Sent Request!">
+          <p>You have successfully sent the request.</p>
+        </CommonModal>
+      </div>
     </div>
   )
 }
 
-export default MakeRequest
+export default MakeRequest;
