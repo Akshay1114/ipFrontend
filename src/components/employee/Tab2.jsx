@@ -1,65 +1,53 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 
-function Tab2() {
-    const value = useSelector((state) => state.auth);
-    console.log("value", value);
+function DutyLimits() {
+  const dutyPercentage = 90;
+  const remainingHours = '3h 30m';
+  const flightDutyHours = '9h / 12h Duty';
+  const restPeriods = '10h';
+
   return (
-    <div className="dutylimits-container">
-      
-      {/* Left Section - Employee Details */}
-      
-      <div className="dutylimits-employee">
-        <div className="dutylimits-employee-img">
-          <img src="placeholder.jpg" alt="Profile" />
+    <div className="duty-limits-container">
+      {/* Flight Duty Time Limit and Today's Date Section */}
+      <div className="dutylimits-card duty-section">
+        <div>
+          <h4>Flight Duty Time Limit</h4>
+          <h1>{dutyPercentage}%</h1>
+          <h3>Graph</h3>
         </div>
-        <div className="dutylimits-employee-info">
-          <h3>{value.user.name}</h3>
-          <p>Position: {value.user.designation}</p>
-          <p>Employee ID: {value.user.employee_ID}</p>
-        </div>
-      </div>
-
-      {/* Right Section - Duty Limits */}
-      <div className="dutylimits-content">
-        <div className="dutylimits-header">
-          <h2>Duty Limits</h2>
-          <ul>
-            <li>Max Hours per Shift: 8 hours</li>
-            <li>Max Hours per Week: 40 hours</li>
-            <li>Mandatory Break: 30 minutes after 5 hours</li>
-            <li className="dutylimits-alert">Alert: Exceeded weekly hours!</li>
-          </ul>
-        </div>
-
-        <div className="dutylimits-recent">
-          <h3>Recent activities</h3>
-          <table className="dutylimits-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Shift length</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Sam</td>
-                <td>7:00 AM</td>
-                <td>7:00 PM</td>
-                <td>8 Hrs</td>
-                <td className="dutylimits-status">Complaint</td>
-              </tr>
-            </tbody>
-          </table>
+        <div>
+          <h4>Today's Date</h4>
+          <h1>13 February 2025</h1>
         </div>
       </div>
 
+      {/* Quick Compliance Check Section */}
+      <div className="dutylimits-card">
+        <h4>Quick Compliance Check</h4>
+        <p>Status: <b>Within Limits</b></p>
+        <p>Remaining Duty Hours: {remainingHours}</p>
+        <p>Flight Duty Hours Today: {flightDutyHours}</p>
+        <div className="progress-bar-container">
+          <div className="progress-bar orange" style={{ width: `${(9 / 12) * 100}%`, backgroundColor: 'var(--color-accent)' }}></div>
+        </div>
+        <p>Rest Periods: {restPeriods}</p>
+        <div className="progress-bar-container">
+          <div className="progress-bar blue" style={{ width: `${(10 / 10) * 100}%`, backgroundColor: 'var(--color-primary)' }}></div>
+        </div>
+      </div>
+
+      {/* Compliance & Guidelines Section */}
+      <div className="card compliance-section">
+        <h4>Compliance & Guidelines</h4>
+        <div className="guideline-cards">
+          <div className="guideline-card">Guideline 1</div>
+          <div className="guideline-card">Guideline 2</div>
+          <div className="guideline-card">Guideline 3</div>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default Tab2;
+export default DutyLimits;
