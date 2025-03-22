@@ -20,8 +20,7 @@ function Tab1({ activeTab }) {
     return (
 
         <div className="schedule-container">
-            {activeTab === "Monitoring" && (
-                <div className="monitoring-section">
+                {/* <div className="monitoring-section">
                     <div className="header-section-Schedule">
                         <h1>February</h1>
                         <button type="submit" className="search-CD"><input type="text" placeholder="Search" className="search-bar"/></button>
@@ -30,10 +29,7 @@ function Tab1({ activeTab }) {
 
                     <h3>Analytics</h3>
                     <Chart options={monitoringData.options} series={monitoringData.series} type="line" height={350} />
-                </div>
-            )}
-
-            {activeTab === "Crew Details" && (
+                </div> */}
                 <div className="crew-details-section">
 
                     <div className="header-section-CD">
@@ -126,9 +122,9 @@ function Tab1({ activeTab }) {
                     </div>
                     
                 </div>
-            )}
+       
 
-            {activeTab === "Reports" && (
+           
                 <div className="reports-section">
                     <div className="header-section-Schedule">
                         <h1>February</h1>
@@ -139,7 +135,7 @@ function Tab1({ activeTab }) {
                     <h2>Reports</h2>
                     <Chart options={monitoringData.options} series={monitoringData.series} type="line" height={350} />
                 </div>
-            )}
+        
         </div>
     );
 }
