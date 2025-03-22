@@ -1,9 +1,10 @@
 import React from 'react'
+import ConnectBit from '../fitBit/ConnectBit'
 
 function EmployeeInsight() {
   return (
-    <div>
-      HEalth Insight
+    <div className="EmployeeInsight-connectBit">
+      <ConnectBit/> 
     </div>
   )
 }
