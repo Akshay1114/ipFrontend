@@ -24,6 +24,7 @@ import FlightSchedule from "../pages/FlightSchedule";
 import GetData from "../components/employee/GetData";
 
 import HealthInsights from "../components/admin/HealthInsights";
+import ConnectBit from "../components/fitBit/ConnectBit";
 
 
 
@@ -109,6 +110,11 @@ const router = createBrowserRouter([
     {
       path: "/generate-schedule",
       element: <SleepDataUi/>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/fitbit",
+      element: <ConnectBit/>,
       errorElement: <ErrorPage />,
     },
     {

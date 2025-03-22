@@ -108,7 +108,9 @@ function Navbar() {
         <div className="navbar-profile">
           <ul className="navbar-right">
            { getToken&&  <li>
+            <Link to='/fitbit'>
               <ReloadOutlined style={{ fontSize: "24px", color: "#1890ff" }} />
+              </Link>
             </li>}
            { getToken&& <li className="bellIcon">
               <BellOutlined
