@@ -25,6 +25,8 @@ import GetData from "../components/employee/GetData";
 
 import HealthInsights from "../components/admin/HealthInsights";
 import ConnectBit from "../components/fitBit/ConnectBit";
+import DisplaySleep from "../components/fitBit/DisplaySleep";
+import Callback from "../components/fitBit/Callback";
 
 
 
@@ -115,6 +117,16 @@ const router = createBrowserRouter([
     {
       path: "/fitbit",
       element: <ConnectBit/>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/callback",
+      element: <Callback/>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/display-sleep",
+      element: <DisplaySleep/>,
       errorElement: <ErrorPage />,
     },
     {
