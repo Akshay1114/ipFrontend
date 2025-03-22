@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import Wrapper from "./common/Wrapper";
 import Tab from "./common/Tab";
-import Tab1 from "./admin/Tab1";
+// import Tab1 from "./admin/Tab1";
+import Tab1 from "./admin/schedule/Tab1";
+import Tab2 from "./admin/schedule/Tab2";
 
 function AdminSchedule() {
     const [activeTab, setActiveTab] = useState("Monitoring");
@@ -12,12 +14,12 @@ function AdminSchedule() {
         {
             key: "1",
             label: "Flight",
-            children: <Tab1 activeTab="Flight" />,
+            children: <Tab1 />,
         },
         {
             key: "2",
             label: "Crew",
-            children: <Tab1 activeTab="Crew" />,
+            children: <Tab2 />,
         },
         {
             key: "3",
