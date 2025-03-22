@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { wingWiseApi } from "../../utils/AxiosInstance";
 
 const DisplaySleep = () => {
     const [sleepData, setSleepData] = useState([]);
@@ -14,7 +15,8 @@ const DisplaySleep = () => {
             }
 
             try {
-                const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", { accessToken });
+                // const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", { accessToken });
+                const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", { accessToken });
                 setSleepData(response.data.sleepData);
             } catch (error) {
                 console.error("Error fetching sleep data:", error);
