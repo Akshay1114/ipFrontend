@@ -99,6 +99,8 @@
   padding: 2em;
 }
 
+
+
 .read-the-docs {
   color: #888;
 }
@@ -293,6 +295,17 @@ margin: 20px;
 box-shadow: -1px 0px 18px -3px rgb(255, 255, 255); */
 background-color: #FFFFFF;
 border-radius: 24px;
+}
+
+.cardUp{
+  position: relative; /* This is important for applying the transform */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardUp:hover {
+  transform: translateY(-10px); /* Moves the card 10px up */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); 
+  transition: 1sec;/* Adds a subtle shadow for a raised effect */
 }
 
 .adminDashboard{

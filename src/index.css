@@ -749,9 +749,9 @@ html, body {
 }
 
 .MD-C1-btn:hover{
-  background-color: #000000;
+  background-color: #1D3FEA;
   color: white;
-  border-color: none;
+  border-color: #1D3FEA;
 }
 
 .AD-section1{
@@ -854,10 +854,15 @@ html, body {
   /* padding: 20px 0px; */
   padding-top: .5rem;
   border-radius: 10px;
-
+  width: 95%;
+  margin: auto;
 
   tbody td{
-    padding: 1rem 0rem;
+    padding: 0.5rem 0rem;
+  }
+
+  table thead tr th{
+    margin: .5rem 0rem;
   }
 }
 
@@ -901,12 +906,62 @@ td.duty-status-style {
     border: 1px solid #E8E8E8;
     border-radius: 20px;
     height: 100%;
-    width: 50%;
+    /* width: 50%; */
     padding: 5px;
     text-align: center;
     margin: 0 auto;
   }
 
+}
+
+.high-fatigue {
+  /* background-color: red; High fatigue -> Red */
+  color: white;
+  font-weight: bold;
+}
+
+.low-fatigue {
+  /* background-color: yellow; Low fatigue -> Yellow */
+  color: black;
+}
+
+.poorest-fatigue {
+  /* background-color: gray; Poorest fatigue -> Gray */
+  color: white;
+}
+
+.table-container table tbody tr td:nth-child(3-4-5) {
+  width: 10% !important;
+}
+
+.table-container table tbody tr td:nth-child(2) {
+  text-align: left;
+}
+
+.table-container table thead tr th:nth-child(2) {
+  text-align: left;
+}
+
+.table-container table tbody tr td:nth-child(4) {
+  margin-right: 10rem;
+}
+
+/* If you want to adjust other columns, use nth-child as needed */
+/* table tbody tr td:nth-child(1), 
+table tbody tr td:nth-child(2), 
+table tbody tr td:nth-child(3),
+table tbody tr td:nth-child(5),
+table tbody tr td:nth-child(6) {
+  width: 100%; /* Adjust other columns to fit the layout */
+/* } */ */
+
+.subscript-text {
+  font-size: 10px; /* Smaller text */
+  color: rgb(0, 0, 0); /* Optional: Make it lighter */
+  margin-top: -2px; /* Fine-tune spacing */
+  display: block; /* Ensures it's below the time */
+  text-align: center; /* Aligns properly */
+  text-decoration: underline;
 }
 
 .fa-circle{
@@ -928,15 +983,101 @@ td.duty-status-style {
   
 }
 
+/* .UrgentLookOver{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+} */
+.MD-C3-UrgentLookOver{
 
+  .UrgentLookOver {
+    display: flex; /* Use flexbox layout */
+    flex-direction: row; /* Align items in a row */
+    width: 100%;
+    gap: 1rem;
+    margin: 1rem 0rem;
+  
+    h5{
+      color: #444444;
+      font-weight: 400;
+    }
+  }
+  
+  .employee-image-container {
+    width: 15%;
+    display: flex;
+    /* justify-content: baseline;
+    align-items: flex-start;  */
+  }
+  
+  .employee-image {
+    width: 100%; 
+    height: auto; 
+    background-color: lightgray; 
+    background-image: url('your-image-url.jpg'); 
+    background-size: cover; 
+    background-position: top center;
+    height: 80px; 
+  }
+  
+  .UrgentLookOver div {
+    /* margin-left: 20px; */
+    flex-grow: 1; 
+  }
+  
+  h4, p, h6 {
+    margin: 5px 0;
+  }
+  
+  table th {
+    background: #ffffff;
+  }
+  
+  .employee-image-container{
+    display: flex;
+    align-items:start;
+    justify-content: space-evenly;
+  }
+  
+  .employee-image {
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+}
+/* .UrgentLookOver {
+  display: flex;
+  flex-direction: row; 
+  width: 100%;
+  gap: 1rem;
+  margin: 1rem 0rem;
+
+  h5{
+    color: #444444;
+    font-weight: 400;
+  }
+}
+
+
+
+.UrgentLookOver div {
+  
+  flex-grow: 1; 
+}
+
+h4, p, h6 {
+  margin: 5px 0;
+}
 
 table th {
-  background: #f9f9f9;
+  background: #ffffff;
 }
 
 .employee-image-container{
   display: flex;
-  align-items: center;
+  align-items:start;
   justify-content: space-evenly;
 }
 
@@ -946,7 +1087,7 @@ table th {
   align-items: center;
   background-color: #D9D9D9;
   border-radius: 50%;
-  /* margin-right: 10px; */
+  margin-top: 10px;
 }
 
 .filter-section {
@@ -956,9 +1097,25 @@ table th {
     padding: .1rem 1rem;
   }
   
+} 
+*/
+
+.employee-image-container {
+  /* width: 15%; */
+  /* display: flex; */
+  justify-content: center;
+  /* align-items: flex-start;   */
 }
 
-
+.employee-image {
+  width: 100%; 
+  height: auto; 
+  background-color: lightgray; 
+  /* background-image: url('https://randomuser.me/api/portraits/men/1.jpg');  */
+  background-size: cover; 
+  background-position: top center;
+  height: 80px; 
+}
 /* -------------------------Crew Details----------------------------- */
 
 .Live-weather{
@@ -985,7 +1142,8 @@ table th {
   padding: .5rem 1.5rem;
 
   h2{
-    margin: 0;
+    /* margin: 0; */
+    margin: .7rem 0rem;
   }
 
 }
@@ -1008,10 +1166,20 @@ table th {
   margin-top: 1.8rem;
 }
 
-#Flight-overview-table thead tr{
+#Flight-overview-table thead tr th{
   background-color: #ffffff;
+  margin-top: 2rem;
+  font-size: 1.15rem;
   align-content: left;
   /* color: red; */
+}
+
+/* #overviewFlight tr td{
+  padding: 2.5rem;
+} */
+
+.flight-overview-table-body td {
+  padding: 5px 10px; /* Top-Bottom, Left-Right */
 }
 
 /* Crew Details Table */
@@ -1083,7 +1251,7 @@ td.duty-status-style {
       border: 1px solid black;
       border-radius: 20px;
       height: 100%;
-      width: 50%;
+      /* width: 50%; */
       padding: 5px;
       text-align: center;
       margin: 0 auto;
@@ -1095,7 +1263,7 @@ td.duty-status-style {
     border: 1px solid black;
       border-radius: 20px;
       height: 100%;
-      width: 50%;
+      /* width: 50%; */
       padding: 5px;
       text-align: center;
     margin: 0 auto;
