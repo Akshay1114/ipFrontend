@@ -1,0 +1,222 @@
+body {
+    background-color: #fff;
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 1.8em;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .tab:hover {
+    color: #333;
+  }
+  
+  .tab.active {
+    color: #4299E1;
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .tab.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #4299E1;
+  }
+  
+  .tab-content {
+    padding: 20px 0;
+  }
+  
+  .cards-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .sleep-duration {
+    flex: 2;
+    min-width: 600px;
+  }
+  
+  .sleep-summary {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+  }
+  
+  .card h2 {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .time-frame-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .time-frame-tab {
+    background: #e6f0fa;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: #666;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .time-frame-tab:hover {
+    background-color: #d1e3fa;
+  }
+  
+  .time-frame-tab.active {
+    background-color: #4299E1;
+    color: #fff;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .nav-button {
+    background: #e6f0fa;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: #666;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .nav-button:hover {
+    background-color: #d1e3fa;
+  }
+  
+  .duration-info {
+    margin-bottom: 20px;
+  }
+  
+  .sleep-time {
+    font-size: 1.5em;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  .sleep-date {
+    font-size: 0.9em;
+    color: #666;
+    margin: 5px 0 0;
+  }
+  
+  .sleep-stages-graph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sleep-stage-labels {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #333;
+  }
+  
+  .stage-label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .stage-label span::before {
+    content: "•";
+    margin: 0 5px;
+    color: #666;
+  }
+  
+  .donut-chart {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+  }
+  
+  .sleep-summary-labels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #333;
+  }
+  
+  .summary-label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .no-data-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  
+  .no-data-image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #ff5555;
+    margin-top: 50px;
+  }
