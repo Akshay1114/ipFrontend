@@ -1,0 +1,20 @@
+.heart-rate-container {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .heart-rate-container h2 {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .heart-rate-graph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
