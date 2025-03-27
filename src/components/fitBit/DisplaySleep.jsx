@@ -21,7 +21,8 @@ const DisplaySleep = () => {
             }
 
             try {
-                const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", { accessToken });
+                // const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", { accessToken });
+                const response = await wingWiseApi.post("/sleepData?id=123456", { accessToken });
                 const sleepData = response.data.sleepData[0]; // Latest sleep entry
                 
                 if (!sleepData || !sleepData.levels) {
