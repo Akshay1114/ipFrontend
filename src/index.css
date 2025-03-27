@@ -740,12 +740,10 @@ html, body {
   padding: .5rem .8rem;
   border-radius: 20px;
   border: 1px solid black;
-  /* text-decoration: underline; */
+  color: black;
   font-size: small;
   height: 50%;
   margin: 10px;
-
-  
 }
 
 .MD-C1-btn:hover{
@@ -1782,7 +1780,16 @@ h1 {
   background-color: #3859FF;
   color: white;
   border-radius: 20px;
+  
+}
 
+.search-Schedule input::placeholder{
+  color: white;
+  opacity: 1; 
+}
+
+.search-Schedule input{
+  text-align: center;
 }
 
 .create-flight::placeholder {

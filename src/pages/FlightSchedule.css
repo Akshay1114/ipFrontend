@@ -1,10 +1,10 @@
 /* src/components/FlightSchedule.css */
 .flightSchedule-container {
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    /* max-width: 1200px; */
+    /* margin: 0 auto; */
     font-family: Arial, sans-serif;
-    background-color: #f5f7fa;
+    background-color: #ffffff;
   }
   
   .flightSchedule-header {
@@ -59,11 +59,19 @@
   .flightSchedule-prev:hover,
   .flightSchedule-next:hover {
     text-decoration: underline;
+    border: none;
   }
   
   .flightSchedule-content {
     display: flex;
-    gap: 20px;
+    /* gap: 20px; */
+    /* align-content: center; */
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    background-color: #F0F4F8;
+    padding: 1.5rem;
+    border-radius: 25px;
+    text-align: center;
   }
   
   .flightSchedule-section {
@@ -96,7 +104,7 @@
     background-color: white;
     border-radius: 8px;
     padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.34);
     transition: transform 0.2s;
   }
   
@@ -124,7 +132,8 @@
   .flightSchedule-time {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
+    flex-direction: row;
     margin-bottom: 5px;
   }
   

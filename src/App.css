@@ -254,11 +254,14 @@
   font-weight: 600;
 }
 .wrapper{
-  -webkit-box-shadow: -1px 0px 5px 0px rgba(156,156,156,1);
+  /* -webkit-box-shadow: -1px 0px 5px 0px rgba(156,156,156,1);
 -moz-box-shadow: -1px 0px 5px 0px rgba(156,156,156,1);
-box-shadow: -1px 0px 5px 0px rgba(156,156,156,1);
+box-shadow: -1px 0px 5px 0px rgba(156,156,156,1); */
+background-color: white;
+border-radius: 25px;
 padding: 20px;
 margin: 20px;
+margin-top: 0;
 }
 .scheduleUpdate h3{
   border-bottom: 1px solid;

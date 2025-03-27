@@ -141,11 +141,19 @@ function FlightSchedule() {
     }
     
     return date.toLocaleDateString('en-US', {
-      weekday: 'short',
+      
       day: 'numeric',
       month: 'long',
       year: 'numeric',
     });
+  };
+
+  const formatDate_day = (date) => {
+    if (!date || isNaN(date.getTime())) {
+      return 'Invalid Date';
+    }
+  
+    return date.toLocaleDateString('en-US', { weekday: 'long' }); // Returns only the weekday
   };
 
   // Format week range for display
@@ -202,7 +210,7 @@ function FlightSchedule() {
 
   return (
     <div className="flightSchedule-container">
-      <header className="flightSchedule-header">
+      {/* <header className="flightSchedule-header">
         <div className="flightSchedule-date">{formatWeekRange(selectedWeekStart)}</div>
         <h2>Weekly Flight Schedule</h2>
         <div className="flightSchedule-search">
@@ -222,7 +230,27 @@ function FlightSchedule() {
         <button className="flightSchedule-next" onClick={handleNextWeek}>
           Next Week &gt;
         </button>
-      </div>
+      </div> */}
+
+      <div className='header-flight'>
+                <div className='date-flight'>{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long'})}</div>
+                <div className='search-flight-container'>
+                    <button type="submit" className="SearchFlight"><i class="fa fa-search"></i><input type="text" placeholder="Search" className="search-bar" value={searchQuery} onChange={handleSearch}/></button>
+                    <button type="submit" className="SearchFlight searchfilter"><i class="fa fa-filter"></i><input type="text" placeholder="Filter" className="search-bar"/></button>
+                </div>
+            </div>
+            <div className='dateFlight-year'>{new Date().toLocaleDateString('en-GB', {year: 'numeric' })}</div>
+            <div className='today-flight-schedule'>
+                    <h3><button className="flightSchedule-prev" onClick={handlePreviousWeek}>
+                          &lt; Previous Week
+                        </button>
+                    </h3>
+                    <h2>{formatWeekRange(selectedWeekStart)}</h2>
+                    <h3><button className="flightSchedule-next" onClick={handleNextWeek}>
+                          Next Week &gt;
+                        </button>
+                    </h3>
+            </div>
 
       {loading && <Loader />}
       {error && <div className="error">{error}</div>}
@@ -231,26 +259,26 @@ function FlightSchedule() {
         {filteredFlights.length > 0 ? (
           filteredFlights.map((day) => (
             <div key={day.date.toISOString()} className="flightSchedule-day">
-              <h3>{formatDate(day.date)}</h3>
+              <h3>{formatDate_day(day.date)}</h3>
               <div className="flightSchedule-list">
                 {day.flights.map((flight) => (
                   <div className="flightSchedule-card" key={flight.flightId || flight.flightNumber || Math.random()}>
                     <div className="flightSchedule-flightHeader">
                       <span className="flightSchedule-flightNumber">
-                        Flight #{flight.flightId || flight.flightNumber || 'Unknown'}
+                        Flight: <br></br>{flight.flightId || flight.flightNumber || 'Unknown'}
                       </span>
                       <span className="flightSchedule-fleet">
-                        Fleet: {flight.aircraft || flight.category || 'A320neo'}
+                        Fleet: <br></br>{flight.aircraft || flight.category || 'A320neo'}
                       </span>
                     </div>
                     <div className="flightSchedule-time">
                       <span className="flightSchedule-departure">{formatTime(flight.departure)}</span>
-                      <span className="flightSchedule-divider">------------------✈------------------</span>
+                      <span className="flightSchedule-divider"> --✈-- </span>
                       <span className="flightSchedule-arrival">{formatTime(flight.arrival)}</span>
                     </div>
                     <div className="flightSchedule-route">
                       {flight.departureLocation || 'Unknown'} 
-                      <span className="flightSchedule-arrow">→</span> 
+                      <span className="flightSchedule-arrow"> → </span> 
                       {flight.arrivalLocation || 'Unknown'}
                     </div>
                     <div className="flightSchedule-duration">
