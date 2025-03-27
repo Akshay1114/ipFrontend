@@ -285,140 +285,190 @@ display: block;
 
 /* --------------- Add New User Styling ----------------- */
 
+body, input, select, textarea, button {
+  font-family: var(--font-family-secondary);
+}
 
 .add-new-user-container {
   padding: 20px;
-  background-color: #f7f7f7;
+  background-color: white;
   min-height: 100vh;
+  border-radius: 1.2rem;
+  margin: 2rem;
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-.add-new-user-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px 40px 10px;
+.add-new-user-container h2 {
+  padding-bottom: 4rem;
+  animation: fadeIn 2s ease-in-out forwards;
 }
 
-.add-new-user-title {
-  font-size: 32px;
+.add-new-user-section h3 {
+  padding-bottom: 1rem;
+  padding-left: 1.2rem;
 }
 
-.add-new-user-menu button {
-  /* width: 22%; */
-  padding: 15px 20px 15px 20px;
-  margin: .5rem;
-  cursor: pointer;
-  color: white;
-  background-color: #464646;
-  border-radius: 2rem;
-}
-
-.add-new-user-icons {
-  display: flex;
-  gap: 15px;
-}
-
-/* .add-new-user-icon {
-  background: #eaeaea;
-  padding: 8px;
-  border-radius: 50%;
-} */
-
-
-.add-new-user-container {
-  padding: 20px;
-  background-color: #f7f7f7;
-  min-height: 100vh;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.add-new-user-form-container {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
+/* General Grid Layout */
 .add-new-user-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  gap: 50px;
   border-top: 1px solid #000000;
-  padding-top: 3rem;
-  padding-bottom: 4rem;
-  padding-right: 4rem;
+  padding: 5rem;
+  opacity: 0;
+  animation: fadeIn 2.5s 0.5s ease-in-out forwards;
 }
-
 
 .add-new-user-field {
   display: flex;
-  flex-direction: column;
-  width: 60%;
-  padding-left: 8rem;
+  flex-direction: row;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
 }
 
+/* Label Styling */
 .add-new-user-field label {
-  font-size: 14px;
-  margin-bottom: 5px;
-  /* padding-left: 4rem; */
+  font-size: 18px;
+  margin-right: 10px;
+  width: 150px;
 }
-
 
 .add-new-user-field input,
 .add-new-user-field select {
-  padding: 8px;
-  border: 1px solid #ccc;
+  flex: 1;
+  padding: 13px;
+  border: 1px solid rgb(75, 75, 75);
   border-radius: 5px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+/* Input field on focus */
+.add-new-user-field input:focus,
+.add-new-user-field select:focus {
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.6); /* Blue focus border */
+}
 
+.add-new-user-field input[disabled] {
+  background-color: #e9ecef;
+}
+
+/* File Upload Box */
+.add-new-user-field.file-upload {
+  border: 1px dashed #ccc;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  color: #555;
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.add-new-user-field.file-upload:hover {
+  transform: scale(1.05);
+  border-color: #3498db;
+}
+
+/* Checkbox */
+.add-new-user-checkbox {
+  padding: .8rem;
+  font-size: 16px;
+}
+
+/* Buttons */
 .add-new-user-buttons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+  padding: 2rem;
   margin-top: 20px;
-  gap: 1rem;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  gap: 2rem;
+  opacity: 0;
+  animation: fadeIn 1.5s 1s ease-in-out forwards;
 }
 
 .add-new-user-cancel {
-  background: #9D9D9D;
-  padding: 10px 20px;
+  background: rgb(229, 226, 226);
+  padding: 15px 25px;
   border: none;
   border-radius: 3rem;
   cursor: pointer;
-  color: white;
+  color: rgb(90, 90, 90);
+  transition: transform 0.4s ease-in-out, background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.add-new-user-cancel:hover {
+  transform: scale(1.1);
+  background-color: #e0e0e0; /* Light gray for hover */
+  color: #333; /* Darker text color for better contrast */
 }
 
 .add-new-user-submit {
-  background: #444444;
+  background: var(--color-primary); /* Original primary color */
   color: white;
-  padding: 10px 20px;
+  padding: 15px 25px;
   border: none;
   border-radius: 3rem;
   cursor: pointer;
+  transition: transform 0.4s ease-in-out, background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
-/* ----- Dashboard Page styling ------ */
-/* html, body {
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-} */
-
-#root {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+.add-new-user-submit:hover {
+  transform: scale(1.1);
+  background-color: #ff6f61; /* Vibrant red-orange on hover */
+  color: white; /* Keep text color white for contrast */
 }
 
-.navbar {
-  flex-shrink: 0;
+/* For better visibility of buttons on hover */
+.add-new-user-submit:active {
+  background-color: #ff5733; /* Darker red-orange when clicked */
 }
 
-.main-content {
-  flex-grow: 1;
-  overflow: auto;
+.add-new-user-cancel:active {
+  background-color: #ccc; /* Darker gray for cancel when clicked */
+}
+
+/* Required Fields */
+.add-new-user-field label span.required {
+  color: red;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .add-new-user-form-container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .add-new-user-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .add-new-user-field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-new-user-field label {
+    margin-bottom: 5px;
+  }
+}
+
+/* Fade-in animation for elements */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
@@ -690,18 +740,16 @@ html, body {
   padding: .5rem .8rem;
   border-radius: 20px;
   border: 1px solid black;
-  /* text-decoration: underline; */
+  color: black;
   font-size: small;
   height: 50%;
   margin: 10px;
-
-  
 }
 
 .MD-C1-btn:hover{
-  background-color: #000000;
+  background-color: #1D3FEA;
   color: white;
-  border-color: none;
+  border-color: #1D3FEA;
 }
 
 .AD-section1{
@@ -804,10 +852,15 @@ html, body {
   /* padding: 20px 0px; */
   padding-top: .5rem;
   border-radius: 10px;
-
+  width: 95%;
+  margin: auto;
 
   tbody td{
-    padding: 1rem 0rem;
+    padding: 0.5rem 0rem;
+  }
+
+  table thead tr th{
+    margin: .5rem 0rem;
   }
 }
 
@@ -851,12 +904,62 @@ td.duty-status-style {
     border: 1px solid #E8E8E8;
     border-radius: 20px;
     height: 100%;
-    width: 50%;
+    /* width: 50%; */
     padding: 5px;
     text-align: center;
     margin: 0 auto;
   }
 
+}
+
+.high-fatigue {
+  /* background-color: red; High fatigue -> Red */
+  color: white;
+  font-weight: bold;
+}
+
+.low-fatigue {
+  /* background-color: yellow; Low fatigue -> Yellow */
+  color: black;
+}
+
+.poorest-fatigue {
+  /* background-color: gray; Poorest fatigue -> Gray */
+  color: white;
+}
+
+.table-container table tbody tr td:nth-child(3-4-5) {
+  width: 10% !important;
+}
+
+.table-container table tbody tr td:nth-child(2) {
+  text-align: left;
+}
+
+.table-container table thead tr th:nth-child(2) {
+  text-align: left;
+}
+
+.table-container table tbody tr td:nth-child(4) {
+  margin-right: 10rem;
+}
+
+/* If you want to adjust other columns, use nth-child as needed */
+/* table tbody tr td:nth-child(1), 
+table tbody tr td:nth-child(2), 
+table tbody tr td:nth-child(3),
+table tbody tr td:nth-child(5),
+table tbody tr td:nth-child(6) {
+  width: 100%; /* Adjust other columns to fit the layout */
+/* } */ */
+
+.subscript-text {
+  font-size: 10px; /* Smaller text */
+  color: rgb(0, 0, 0); /* Optional: Make it lighter */
+  margin-top: -2px; /* Fine-tune spacing */
+  display: block; /* Ensures it's below the time */
+  text-align: center; /* Aligns properly */
+  text-decoration: underline;
 }
 
 .fa-circle{
@@ -878,15 +981,101 @@ td.duty-status-style {
   
 }
 
+/* .UrgentLookOver{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+} */
+.MD-C3-UrgentLookOver{
 
+  .UrgentLookOver {
+    display: flex; /* Use flexbox layout */
+    flex-direction: row; /* Align items in a row */
+    width: 100%;
+    gap: 1rem;
+    margin: 1rem 0rem;
+  
+    h5{
+      color: #444444;
+      font-weight: 400;
+    }
+  }
+  
+  .employee-image-container {
+    width: 15%;
+    display: flex;
+    /* justify-content: baseline;
+    align-items: flex-start;  */
+  }
+  
+  .employee-image {
+    width: 100%; 
+    height: auto; 
+    background-color: lightgray; 
+    background-image: url('your-image-url.jpg'); 
+    background-size: cover; 
+    background-position: top center;
+    height: 80px; 
+  }
+  
+  .UrgentLookOver div {
+    /* margin-left: 20px; */
+    flex-grow: 1; 
+  }
+  
+  h4, p, h6 {
+    margin: 5px 0;
+  }
+  
+  table th {
+    background: #ffffff;
+  }
+  
+  .employee-image-container{
+    display: flex;
+    align-items:start;
+    justify-content: space-evenly;
+  }
+  
+  .employee-image {
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+}
+/* .UrgentLookOver {
+  display: flex;
+  flex-direction: row; 
+  width: 100%;
+  gap: 1rem;
+  margin: 1rem 0rem;
+
+  h5{
+    color: #444444;
+    font-weight: 400;
+  }
+}
+
+
+
+.UrgentLookOver div {
+  
+  flex-grow: 1; 
+}
+
+h4, p, h6 {
+  margin: 5px 0;
+}
 
 table th {
-  background: #f9f9f9;
+  background: #ffffff;
 }
 
 .employee-image-container{
   display: flex;
-  align-items: center;
+  align-items:start;
   justify-content: space-evenly;
 }
 
@@ -896,7 +1085,7 @@ table th {
   align-items: center;
   background-color: #D9D9D9;
   border-radius: 50%;
-  /* margin-right: 10px; */
+  margin-top: 10px;
 }
 
 .filter-section {
@@ -906,9 +1095,25 @@ table th {
     padding: .1rem 1rem;
   }
   
+} 
+*/
+
+.employee-image-container {
+  /* width: 15%; */
+  /* display: flex; */
+  justify-content: center;
+  /* align-items: flex-start;   */
 }
 
-
+.employee-image {
+  width: 100%; 
+  height: auto; 
+  background-color: lightgray; 
+  /* background-image: url('https://randomuser.me/api/portraits/men/1.jpg');  */
+  background-size: cover; 
+  background-position: top center;
+  height: 80px; 
+}
 /* -------------------------Crew Details----------------------------- */
 
 .Live-weather{
@@ -935,7 +1140,8 @@ table th {
   padding: .5rem 1.5rem;
 
   h2{
-    margin: 0;
+    /* margin: 0; */
+    margin: .7rem 0rem;
   }
 
 }
@@ -958,10 +1164,20 @@ table th {
   margin-top: 1.8rem;
 }
 
-#Flight-overview-table thead tr{
+#Flight-overview-table thead tr th{
   background-color: #ffffff;
+  margin-top: 2rem;
+  font-size: 1.15rem;
   align-content: left;
   /* color: red; */
+}
+
+/* #overviewFlight tr td{
+  padding: 2.5rem;
+} */
+
+.flight-overview-table-body td {
+  padding: 5px 10px; /* Top-Bottom, Left-Right */
 }
 
 /* Crew Details Table */
@@ -1033,7 +1249,7 @@ td.duty-status-style {
       border: 1px solid black;
       border-radius: 20px;
       height: 100%;
-      width: 50%;
+      /* width: 50%; */
       padding: 5px;
       text-align: center;
       margin: 0 auto;
@@ -1045,7 +1261,7 @@ td.duty-status-style {
     border: 1px solid black;
       border-radius: 20px;
       height: 100%;
-      width: 50%;
+      /* width: 50%; */
       padding: 5px;
       text-align: center;
     margin: 0 auto;
@@ -1564,7 +1780,16 @@ h1 {
   background-color: #3859FF;
   color: white;
   border-radius: 20px;
+  
+}
 
+.search-Schedule input::placeholder{
+  color: white;
+  opacity: 1; 
+}
+
+.search-Schedule input{
+  text-align: center;
 }
 
 .create-flight::placeholder {

@@ -78,7 +78,7 @@ function WeatherCard() {
   };
 
   return (
-    <div className="weather-card">
+    <div className="weather-card cardUp">
       {weather.loading && (
         <Oval type="Oval" color="black" height={100} width={100} />
       )}
@@ -90,26 +90,31 @@ function WeatherCard() {
       )}
       {weather && weather.data && weather.data.main && (
         <>
-          <div className="city-name">
-            <h2>
-              {weather.data.name}, <span>{weather.data.sys.country}</span>
-            </h2>
+          <div className='WeatherC-1'>
+              <div className="city-name">
+                <h2>
+                  {weather.data.name}, <span>{weather.data.sys.country}</span>
+                </h2>
+              </div>
+              <div className="icon-temp">
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png`}
+                  alt={weather.data.weather[0].description}
+                />
+                {Math.round(weather.data.main.temp)}
+                <sup className="deg">°C</sup>
+              </div>
           </div>
-          <div className="icon-temp">
-            <img
-              src={`https://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png`}
-              alt={weather.data.weather[0].description}
-            />
-            {Math.round(weather.data.main.temp)}
-            <sup className="deg">°C</sup>
+          <div className='WeatherC-2'>  
+              <div className="date">
+                <span>{toDateFunction()}</span>
+              </div>
+              <div className="des-wind">
+                <p>{weather.data.weather[0].description.toUpperCase()}</p>
+                <p>Wind Speed: {weather.data.wind.speed}m/s</p>
+              </div>
           </div>
-          <div className="date">
-            <span>{toDateFunction()}</span>
-          </div>
-          <div className="des-wind">
-            <p>{weather.data.weather[0].description.toUpperCase()}</p>
-            <p>Wind Speed: {weather.data.wind.speed}m/s</p>
-          </div>
+          
         </>
       )}
     </div>

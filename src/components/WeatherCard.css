@@ -2,14 +2,23 @@
   background-color: #E0F0FF;
   border-radius: 35px;
   padding: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  padding: 1rem;
 }
 
 .city-name h2 {
   margin: 0;
+}
+
+.WeatherC-2, .WeatherC-1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .icon-temp {

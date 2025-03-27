@@ -76,28 +76,28 @@ function AdminDashboard() {
                 <div className='AD-section1'>
                     <div>
                         <div id='Manager-dashboard-column1'>
-                            <div className='d-flex jc-between card MD-C1-card'>
+                            <div className='d-flex jc-between card cardUp MD-C1-card'>
                                 <div className='general-inline-text'>
                                     <h3>52</h3>
                                     <button className='MD-C1-btn'>View &gt;</button>
                                 </div>
                                 <p>Total Employee</p>
                             </div>
-                            <div className='d-flex jc-between card MD-C1-card'>
+                            <div className='d-flex jc-between card cardUp MD-C1-card'>
                                 <div className='general-inline-text'>
                                     <h3>22</h3>
                                     <button className='MD-C1-btn'>View &gt;</button>
                                 </div>
                                 <p>On Duty</p>
                             </div>
-                            <div className='d-flex jc-between card MD-C1-card'>
+                            <div className='d-flex jc-between card  cardUp MD-C1-card'>
                                 <div className='general-inline-text'>
                                     <h3>2</h3>
                                     <button className='MD-C1-btn'>View &gt;</button>
                                 </div>
                                 <p>High Fatigue Risk</p>
                             </div>
-                            <div className='d-flex jc-between card MD-C1-card'>
+                            <div className='d-flex jc-between card cardUp MD-C1-card'>
                                 <div className='general-inline-text'>
                                     <h3>4</h3>
                                     <button className='MD-C1-btn'>View &gt;</button>
@@ -108,24 +108,26 @@ function AdminDashboard() {
 
                         {/* Flight Overview Section */}
                         <div className='card MD-C2'>
-                            <h2 id='Flight-overview'>Today’s Flight Overview</h2>
+                            <h2 id='Flight-overview'>Today’s Flight</h2>
 
                             <table id='Flight-overview-table'>
                                 <thead>
                                     <tr >
-                                        <th>Flight No.</th>
+                                        <th>Flight</th>
                                         <th>Departure</th>
                                         <th></th>
                                         <th>Arrival</th>
                                         <th>Aircraft</th>
                                         <th>Status</th>
                                         <th>Gate</th>
+                                        <hr />
                                     </tr>
                                 </thead>
                                 <tbody className='flight-overview-table-body'>
                                     {flightOverview.map((flight, index) => (
+                                        <>
                                         <tr key={index} id='overviewFlight'>
-                                            <td>{flight.employee_ID}</td>
+                                            {/* <td>{flight.employee_ID}</td>
                                             <td>{flight.name}</td>
                                             <td>- - - - <FontAwesomeIcon icon={faPlane} /> - - - -</td>
                                             <td>{flight.role}</td>
@@ -135,8 +137,26 @@ function AdminDashboard() {
                                                     <i className="fa fa-circle"><span> &nbsp; {flight.gate} </span></i>
                                                 </div>
                                             </td>
-                                            <td>{flight.gate}</td>
+                                            <td>{flight.gate}</td> */}
+                                            <td>AC145</td>
+                                            <td>19:20 <div className="subscript-text">YVR</div></td>
+                                            <td className="tight-plane-cell" >- - - - <FontAwesomeIcon icon={faPlane} /> - - - -</td>
+                                            <td>23:45 <div className="subscript-text">YVZ</div></td>
+                                            <td>Boeing737</td>
+                                            <td className='fatigue-level-style'>
+                                                <div className="oval-border">
+                                                    <i className="fa fa-circle"><span> &nbsp; On-Time</span></i>
+                                                </div>
+                                            </td>
+                                            <td>C12</td>
+                                                
                                         </tr>
+                                        <tr key={`line-${index}`}>
+                                        <td colSpan="7">
+                                            <hr style={{ margin: '5px 0', border: '1px solid #ddd' }} />
+                                        </td>
+                                    </tr>
+                                    </>  
                                     ))}
                                 </tbody>
                             </table>
@@ -168,15 +188,47 @@ function AdminDashboard() {
                             )}
                         </div> */}
                         <WeatherCard />
-                        <div className='MD-C3-UrgentLookOver'>
+                        <div className='MD-C3-UrgentLookOver cardUp'>
                             <h2>Urgent Look-Over</h2>
-                           
+                            <div className='UrgentLookOver'>
+                                <div className="employee-image-container">
+                                     <div className="employee-image"></div>    
+                                </div>
+                                <div>
+                                    <h4>Crew Member: Mark Evans - FDTL Alert</h4>
+                                    <p>Wed 12:25</p>
+                                    <h5>Exceeds FDTL limits for today. Urgent Shift Adjustment needed for compliance.</h5>
+                                </div>
+                            </div>
+                            <hr />
+                            <div className='UrgentLookOver'>
+                                <div className="employee-image-container">
+                                     <div className="employee-image"></div>    
+                                </div>
+                                <div>
+                                    <h4>Crew Pilot: Sarah Taylor - FDTL Alert</h4>
+                                    <p>Wed 14:40</p>
+                                    <h5>Has exceeded maximum duty hours. Immediate shift reassignment required.</h5>
+                                </div>
+                            </div>
+                            <hr />
+                            <div className='UrgentLookOver'>
+                                <div className="employee-image-container">
+                                     <div className="employee-image"></div>    
+                                </div>
+                                <div>
+                                    <h4>Manager: John Doe - FDTL Alert</h4>
+                                    <p>Wed 16:10</p>
+                                    <h5>Approaching maximum duty limits for the day. Immediate action needed.</h5>
+                                </div>
+                            </div>
+                            <hr />
                         </div>
                     </div>
                 </div>
 
                 {/* Crew Roasters Section */}
-                <div className='card'>
+                <div className='card '>
                     <div className='CrewRoastersHeading'>
                         <h2>Crew Roasters</h2>
                     </div>
@@ -195,22 +247,28 @@ function AdminDashboard() {
                             </thead>
                             <tbody>
                                 {crewRoasters.map((crew, index) => (
-                                    <tr key={index}>
-                                        <td className="employee-image-container">
-                                            <div className="employee-image"></div>
-                                        </td>
-                                        <td>{crew.name}</td>
-                                        <td>{crew.role}</td>
-                                        <td className="fatigue-level-style">
-                                            <div className="oval-border">
-                                                <i className="fa fa-circle"><span> &nbsp; {crew.qualification} </span></i>
-                                            </div>
-                                        </td>
-                                        <td className="duty-status-style">
-                                            <p className="oval-border">{crew.role}</p>
-                                        </td>
-                                        <td>{crew.lastRestHours}</td>
-                                    </tr>
+                                    <>
+                                        <tr key={index}>
+                                            <td className="employee-image-container">
+                                                <div className="employee-image"></div>
+                                            </td>
+                                            <td>{crew.name}</td>
+                                            <td>{crew.role}</td>
+                                            <td className="fatigue-level-style">
+                                                <div >
+                                                    <i className="fa fa-circle"><span> &nbsp; {crew.healthMetrics.fatigueLevel} </span></i>
+                                                </div>
+                                            </td>
+                                            <td className="duty-status-style">
+                                                {/* <p className="oval-border">{crew.designation}</p> */}
+                                                <p className="oval-border">On Duty</p>
+                                            </td>
+                                            <td>{crew.healthMetrics.sleepHours} hours</td>
+                                        </tr>
+                                        <td colSpan="7">
+                                        <hr style={{ margin: '5px 0', border: '1px solid #ddd' }} />
+                                    </td>
+                                </>
                                 ))}
                             </tbody>
                         </table>

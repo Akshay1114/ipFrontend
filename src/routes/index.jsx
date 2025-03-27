@@ -6,7 +6,6 @@ import Login from "../pages/Login";
 import ErrorPage from "../pages/ErrorPage";
 import Navbar from "../components/naviagtion/Navbar";
 import Dashboard from "../pages/Dashboard";
-// import { ProtectedRoute } from "./PrivateRoute";
 import SignUp from "../pages/SignUp";
 
 import Sidebar from "../components/naviagtion/SideBar";

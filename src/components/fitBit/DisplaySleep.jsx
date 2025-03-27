@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from '@nivo/line';
 import { wingWiseApi } from "../../utils/AxiosInstance";
 import Loader from "../loader/Loader";
+import axios from "axios";
 
 const DisplaySleep = () => {
     const [chartData, setChartData] = useState([]);
@@ -21,9 +22,17 @@ const DisplaySleep = () => {
             }
 
             try {
+<<<<<<< HEAD
                 // const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", { accessToken });
                 const response = await wingWiseApi.post("/sleepData?id=123456", { accessToken });
                 const sleepData = response.data.sleepData[0]; // Latest sleep entry
+=======
+                console.log("accessToken>>>>>>>>>>>>>>>><<<<<<<<<<<");
+                // const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", { accessToken });
+                const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", { accessToken });
+                console.log("response", response.data.sleep);
+                const sleepData = response.data.sleep; // Latest sleep entry
+>>>>>>> 1589d6692bc0a698fc6137b78f91793ab794e3b2
                 
                 if (!sleepData || !sleepData.levels) {
                     setError("No sleep data available or data format is invalid.");
