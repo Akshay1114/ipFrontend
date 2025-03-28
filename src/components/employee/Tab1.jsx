@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Button from "../Button";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import CommonModal from "../CommonModal";
 import CommonTable from "../CommonTable";
 import MakeRequest from "./MakeRequest";
+
 import { useSelector } from "react-redux";
 function Tab1() {
   const [value, onChange] = useState(new Date());
@@ -15,6 +15,7 @@ function Tab1() {
   const handleCrewInfo = () => {
     console.log("Crew Info");
   };
+
   const columns = [
     {
       title: "Crew Info",
@@ -44,35 +45,35 @@ function Tab1() {
       key: "1",
       info: "Captain",
       name: "John Brown",
-      flight: "z| CAP-4521",
+      flight: "CAP-4521",
       startTime: "8:00 AM",
     },
     {
       key: "2",
       info: "First Officer",
       name: "Jim Green",
-      flight: "z| CAP-4521",
+      flight: "CAP-4521",
       startTime: "8:00 AM",
     },
     {
       key: "3",
       info: "Flight Attendants",
       name: (
-        <ul style={{ listStyle: "none" }}>
+        <ul>
           <li>Robert Brown</li>
           <li>David Black</li>
-          <li>David Black</li>
+          <li>Lisa White</li>
         </ul>
       ),
       flight: (
-        <ul style={{ listStyle: "none" }}>
-          <li>| FA-5832</li>
-          <li>| FA-5832</li>
-          <li>| FA-5832</li>
+        <ul>
+          <li>FA-5832</li>
+          <li>FA-5832</li>
+          <li>FA-5832</li>
         </ul>
       ),
       startTime: (
-        <ul style={{ listStyle: "none" }}>
+        <ul>
           <li>7:30 AM</li>
           <li>7:30 AM</li>
           <li>7:30 AM</li>
@@ -80,73 +81,66 @@ function Tab1() {
       ),
     },
   ];
+
+  // Get today's date
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.toLocaleString('default', { month: 'long' });
+  const year = today.getFullYear();
+
   return makeRequest ? (
     <MakeRequest setMakeRequest={setMakeRequest} />
   ) : (
-    <div className="tab1Content">
-      <div>
-        <div className="scheduleUpdate">
-          <h3>Schedule Updates:</h3>
-          <p>
-            “Flight #05042024 (YVR → JFK) is delayed by 2 hours due to severe
-            weather, with a new departure time of 11:20 AM.”
-          </p>
-          {/* <Button>
-            Details
-        </Button> */}
+    <div className="tab1-container">
+      <div className="tab1-left-panel">
+        <h2>Schedule</h2>
 
-          <CommonModal title="Schedule Updates:" btnText="Details" oktext="ok">
-            <div>
-              <p>
-                “Flight #05042024 (YVR → JFK) is delayed by 2 hours due to
-                severe weather, with a new departure time of 11:20 AM.”
-              </p>
-            </div>
+        <div className="tab1-important-updates">
+          <h3>
+            <strong>Important Updates</strong>
+          </h3>
+          <p>
+            Flight <strong>#05042024 (YVR → JFK)</strong> is <strong><span>delayed by 2 hours</span></strong> due to severe weather. The new departure time is <strong>11:20 AM</strong>. We apologize for the inconvenience and appreciate your patience
+          </p>
+          <CommonModal title="Schedule Updates" btnText="Details" oktext="OK">
+            <p>Flight #05042024 (YVR → JFK) is delayed by 2 hours due to severe weather. The new departure time is 11:20 AM.</p>
           </CommonModal>
         </div>
-        <div className="scheduleList">
-          <h3>Schedule</h3>
-          <div className="scheduleListCard">
-            <div className="d-flex jc-between">
-              <span>Flight #05042024</span>
-              <span>Fleet: A320neo</span>
-            </div>
-            <div className="d-flex jc-between">
-              <span>9:20 Am</span>
-              <div></div>
-              <span>2:15 PM</span>
-            </div>
-            <div>
-              {/* <Button onclick = {handleCrewInfo}>
-                    Crew Info
-                </Button> */}
-              <CommonModal
-                handleOk={() => setMakeRequest(true)}
-                title="Flight Details"
-                btnText="Crew Info"
-                oktext="Make a Request"
-              >
-                <div className="scheduleListCard">
-                  <div className="d-flex jc-between">
-                    <span>Flight #05042024</span>
-                    <span>Fleet: A320neo</span>
-                  </div>
-                  <div className="d-flex jc-between">
-                    <span>9:20 Am</span>
-                    <div></div>
-                    <span>2:15 PM</span>
-                  </div>
+
+        <div className="tab1-flight-schedule">
+          <h3>Flight Schedule</h3>
+          {[1, 2].map((_, index) => (
+            <div key={index} className="tab1-schedule-wrapper">
+              <div className="tab1-date-label">FEB 23</div>
+              <div className="tab1-schedule-card">
+                <div className="tab1-card-header">
+                  <span>Flight <strong> #AF0374</strong></span>
+                  <span>Fleet: <strong>A320neo</strong></span>
                 </div>
-                <div>
+                <div className="tab1-card-time">
+                  <span>15:05</span>
+                  <span>→</span>
+                  <span>21:00</span>
+                </div>
+                <p>YVR - - - - - - - - - ✈ - - - - - - - - - NYC (4h 55m)</p>
+                <CommonModal handleOk={() => setMakeRequest(true)} title="Flight Details" btnText="Crew Info" oktext="Make a Request">
                   <CommonTable data={data} columns={columns} />
-                </div>
-              </CommonModal>
+                </CommonModal>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-      <div>
-        <Calendar onChange={onChange} value={value} />
+
+      <div className="tab1-right-panel">
+        <p className="tab1-date">Today's Date</p>
+        <h1>{`${day} ${month}`}</h1>
+        <p>{year}</p>
+
+        <div className="tab1-calendar-wrapper">
+          <h3>Calendar</h3>
+          <Calendar onChange={onChange} value={value} />
+        </div>
       </div>
     </div>
   );
