@@ -2,7 +2,10 @@
 .tab2-container {
     padding: 20px;
     /* max-width: 1200px; */
+    background-color: var(--color-background);
     margin: 1rem;
+    border-radius: 25px;
+    padding: 2rem;
     font-family: Arial, sans-serif;
   }
   
@@ -11,11 +14,17 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+
+
+    button{
+      background-color: white;
+      color: var(--primary-color);    }
   }
   
   .tab2-title {
     font-size: 24px;
     font-weight: bold;
+    margin-right: -80px;
   }
   
   .controls {
@@ -38,32 +47,42 @@
   
   .navigation {
     display: flex;
-    align-items: center;
+    width: 100%;
+    /* align-items: center; */
+    justify-content: space-between;
     gap: 10px;
   }
   
   .navigation button {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--white);
+    color: #007bff;
     border: none;
     padding: 5px 10px;
+    align-items: center;
     border-radius: 4px;
     cursor: pointer;
-    text-transform: lowercase;
+    /* text-transform: lowercase; */
+    font-size: 18px;
   }
   
   .navigation button:hover {
-    background-color: #0056b3;
+    background-color: #007bff;
+    color: white;
   }
   
   .navigation button.active {
-    background-color: #0056b3;
+    background-color: #007bff;
+    color: white;
   }
   
   .navigation span {
     font-size: 16px;
     font-weight: 500;
     text-transform: uppercase;
+  }
+
+  .crew_header_3 button{
+    margin: 0 .5rem;
   }
   
   .pagination {
@@ -85,6 +104,8 @@
     background-color: #cccccc;
     cursor: not-allowed;
   }
+
+ 
   
   /* FullCalendar styles */
   .fc {
@@ -110,6 +131,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    /* text-align: center; */
+    justify-content: center;
     padding: 10px;
   }
   
@@ -217,3 +240,71 @@
   .error {
     color: #d32f2f;
   }
+
+  .fc .fc-timeline-slot-cushion{
+    font-size: 1rem;
+  }
+
+  .fc .fc-timeline-slot-label{
+    padding: 0;
+  }
+
+  .fc .fc-datagrid-header .fc-datagrid-cell-frame {
+    font-size: 1.2rem;
+    justify-content: center;
+   color: white;
+}
+
+.fc .fc-resource-timeline-divider {
+  
+  width: 0px;
+}
+
+.fc-direction-ltr .fc-timeline-event.fc-event-end, .fc-direction-ltr .fc-timeline-more-link {
+  margin: 4px 4px;
+}
+
+.fc .fc-timeline-event-harness, .fc .fc-timeline-more-link {
+  /* position: absolute; */
+  margin-bottom: 4px;
+}
+
+.fc-event.fc-event-start.fc-event-end.fc-event-past.fc-timeline-event.fc-h-event{
+  background-color: #ffffff !important;
+  color: #E53935;
+}
+
+.fc .fc-event {
+  border-radius: 10px;
+  /* padding: 5px; */
+  border: 2px solid red;
+  font-size: 13px;
+}
+
+.event-content{
+  background-color: white;
+  color: black;
+  align-items: center;
+
+  button{
+    /* width: 60%; */
+    font-size: .8rem;
+  }
+}
+
+:where(.css-dev-only-do-not-override-240cud).ant-btn{
+  height: 23px;
+  width: 60px;
+  padding: 0px 5px;
+}
+
+.event-details-content{
+  p{
+    margin: 0;
+  }
+
+  h3{
+    margin-top: .8rem;
+    text-decoration: underline;
+  }
+}

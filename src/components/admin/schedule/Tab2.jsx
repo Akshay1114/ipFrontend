@@ -7,6 +7,7 @@ import { wingWiseApi } from '../../../utils/AxiosInstance';
 import CommonModal from '../../CommonModal'; // Updated path to CommonModal
 import Loader from '../../loader/Loader';
 import './Tab2.css';
+import '../../../pages/FlightSchedule.css';
 
 function Tab2() {
   const [pilots, setPilots] = useState([]);
@@ -250,9 +251,28 @@ function Tab2() {
   return (
     <div className="tab2-container">
       <div className="tab2-header">
-        <h1 className="tab2-title">Pilot Schedule</h1>
-        <div className="controls">
-          <div className="search-container">
+        
+          
+          <div className="navigation">
+            <button onClick={handlePrev}>&lt; Previous </button>
+
+            <h1 className="tab2-title">Pilot Schedule</h1>
+            
+            <div className='crew_header_3'>
+                <button onClick={handleToday}>Today</button>
+                <button
+                  onClick={() => handleViewChange('week')}
+                  className={viewMode === 'week' ? 'active' : ''}
+                >
+                  Week
+                </button>
+                
+                <button onClick={handleNext}>Next &gt;</button>
+            </div>
+            
+            
+
+            {/* <div className="search-container">
             <input
               type="text"
               placeholder="Search pilots..."
@@ -260,33 +280,24 @@ function Tab2() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input"
             />
-          </div>
-          <div className="navigation">
-            <button onClick={handlePrev}>&lt;</button>
-            <button onClick={handleToday}>today</button>
-            <span>{formatDateRange()}</span>
-            <button onClick={handleNext}>&gt;</button>
-            <button
+          </div> */}
+            {/* <span>{formatDateRange()}</span> */}
+            {/* <button
               onClick={() => handleViewChange('day')}
               className={viewMode === 'day' ? 'active' : ''}
             >
               day
-            </button>
-            <button
-              onClick={() => handleViewChange('week')}
-              className={viewMode === 'week' ? 'active' : ''}
-            >
-              week
-            </button>
+            </button> */}
+            
           </div>
-          <div className="pagination">
+          {/* <div className="pagination">
             <button onClick={() => setPage((prev) => Math.max(prev - 1, 1))} disabled={page === 1}>
               Previous
             </button>
             <span>Page {page}</span>
             <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
-          </div>
-        </div>
+          </div> */}
+        
       </div>
       <FullCalendar
         plugins={[resourceTimelinePlugin, dayGridPlugin]}
@@ -297,15 +308,15 @@ function Tab2() {
         resourceAreaHeaderContent="Pilots"
         resourceLabelContent={(resource) => (
           <div className="pilot-info">
-            <img
+            {/* <img
               src={resource.resource.extendedProps.imageUrl || 'https://via.placeholder.com/40'}
               alt={resource.resource.title}
               className="pilot-image"
-            />
-            <div>
-              <div>{resource.resource.title}</div>
-              <div className="pilot-role">{resource.resource.extendedProps.role}</div>
-            </div>
+            /> */}
+            
+              <h3>{resource.resource.title}</h3>
+              {/* <div className="pilot-role">{resource.resource.extendedProps.role}</div> */}
+            
           </div>
         )}
         eventContent={(eventInfo) => (
@@ -313,6 +324,7 @@ function Tab2() {
             <div>{eventInfo.event.title}</div>
             <CommonModal btnText="Details" title="Event Details" btnClassName="details-btn">
               <div className="event-details-content">
+              <h3>Item Details</h3>
                 <p>
                   <strong>Title:</strong> {eventInfo.event.title}
                 </p>
@@ -374,9 +386,9 @@ function Tab2() {
                   </>
                 )}
                 
-                <div className="modal-actions">
+                {/* <div className="modal-actions">
                   <button className="modifySchedule-btn">Modify Schedule</button>
-                </div>
+                </div> */}
               </div>
             </CommonModal>
           </div>
