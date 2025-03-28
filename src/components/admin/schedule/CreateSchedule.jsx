@@ -151,6 +151,7 @@ function CreateSchedule() {
 
       <div className="form-section">
         <h2 className="section-title">General Information</h2>
+        <hr />
         <form onSubmit={handleGenerateSchedule}>
           <div className="form-row">
             <div className="form-group">
@@ -166,7 +167,7 @@ function CreateSchedule() {
                   placeholder="MM/DD/YYYY"
                   required
                 />
-                <span className="calendar-icon">📅</span>
+                <span className="calendar-icon"></span>
               </div>
             </div>
             <div className="form-group">
@@ -182,13 +183,27 @@ function CreateSchedule() {
                   placeholder="MM/DD/YYYY"
                   required
                 />
-                <span className="calendar-icon">📅</span>
+                <span className="calendar-icon"></span>
               </div>
             </div>
+
           </div>
+
+          <div className="form-group other-Group">
+              <label>Other</label>
+              <div className="input-with-icon other">
+                <input
+                  type="type"
+                  id="Other"
+                  colSpan="1"
+                  
+                />
+              </div>
+            </div>
+
           <div className="button-group">
             <button type="submit" className="generate-btn" disabled={loading}>
-              {loading ? 'Fetching...' : 'Generate Schedule'}
+              {loading ? 'Fetching...' : 'Generate AI Schedule'}
             </button>
             <button
               type="button"
@@ -220,10 +235,9 @@ function CreateSchedule() {
               <tr>
                 <th>Employees</th>
                 <th>ID</th>
-                <th>Flight Number</th>
+                <th>Status</th>
                 <th>Start time - End time</th>
-                <th>Departure - Arrival</th>
-                <th>Departure Date - Arrival Date</th>
+                <th>Rest Period</th>
               </tr>
             </thead>
             <tbody>
@@ -241,7 +255,10 @@ function CreateSchedule() {
                       </div>
                     </td>
                     <td>{schedule.employee.id}</td>
-                    <td>{schedule.flightNumber}</td>
+                    <td className='fatigue-level-style'>
+                                                <div className="oval-border">
+                                                    <i className="fa fa-circle"><span> &nbsp; Approved</span></i>
+                                                </div></td>
                     <td>
                       {schedule.timeRange === 'No flight scheduled' ? (
                         <CommonModal btnText="View Reasons" title="Reasons for No Flight">
@@ -264,7 +281,7 @@ function CreateSchedule() {
                       )}
                     </td>
                     <td>{schedule.departureArrival}</td>
-                    <td>{schedule.departureArrivalDates}</td>
+                    {/* <td>{schedule.departureArrivalDates}</td> */}
                   </tr>
                 ))
               ) : (

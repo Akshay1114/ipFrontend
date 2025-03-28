@@ -195,8 +195,10 @@ input:disabled, textarea:disabled, select:disabled {
 
 /* -------------- Login Page styling --------------- */
 
+
 /* Sign up page  */
-.login-container .login-box {
+
+.login-container .login-box{
   background-color: #FFFFFF;
   position: relative;
 }
@@ -205,17 +207,16 @@ input:disabled, textarea:disabled, select:disabled {
   margin-top: 1.2rem;
 }
 
-.sign-in-btn {
+.sign-in-btn{
   background-color: var(--color-primary);
   margin: 2.5rem 0rem 0rem 0rem;
-  transition: all 0.3s ease;  
 }
 
-.loginForm {
+.loginForm{
   margin-top: 2.5rem;
 }
 
-.profile-icon {
+.profile-icon{
   position: absolute;
   top: -40px;
   align-items: center;
@@ -227,10 +228,10 @@ input:disabled, textarea:disabled, select:disabled {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: url(/background-login.png);
+  margin-top: 50px;
+  background: url(/public/background-login.png);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100% 100%;
 }
 
 .login-box {
@@ -266,41 +267,6 @@ input:disabled, textarea:disabled, select:disabled {
   border-radius: 10px;
   font-size: 16px;
   box-sizing: border-box;
-  background-color: var(--color-background);  
-  color: var(--color-text);             
-  transition: all 0.3s ease;  
-}
-
-/* Focus effect with scaling and shadow for input fields */
-.loginForm input:focus {
-  background-color: #f0f0f0;  
-  border-color: #007bff;      
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); 
-  transform: scale(1.05);  
-}
-
-/* Hover effect for input fields */
-.loginForm input:hover {
-  border-color: #0056b3;  
-  background-color: #fafafa;  
-}
-
-/* Button hover effect with scaling and color transition */
-.sign-in-btn {
-  width: 100%;
-  padding: 10px;
-  color: #fff;
-  border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
-  font-weight: 400;
-  transition: all 0.3s ease;  
-}
-
-.sign-in-btn:hover {
-  background-color: #0056b3; 
-  transform: scale(1.05);  
-  box-shadow: 0 0 15px rgba(0, 86, 179, 0.5); 
 }
 
 .checkbox-container {
@@ -310,6 +276,18 @@ input:disabled, textarea:disabled, select:disabled {
   font-size: 14px;
   margin-bottom: 15px;
 }
+
+
+.sign-in-btn {
+  width: 100%;
+  padding: 10px;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: 400;
+}
+
 
 .forgot-password a {
   text-decoration: none;
@@ -322,6 +300,8 @@ input:disabled, textarea:disabled, select:disabled {
   accent-color: #007bff; 
   border: none;
 }
+
+
 
 /* --------------- Add New User Styling ----------------- */
 
@@ -567,10 +547,17 @@ body, input, select, textarea, button {
 
 }
 
-.flightSchedule-list {
+/* .flightSchedule-list {
   background: var(--color-background); 
   padding: 15px;
   border-radius: 12px;
+} */
+
+.flightSchedule-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Ensures even spacing */
+  gap: 10px; /* Space between cards */
 }
 
 .flightSchedule-section h3 {
@@ -584,11 +571,34 @@ body, input, select, textarea, button {
 
 }
 
+/* .flightSchedule-card {
+  background: var(--color-white);  
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  min-width: 150px;
+} */
+
+
 .flightSchedule-card {
   background: var(--color-white);  
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 10px;
+  min-width: 150px;
+  flex: 1 1 calc(33.33% - 20px); /* Makes all cards equal */
+  max-width: 300px; /* Prevents cards from stretching too wide */
+  height: 250px; /* Sets a fixed height for uniformity */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures consistent spacing */
+}
+
+.flightSchedule-time, 
+.flightSchedule-route, 
+.flightSchedule-duration {
+  text-align: center;
+  flex-grow: 1;
 }
 
 .flightSchedule-flightHeader {
@@ -611,7 +621,7 @@ body, input, select, textarea, button {
 }
 
 .flightSchedule-route {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--color-text-secondary);  
 }
 
@@ -1008,6 +1018,10 @@ table tbody tr td:nth-child(6) {
   span{
     color: black;
   }
+}
+
+.fa-circle-red{
+  color: #E53935 !important;
 }
 
 .duty-status-style .oval-border{
@@ -2110,6 +2124,7 @@ h1 {
 }
 
 
+
 .makeRequest-submitBtn {
   background-color: #2C2C2C;
   color: white;
@@ -2541,3 +2556,4 @@ font-size: 1rem;
   padding-bottom: 1rem;
   border-bottom: 3.5px solid var(--color-border); 
 }
+
