@@ -37,8 +37,9 @@ function MakeRequest({ setMakeRequest }) {
 
   return (
     <div className="makeRequest-container">
-      <div className="makeRequest-breadcrumb">Requests &gt; <span>New Request</span></div>
       <h3 className="makeRequest-title">New Request</h3>
+      <div className="makeRequest-breadcrumb">Requests &gt; <span>New Request</span></div>
+
 
       <div className="makeRequest-formGroup">
         <label>Dates</label>
@@ -56,22 +57,22 @@ function MakeRequest({ setMakeRequest }) {
         </div>
       </div>
 
-      <div className="makeRequest-formGroup">
-        <label>Flight Number (If Assigned)</label>
+      <div className="makeRequest-formGroup make-Request-inputField">
+        <label>Flight Number(If Assigned)</label>
         <Input value={flight} onChange={(e) => setFlight(e.target.value)} placeholder="Enter Flight Number" />
       </div>
 
-      <div className="makeRequest-formGroup">
+      <div className="makeRequest-formGroup make-Request-inputField">
         <label>Leave Type</label>
         <Input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Select Leave Type" />
       </div>
 
-      <div className="makeRequest-formGroup">
+      <div className="makeRequest-formGroup  makeRequest-textField">
         <label>Reason</label>
         <Input.TextArea rows={3} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Type Reason of leave" />
       </div>
 
-      <div className="makeRequest-formGroup">
+      <div className="makeRequest-formGroup makeRequest-textField">
         <label>Attachments (Optional)</label>
         <Dragger {...uploadProps}>
           <p className="ant-upload-drag-icon">
@@ -87,7 +88,7 @@ function MakeRequest({ setMakeRequest }) {
           Cancel
         </Button>
 
-        <CommonModal handleOk={handleRequest} btnText="Send Request" title="Sent Request!">
+        <CommonModal handleOk={handleRequest} btnText="Send Request" title="Sent Request!" className="makeRequest-submitBtn">
           <p>You have successfully sent the request.</p>
         </CommonModal>
       </div>
