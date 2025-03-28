@@ -11,7 +11,7 @@ function Tab1() {
   const [makeRequest, setMakeRequest] = useState(false);
   const { flightSchedule, status, error } = useSelector((state) => state.employeeSchedule);
 
-  console.log("flightSchedule =>", flightSchedule);
+  console.log("flightSchedule =>", flightSchedule.mergedFlights);
   const handleCrewInfo = () => {
     console.log("Crew Info");
   };
@@ -109,12 +109,12 @@ function Tab1() {
 
         <div className="tab1-flight-schedule">
           <h3>Flight Schedule</h3>
-          {[1, 2].map((_, index) => (
+          {flightSchedule?.mergedFlights.map((el, index) => (
             <div key={index} className="tab1-schedule-wrapper">
-              <div className="tab1-date-label">FEB 23</div>
+              <div className="tab1-date-label"> {new Date(el?.flightData?.departure).toLocaleDateString("en-US", { day: "numeric", month: "long" })}</div>
               <div className="tab1-schedule-card">
                 <div className="tab1-card-header">
-                  <span>Flight <strong> #AF0374</strong></span>
+                  <span>Flight <strong> {el?.flightData.flightId}</strong></span>
                   <span>Fleet: <strong>A320neo</strong></span>
                 </div>
                 <div className="tab1-card-time">
@@ -122,7 +122,7 @@ function Tab1() {
                   <span>→</span>
                   <span>21:00</span>
                 </div>
-                <p>YVR - - - - - - - - - ✈ - - - - - - - - - NYC (4h 55m)</p>
+                <p>{el?.flightData.departureLocation} - - - - - - - - - ✈ - - - - - - - - - {el?.flightData.arrivalLocation} ({el?.flightData.duration} hrs)</p>
                 <CommonModal handleOk={() => setMakeRequest(true)} title="Flight Details" btnText="Crew Info" oktext="Make a Request">
                   <CommonTable data={data} columns={columns} />
                 </CommonModal>
