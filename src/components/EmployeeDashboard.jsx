@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { io } from "socket.io-client";
 import WeatherCard from './WeatherCard';
 import './EmployeeDashboard.css';
@@ -10,6 +10,8 @@ import Loader from './loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlane } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { wingWiseApi } from '../utils/AxiosInstance';
+import { fetchData } from '../features/api/escheduleSlice';
 
 const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
 // const socket = io("wss://rsinnovates.com/", { transports: ["websocket", "polling"] });
@@ -19,6 +21,13 @@ function EmployeeDashboard() {
   const [userID, setUserID] = useState(sessionStorage.getItem("employee_ID") || "");
   const [sleepData, setSleepData] = useState({});
   const [loading, setLoading] = useState(true); // Add loading state
+  const dispatch = useDispatch();
+  const { flightSchedule, status, error } = useSelector((state) => state.employeeSchedule);
+
+  useEffect(() => {
+    dispatch(fetchData()); // Fetch employee schedule on component mount
+  }, [dispatch]);
+  console.log("flightSchedule =>", flightSchedule);
   let getToken = sessionStorage.getItem('token');
   let getUser = sessionStorage.getItem('employee_ID');
 
@@ -42,6 +51,7 @@ function EmployeeDashboard() {
     }
     getScheduleData();
   }, []);
+
 
   console.log("notifications =>", notifications);
   return (

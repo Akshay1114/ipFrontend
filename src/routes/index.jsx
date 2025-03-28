@@ -38,16 +38,16 @@ const router = createBrowserRouter([
       element:<Navbar/>,
       errorElement: <ErrorPage />,
       children: [
-      {
-        path: "/",
-        element: <App />,
-    },
+    //   {
+    //     path: "/",
+    //     element: <App />,
+    // },
 
-    {
-      path: "/login",
-      element: <Login/>,
-      errorElement: <ErrorPage />,
-    },
+    // {
+    //   path: "/login",
+    //   element: <Login/>,
+    //   errorElement: <ErrorPage />,
+    // },
     {
       path: "/sleepData",
       element: 
@@ -156,6 +156,16 @@ const router = createBrowserRouter([
     {
       path: "/signup",
       element: <SignUp />,
+    },
+    {
+      path: "/login",
+      element: <Login/>,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/",
+      element: <Login/>,
+      errorElement: <ErrorPage />,
     },
   ]);
 

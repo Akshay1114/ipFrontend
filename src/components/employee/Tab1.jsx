@@ -5,9 +5,13 @@ import "react-calendar/dist/Calendar.css";
 import CommonModal from "../CommonModal";
 import CommonTable from "../CommonTable";
 import MakeRequest from "./MakeRequest";
+import { useSelector } from "react-redux";
 function Tab1() {
   const [value, onChange] = useState(new Date());
   const [makeRequest, setMakeRequest] = useState(false);
+  const { flightSchedule, status, error } = useSelector((state) => state.employeeSchedule);
+
+  console.log("flightSchedule =>", flightSchedule);
   const handleCrewInfo = () => {
     console.log("Crew Info");
   };
