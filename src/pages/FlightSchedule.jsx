@@ -167,6 +167,7 @@ function FlightSchedule() {
     return `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
   };
 
+  
   // Format time for display
   const formatTime = (timeStr) => {
     if (!timeStr) return 'N/A';
