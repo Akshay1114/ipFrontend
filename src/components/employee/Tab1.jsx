@@ -18,18 +18,18 @@ function Tab1() {
 
   const columns = [
     {
-      title: "Crew Info",
+      title: "Name",
       dataIndex: "info",
       key: "info",
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Name",
+      title: "Role",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Flight",
+      title: "ID",
       dataIndex: "flight",
       key: "flight",
     },
