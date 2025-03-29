@@ -36,7 +36,8 @@ const DisplaySleep = () => {
       setError(null);
       const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", {
         accessToken,
-        date: date.format("YYYY-MM-DD"),
+        // date: date.format("YYYY-MM-DD"),
+        date: "2025-03-24",
       });
       // const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", {
       //   accessToken,
