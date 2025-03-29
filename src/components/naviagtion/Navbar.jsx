@@ -130,7 +130,7 @@ function Navbar() {
         </div>
         {viewNotification && (
           <div className="notificationBox">
-            <ul className="notificationList">
+            <ul className="notificationList notification-list">
               {notifications.map((notification, index) => (
                 <li key={index}>{notification.message}</li>
               ))}
