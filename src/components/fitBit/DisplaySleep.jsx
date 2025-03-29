@@ -7,6 +7,7 @@ import Loader from "../loader/Loader";
 import HeartRate from "./HeartRate"; // Import the new HeartRate component
 import noDataImage from "../../assets/images/no-data.png";
 import "./DisplaySleep.css";
+import { wingWiseApi } from "../../utils/AxiosInstance";
 
 const DisplaySleep = () => {
   const [sleepData, setSleepData] = useState([]);
@@ -33,10 +34,14 @@ const DisplaySleep = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", {
+      const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", {
         accessToken,
         date: date.format("YYYY-MM-DD"),
       });
+      // const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", {
+      //   accessToken,
+      //   date: date.format("YYYY-MM-DD"),
+      // });
       console.log("response", response.data);
 
       const { sleep, heartRate } = response.data;
