@@ -16,13 +16,14 @@ const DisplaySleep = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("Sleep");
   const [timeFrame, setTimeFrame] = useState("Day");
-  const [currentDate, setCurrentDate] = useState(moment());
+  // Remove currentDate state
+  // const [currentDate, setCurrentDate] = useState(moment());
 
   const svgRef = useRef(null); // For the sleep stages graph
   const pieSvgRef = useRef(null); // For the pie chart
 
-  // Fetch data from the backend for the selected date
-  const fetchData = async (date) => {
+  // Fetch data from the backend for the latest data
+  const fetchData = async () => {
     const accessToken = localStorage.getItem("fitbit_access_token");
 
     if (!accessToken) {
@@ -36,11 +37,10 @@ const DisplaySleep = () => {
       setError(null);
       const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", {
         accessToken,
-        date: date.format("YYYY-MM-DD"),
+        // Remove the date parameter
       });
       // const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", {
-      //   accessToken,
-      //   date: date.format("YYYY-MM-DD"),
+      //    accessToken,
       // });
       console.log("response", response.data);
 
@@ -71,8 +71,8 @@ const DisplaySleep = () => {
   };
 
   useEffect(() => {
-    fetchData(currentDate);
-  }, [currentDate]);
+    fetchData(); // Call fetchData once on component mount
+  }, []);
 
   // Helper function to convert milliseconds to hours and minutes
   const formatDuration = (ms) => {
@@ -349,16 +349,18 @@ const DisplaySleep = () => {
       .text("Total Sleep");
   }, [sleepData]);
 
-  const handlePreviousDay = () => {
-    setCurrentDate((prevDate) => moment(prevDate).subtract(1, "day"));
-  };
+  // Remove handlePreviousDay function
+  // const handlePreviousDay = () => {
+  //   setCurrentDate((prevDate) => moment(prevDate).subtract(1, "day"));
+  // };
 
-  const handleNextDay = () => {
-    const tomorrow = moment().add(1, "day");
-    if (moment(currentDate).isBefore(tomorrow, "day")) {
-      setCurrentDate((prevDate) => moment(prevDate).add(1, "day"));
-    }
-  };
+  // Remove handleNextDay function
+  // const handleNextDay = () => {
+  //   const tomorrow = moment().add(1, "day");
+  //   if (moment(currentDate).isBefore(tomorrow, "day")) {
+  //     setCurrentDate((prevDate) => moment(prevDate).add(1, "day"));
+  //   }
+  // };
 
   if (loading) return <div><Loader /></div>;
   if (error) return <div className="error">Error: {error}</div>;
@@ -455,24 +457,27 @@ const DisplaySleep = () => {
                   Yearly
                 </button>
               </div>
-              <div className="navigation-buttons">
+              {/* Remove navigation buttons */}
+              {/* <div className="navigation-buttons">
                 <button onClick={handlePreviousDay} className="nav-button">Previous Day</button>
                 <button onClick={handleNextDay} className="nav-button">Next Day</button>
-              </div>
+              </div> */}
               <div className="duration-info">
                 {sleepData.length > 0 ? (
                   <>
                     <p className="sleep-time">
                       {moment(latestSleep.startTime).format("h:mm A")} – {moment(latestSleep.endTime).format("h:mm A")}
                     </p>
-                    <p className="sleep-date">
+                    {/* Remove date display */}
+                    {/* <p className="sleep-date">
                       {moment(latestSleep.dateOfSleep).format("MMMM D, YYYY")}
-                    </p>
+                    </p> */}
                   </>
                 ) : (
                   <>
                     <p className="sleep-time">No Sleep Data Available</p>
-                    <p className="sleep-date">{currentDate.format("MMMM D, YYYY")}</p>
+                    {/* Remove date display */}
+                    {/* <p className="sleep-date">{currentDate.format("MMMM D, YYYY")}</p> */}
                   </>
                 )}
               </div>
