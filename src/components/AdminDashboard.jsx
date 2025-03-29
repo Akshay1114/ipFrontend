@@ -68,7 +68,7 @@ function AdminDashboard() {
         .catch(err => console. log(err));
         }, [])
     
-        
+        console.log(flightOverview,"<<<<<<<<")
     return (
         <div>
              {loading && <Loader />}
@@ -124,7 +124,48 @@ function AdminDashboard() {
                                     </tr>
                                 </thead>
                                 <tbody className='flight-overview-table-body'>
-                                    {flightOverview.map((flight, index) => (
+                                    {[
+  {
+    flight: "AA123",
+    departure: "2025-04-01 08:30",
+    arrival: "2025-04-01 12:15",
+    aircraft: "Boeing 737",
+    status: "On Time",
+    gate: "A12"
+  },
+  {
+    flight: "BA456",
+    departure: "2025-04-01 09:45",
+    arrival: "2025-04-01 13:30",
+    aircraft: "Airbus A320",
+    status: "Delayed",
+    gate: "B5"
+  },
+  {
+    flight: "DL789",
+    departure: "2025-04-01 10:15",
+    arrival: "2025-04-01 14:00",
+    aircraft: "Boeing 777",
+    status: "Boarding",
+    gate: "C8"
+  },
+  {
+    flight: "UA321",
+    departure: "2025-04-01 11:00",
+    arrival: "2025-04-01 15:10",
+    aircraft: "Embraer E190",
+    status: "Cancelled",
+    gate: "D3"
+  },
+  {
+    flight: "LH654",
+    departure: "2025-04-01 12:45",
+    arrival: "2025-04-01 16:20",
+    aircraft: "Airbus A380",
+    status: "On Time",
+    gate: "E7"
+  }
+].map((flight, index) => (
                                         <>
                                         <tr key={index} id='overviewFlight'>
                                             {/* <td>{flight.employee_ID}</td>
@@ -138,17 +179,22 @@ function AdminDashboard() {
                                                 </div>
                                             </td>
                                             <td>{flight.gate}</td> */}
-                                            <td>AC145</td>
-                                            <td>19:20 <div className="subscript-text">YVR</div></td>
+                                            <td>{flight.flight}</td>
+                                            <td>{flight.departure} <div className="subscript-text">YVR</div></td>
                                             <td className="tight-plane-cell" >- - - - <FontAwesomeIcon icon={faPlane} /> - - - -</td>
-                                            <td>23:45 <div className="subscript-text">YVZ</div></td>
-                                            <td>Boeing737</td>
+                                            <td>{flight.arrival} <div className="subscript-text">YVZ</div></td>
+                                            <td>{flight.aircraft}</td>
                                             <td className='fatigue-level-style'>
                                                 <div className="oval-border">
-                                                    <i className="fa fa-circle"><span> &nbsp; On-Time</span></i>
+                                                    {
+                                                        flight.status === "On Time" ? <i className="fa fa-circle" style={{ color: 'green' }}><span> &nbsp; {flight.status}</span></i> :
+                                                        flight.status
+                                                    
+                                                    }
+                                                    {/* <i className="fa fa-circle"><span> &nbsp; {flight.status}</span></i> */}
                                                 </div>
                                             </td>
-                                            <td>C12</td>
+                                            <td>{flight.gate}</td>
                                                 
                                         </tr>
                                         <tr key={`line-${index}`}>
