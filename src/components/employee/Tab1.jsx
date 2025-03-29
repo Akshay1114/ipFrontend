@@ -4,12 +4,9 @@ import "react-calendar/dist/Calendar.css";
 import CommonModal from "../CommonModal";
 import CommonTable from "../CommonTable";
 import MakeRequest from "./MakeRequest";
-
-import { useSelector } from "react-redux";
-function Tab1() {
+function Tab1({flightSchedule}) {
   const [value, onChange] = useState(new Date());
   const [makeRequest, setMakeRequest] = useState(false);
-  const { flightSchedule, status, error } = useSelector((state) => state.employeeSchedule);
 
   console.log("flightSchedule =>", flightSchedule.mergedFlights);
   const handleCrewInfo = () => {
@@ -19,14 +16,14 @@ function Tab1() {
   const columns = [
     {
       title: "Name",
-      dataIndex: "info",
-      key: "info",
+      dataIndex: "name",
+      key: "name",
       render: (text) => <a>{text}</a>,
     },
     {
       title: "Role",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "role",
+      key: "role",
     },
     {
       title: "ID",
@@ -37,48 +34,6 @@ function Tab1() {
       title: "Start Time",
       dataIndex: "startTime",
       key: "startTime",
-    },
-  ];
-
-  const data = [
-    {
-      key: "1",
-      info: "Captain",
-      name: "John Brown",
-      flight: "CAP-4521",
-      startTime: "8:00 AM",
-    },
-    {
-      key: "2",
-      info: "First Officer",
-      name: "Jim Green",
-      flight: "CAP-4521",
-      startTime: "8:00 AM",
-    },
-    {
-      key: "3",
-      info: "Flight Attendants",
-      name: (
-        <ul>
-          <li>Robert Brown</li>
-          <li>David Black</li>
-          <li>Lisa White</li>
-        </ul>
-      ),
-      flight: (
-        <ul>
-          <li>FA-5832</li>
-          <li>FA-5832</li>
-          <li>FA-5832</li>
-        </ul>
-      ),
-      startTime: (
-        <ul>
-          <li>7:30 AM</li>
-          <li>7:30 AM</li>
-          <li>7:30 AM</li>
-        </ul>
-      ),
     },
   ];
 
@@ -109,8 +64,35 @@ function Tab1() {
 
         <div className="tab1-flight-schedule">
           <h3>Flight Schedule</h3>
-          {flightSchedule?.mergedFlights.map((el, index) => (
-            <div key={index} className="tab1-schedule-wrapper">
+          {flightSchedule ?flightSchedule?.mergedFlights?.map((el, index) => {
+            const pilotData = el?.flightSchedule?.pilots?.map((pilot, idx) => ({
+              key: `pilot-${idx}`,
+              role: "Pilot", // Assign "Pilot" as role
+              name: pilot,
+              flight: el?.flightSchedule?.flightId, // Use flight ID
+              startTime: "N/A", // If no time is provided
+            })) || [];
+          
+            // Transform cabin crew objects (assuming they have role, name, flightId, startTime)
+            const cabinCrewData = el?.flightSchedule?.cabinCrew?.map((crew, idx) => ({
+              key: `crew-${idx}`,
+              role: crew.role || "Cabin Crew",
+              name: crew.name,
+              flight: crew.flightId || el?.flightData?.flightId, 
+              startTime: crew.startTime || "N/A",
+            })) || [];
+            if (cabinCrewData.length === 0) {
+              cabinCrewData.push({
+                key: "no-crew",
+                role: "More staff needed",
+                name: "---",
+                flight: "---",
+                startTime: "---",
+              });
+            }
+            const tableData = [...pilotData, ...cabinCrewData];
+            console.log("tableData =>", tableData); 
+           return( <div key={index} className="tab1-schedule-wrapper">
               <div className="tab1-date-label"> {new Date(el?.flightData?.departure).toLocaleDateString("en-US", { day: "numeric", month: "long" })}</div>
               <div className="tab1-schedule-card">
                 <div className="tab1-card-header">
@@ -124,11 +106,11 @@ function Tab1() {
                 </div>
                 <p>{el?.flightData.departureLocation} - - - - - - - - - ✈ - - - - - - - - - {el?.flightData.arrivalLocation} ({el?.flightData.duration} hrs)</p>
                 <CommonModal handleOk={() => setMakeRequest(true)} title="Flight Details" btnText="Crew Info" oktext="Make a Request">
-                  <CommonTable data={data} columns={columns} />
+                  <CommonTable data={tableData} columns={columns} />
                 </CommonModal>
               </div>
             </div>
-          ))}
+          )}):"NO DATA"}
         </div>
       </div>
 
