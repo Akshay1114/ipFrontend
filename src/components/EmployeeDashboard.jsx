@@ -12,6 +12,7 @@ import { faPlane } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { wingWiseApi } from '../utils/AxiosInstance';
 import { fetchData } from '../features/api/escheduleSlice';
+import HeartRateGraph from './HeartRateGraph';
 
 const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
 // const socket = io("wss://rsinnovates.com/", { transports: ["websocket", "polling"] });
@@ -189,9 +190,7 @@ function EmployeeDashboard() {
             <div className="label">Heart Rate</div>
           </div>
           <div className="insight">
-            {/* <div className="value">32%</div>
-            <div className="label">Stress Level</div> */}
-             <PiGraph/>
+             <HeartRateGraph/>
           </div>
         </div>
       </div>
