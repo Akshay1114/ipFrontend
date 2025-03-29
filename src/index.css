@@ -325,6 +325,28 @@ input:disabled, textarea:disabled, select:disabled {
 
 
 
+
+/* Common Checkbox Styles */
+.checkbox-container input[type="checkbox"] {
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  border: 2px solid var(--color-text-secondary); /* Border color */
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  color: white;
+  position: relative;
+  /* width: 16px;   */
+  /* height: 16px;  */
+  transform: scale(0.4); 
+  margin: 0; 
+}
+
+
+
+
+
+
 /* --------------- Add New User Styling ----------------- */
 
 body, input, select, textarea, button {
