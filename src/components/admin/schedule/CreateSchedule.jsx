@@ -160,6 +160,7 @@ function CreateSchedule() {
               </label>
               <div className="input-with-icon">
                 <input
+                style={{'background-color':'#f1f1f1', 'color':'black'}}
                   type="date"
                   id="start-date"
                   value={startDate}
@@ -167,7 +168,7 @@ function CreateSchedule() {
                   placeholder="MM/DD/YYYY"
                   required
                 />
-                <span className="calendar-icon"></span>
+                <span  className="calendar-icon"></span>
               </div>
             </div>
             <div className="form-group">
@@ -176,6 +177,7 @@ function CreateSchedule() {
               </label>
               <div className="input-with-icon">
                 <input
+                  style={{'background-color':'#f1f1f1', 'color':'black'}}
                   type="date"
                   id="end-date"
                   value={endDate}
