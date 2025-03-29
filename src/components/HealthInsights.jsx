@@ -36,8 +36,8 @@ function HealthInsights() {
     return (
         <div className={`AdminSchedule ${formattedClassName}`}>
             <Wrapper>
-              <div className="schedule-header">
-                <h2>Health Insights</h2>
+              <div className="">
+                {/* <h2>Health Insights</h2> */}
                {
                 getUser == "employee"?
                 <EmployeeInsight/>
