@@ -17,7 +17,7 @@ function Tab2() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date('2025-03-16')); // Start date from the image
-  const [viewMode, setViewMode] = useState('day'); // 'day' or 'week'
+  const [viewMode, setViewMode] = useState('week'); // 'day' or 'week'
 
   // Fetch pilot and flight data from the backend
   useEffect(() => {
@@ -82,7 +82,7 @@ function Tab2() {
                 viewStart.setHours(0, 0, 0, 0);
                 
                 const viewEnd = new Date(currentDate);
-                if (viewMode === 'week') {
+                if (viewMode === 'day') {
                   viewEnd.setDate(viewEnd.getDate() + 6);
                 }
                 viewEnd.setHours(23, 59, 59, 999);
@@ -262,8 +262,10 @@ function Tab2() {
                 <button onClick={handleToday}>Today</button>
                 <button
                   onClick={() => handleViewChange('week')}
-                  className={viewMode === 'week' ? 'active' : ''}
-                >
+                  className={viewMode === 'week' ? 'active' : ''
+
+                  }
+>
                   Week
                 </button>
                 
@@ -301,7 +303,7 @@ function Tab2() {
       </div>
       <FullCalendar
         plugins={[resourceTimelinePlugin, dayGridPlugin]}
-        initialView={viewMode === 'day' ? 'resourceTimelineDay' : 'resourceTimelineWeek'}
+        initialView={viewMode === 'week' ? 'resourceTimelineWeek' : 'resourceTimelineDay'}
         schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives" // For evaluation; replace with your license key
         resources={pilots}
         events={events}

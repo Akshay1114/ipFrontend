@@ -298,6 +298,10 @@
   padding: 0px 5px;
 }
 
+:where(.css-dev-only-do-not-override-240cud).ant-tabs .ant-tabs-tab{
+  font-size: 18px;
+}
+
 .event-details-content{
   p{
     margin: 0;

@@ -190,8 +190,8 @@ function CreateSchedule() {
             </div>
 
           </div>
-{/* 
-          <div className="form-group other-Group">
+
+          {/* <div className="form-group other-Group">
               <label>Other</label>
               <div className="input-with-icon other">
                 <input
