@@ -191,7 +191,11 @@ function CreateSchedule() {
 
           </div>
 
-          {/* <div className="form-group other-Group">
+          {/* <div className="form-group other-Group"> */}
+
+
+          {/* /* <div className="form-group other-Group">
+
               <label>Other</label>
               <div className="input-with-icon other">
                 <input
@@ -201,7 +205,7 @@ function CreateSchedule() {
                   
                 />
               </div>
-            </div> */}
+            </div> */ }
 
           <div className="button-group">
             <button type="submit" className="generate-btn" disabled={loading}>
