@@ -7,6 +7,7 @@ import MakeRequest from "./MakeRequest";
 function Tab1({flightSchedule}) {
   const [value, onChange] = useState(new Date());
   const [makeRequest, setMakeRequest] = useState(false);
+  const [flightSelected, setFlightSelected] = useState({});
 
   console.log("flightSchedule =>", flightSchedule.mergedFlights);
   const handleCrewInfo = () => {
@@ -43,8 +44,13 @@ function Tab1({flightSchedule}) {
   const month = today.toLocaleString('default', { month: 'long' });
   const year = today.getFullYear();
 
+  function getTime (dateString){
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  }
+
   return makeRequest ? (
-    <MakeRequest setMakeRequest={setMakeRequest} />
+    <MakeRequest flightSelected={flightSelected} flightSchedule={flightSchedule} setMakeRequest={setMakeRequest} />
   ) : (
     <div className="tab1-container">
       <div className="tab1-left-panel">
@@ -100,12 +106,14 @@ function Tab1({flightSchedule}) {
                   <span>Fleet: <strong>A320neo</strong></span>
                 </div>
                 <div className="tab1-card-time">
-                  <span>15:05</span>
+                  <span>{getTime(el.flightData.departure)}</span>
                   <span>→</span>
-                  <span>21:00</span>
+                  <span>{getTime(el.flightData.arrival)}</span>
                 </div>
                 <p>{el?.flightData.departureLocation} - - - - - - - - - ✈ - - - - - - - - - {el?.flightData.arrivalLocation} ({el?.flightData.duration} hrs)</p>
-                <CommonModal handleOk={() => setMakeRequest(true)} title="Flight Details" btnText="Crew Info" oktext="Make a Request">
+                <CommonModal handleOk={() => setMakeRequest(true)} title="Flight Details" btnText="Details" oktext="Make a Request" openModalClick ={
+            ()=>setFlightSelected(el)
+          }>
                   <CommonTable data={tableData} columns={columns} />
                 </CommonModal>
               </div>
