@@ -2024,7 +2024,7 @@ h1 {
   background-color: #3859FF;
   color: white;
   border-radius: 20px;
-  
+  padding: 9px 18px;
 }
 
 .search-Schedule input::placeholder{
