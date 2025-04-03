@@ -3,6 +3,9 @@ import { Button, Modal } from 'antd';
 function CommonModal(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
+      if(props?.openModalClick){
+        props.openModalClick();
+      }
       setIsModalOpen(true);
     };
     const handleOk = () => {

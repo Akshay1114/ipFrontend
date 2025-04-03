@@ -17,20 +17,25 @@ function SendNotification() {
 
   return (
     <div>
-      <h1>Admin Dashboard - Send Notifications</h1>
+      <h1>Create Annocement</h1>
+      <div className='notificationSection'>
       <input
+      className='notificationInput'
         type="text"
         placeholder="Enter message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
       <input
+       className='notificationInput'
         type="text"
         placeholder="User ID (or 'all')"
         value={recipient}
         onChange={(e) => setRecipient(e.target.value)}
       />
-      <button onClick={sendNotification}>Send Notification</button>
+      <button style={{'background':"#1677ff", 'color':'white'}} className='submit' onClick={sendNotification}>Send Notification</button>
+      </div>
+   
     </div>
   )
 }

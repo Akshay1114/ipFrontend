@@ -4,6 +4,9 @@ import { InboxOutlined } from '@ant-design/icons';
 import CommonModal from '../CommonModal';
 import Button from '../Button';
 import { io } from "socket.io-client";
+import axios from 'axios';
+import { data } from 'react-router-dom';
+import { wingWiseApi } from '../../utils/AxiosInstance';
 
 
 const { Dragger } = Upload;
@@ -12,13 +15,13 @@ const socket = io("http://localhost:5001/", { transports: ["websocket", "polling
 
 const dateFormat = 'YYYY-MM-DD';
 
-function MakeRequest({ setMakeRequest }) {
+function MakeRequest({ setMakeRequest, flightSchedule, flightSelected }) {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
-  const [flight, setFlight] = useState("");
+  const [flight, setFlight] = useState(flightSelected?.flightId||"");
   const [value, setValue] = useState('');
   const [reason, setReason] = useState("");
-
+console.log("flightSelected ============>", flightSelected);
   const handleCancel = () => {
     setMakeRequest(false);
   }
@@ -26,7 +29,33 @@ function MakeRequest({ setMakeRequest }) {
   const handleRequest = () => {
     const employee_ID = sessionStorage.getItem('employee_ID');
     const message = `Request for Schedule Change for Flight Number ${flight} on ${dateFrom} due to ${value}`;
-    socket.emit("send_notification_to_admin", { message, recipient: 'admin', senderName: "john", senderID: employee_ID, scheduleID: "Schedule ID" });
+    // socket.emit("send_notification_to_admin", { message, recipient: 'admin', senderName: "john", senderID: employee_ID, scheduleID: "Schedule ID" });
+    console.log(
+      "dateFrom =>", dateFrom,
+      "dateTo =>", dateTo,
+      "flight =>", flight,
+      "value =>", value,
+      "reason =>", reason
+    )
+    const data = {
+      employee_ID: employee_ID,
+      start_date: dateFrom,
+      end_date: dateTo,
+      reason: reason,
+      flightId: flight,
+      leaveType: value,
+      status: "Pending"
+    }
+
+    // axios.post("http://localhost:5001/api/user/requestChangeSchedule", data)
+    wingWiseApi.post("user/requestChangeSchedule", data)
+      .then((res) => {
+        console.log(res.data);
+        setMakeRequest(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const uploadProps = {

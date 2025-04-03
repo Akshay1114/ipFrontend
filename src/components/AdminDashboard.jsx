@@ -8,6 +8,8 @@ import Loader from './loader/Loader';
 // import WeatherCloud from "../assets/logo/weather-cloud.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlane } from '@fortawesome/free-solid-svg-icons';
+import CommonModal from './CommonModal';
+import SendNotification from '../pages/SendNotification';
 
 
 function AdminDashboard() {
@@ -235,7 +237,11 @@ function AdminDashboard() {
                         </div> */}
                         <WeatherCard />
                         <div className='MD-C3-UrgentLookOver cardUp'>
-                            <h2>Urgent Look-Over</h2>
+                            <h2>Urgent Look-Over <CommonModal
+                            btnText="Annoucement" title="Event Details" btnClassName="details-btn"
+                            >
+                                <SendNotification/>
+                                </CommonModal></h2>
                             <div className='UrgentLookOver'>
                                 <div className="employee-image-container">
                                      <div className="employee-image"></div>    
