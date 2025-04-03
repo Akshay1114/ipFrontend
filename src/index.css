@@ -45,6 +45,7 @@ body {
   min-height: 100vh; */
 }
 
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -111,6 +112,10 @@ input:focus, textarea:focus, select:focus {
 
 input:disabled, textarea:disabled, select:disabled {
   background-color: #fffefe; 
+}
+
+.navbar-bg{
+  background-color: #F1F6FF;
 }
 
 /* navbar */
@@ -749,6 +754,7 @@ html, body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #F1F6FF;
 }
 
 .navbar {
@@ -859,11 +865,11 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .schedule-header h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
 }
 
@@ -1433,9 +1439,9 @@ td.duty-status-style {
 .schedule-header {
   display: flex;
   margin-top: 3rem;
-  margin-bottom: 0px;
-  margin-top: 0
-  ;
+  margin-bottom: 10px;
+  margin-top: 0;
+  /* font-size: 18px; */
   button{
     padding: .1rem 1rem;
     background-color: #D9D9D9
@@ -1943,9 +1949,18 @@ h1 {
 
 /* ----------------------- SCHEDULE FLIGHT------------------------ */
 
+.AdminSchedule{
+  background-color: #F1F6FF;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+}
+
 .AdminSchedule.schedule-wrapper {
-  background-color: white;
+  background-color: #F1F6FF;
   border-radius: 20px;
+  /* align-content: center; */
+  /* justify-content: center; */
 }
 
 .date-flight{

@@ -85,7 +85,7 @@ function Navbar() {
   const getToken = sessionStorage.getItem("token");
   return (
     <div className="">
-      <div className="navbar">
+      <div className="navbar navbar-bg">
         <div className="navbar-left">
           {/* <h2>Wing Wise</h2> */}
           <Link to="/dashboard">
