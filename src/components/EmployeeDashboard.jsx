@@ -21,9 +21,20 @@ function EmployeeDashboard() {
   const [notifications, setNotifications] = useState([]);
   const [userID, setUserID] = useState(sessionStorage.getItem("employee_ID") || "");
   const [sleepData, setSleepData] = useState({});
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { flightSchedule, status, error } = useSelector((state) => state.employeeSchedule);
+
+  // Add this new effect to control body overflow
+  useEffect(() => {
+    // Add class to body when component mounts
+    document.body.classList.add('dashboard-active');
+    
+    // Remove class when component unmounts
+    return () => {
+      document.body.classList.remove('dashboard-active');
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(fetchData()); // Fetch employee schedule on component mount
@@ -185,10 +196,10 @@ function EmployeeDashboard() {
           <h2>Health Insights</h2>
         </div>
         <div className="insights-grid">
-          <div className="insight">
+          {/* <div className="insight">
             <div className="value">72 bpm</div>
             <div className="label">Heart Rate</div>
-          </div>
+          </div> */}
           <div className="insight">
              <HeartRateGraph/>
           </div>

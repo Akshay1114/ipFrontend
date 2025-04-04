@@ -1,34 +1,40 @@
 .heart-rate-graph-container {
-    background-color: #ffffff00;
-    border: 1px solid #e0e0e000;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 500px;
-    margin: 20px auto;
-    text-align: center;
-  }
-  
-  .heart-rate-graph-container h2 {
-    font-size: 1.5em;
-    font-weight: 500;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .heart-rate-graph {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .tooltip {
-    position: absolute;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    pointer-events: none;
-    font-size: 12px;
-    color: #333;
-  }
+  width: 100%;       /* Take full width of parent */
+  height: 100%;      /* Take full height of parent */
+  padding: 5px;      /* Minimal padding inside container */
+  box-sizing: border-box;
+  display: flex;       /* Use flexbox */
+  flex-direction: column; /* Stack title (if any) and graph */
+  align-items: center; /* Center items */
+  justify-content: center; /* Center items vertically */
+  background-color: transparent; /* Ensure no background overrides card */
+}
+
+.heart-rate-graph {
+  width: 100%;    /* Graph div takes full width */
+  height: 100%;   /* Graph div takes full height */
+  display: flex;  /* Center SVG */
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-rate-graph svg {
+  display: block; /* Prevents extra space below SVG */
+  width: 100%;
+  height: 100%;
+}
+
+.tooltip {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9); /* Slightly transparent */
+  border: 1px solid #ccc;
+  padding: 5px 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  pointer-events: none;
+  font-size: 11px; /* Smaller tooltip font */
+  color: #333;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s;
+  z-index: 10; /* Ensure it's above other elements */
+}
