@@ -28,17 +28,17 @@ console.log("flightSelected ============>", flightSelected);
 
   const handleRequest = () => {
     const employee_ID = sessionStorage.getItem('employee_ID');
+    const name = sessionStorage.getItem("user");
     const message = `Request for Schedule Change for Flight Number ${flight} on ${dateFrom} due to ${value}`;
     // socket.emit("send_notification_to_admin", { message, recipient: 'admin', senderName: "john", senderID: employee_ID, scheduleID: "Schedule ID" });
     console.log(
-      "dateFrom =>", dateFrom,
-      "dateTo =>", dateTo,
-      "flight =>", flight,
-      "value =>", value,
-      "reason =>", reason
+   
+      "reason =>", name
     )
+   const user = JSON.parse(name)
     const data = {
       employee_ID: employee_ID,
+      name:user.name,
       start_date: dateFrom,
       end_date: dateTo,
       reason: reason,

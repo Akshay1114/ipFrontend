@@ -20,7 +20,7 @@ function Tab3() {
     const handleApprove = (id) => {
         // Logic to approve the request
         console.log("Request Approved", id);
-        wingWiseApi.post(`/user/updateRequest`, { id, status: "Approved" })
+        wingWiseApi.post(`/user/changeSchedule`, { id, status: "Approved" })
         .then((res)=>{
             console.log(res.data);
             toast.success("Request Approved successfully");
@@ -35,7 +35,7 @@ function Tab3() {
     const handleReject = (id) => {
         // Logic to reject the request
         console.log("Request Rejected", id);
-        wingWiseApi.post(`/user/updateRequest`, { id, status: "Rejected" })
+        wingWiseApi.post(`/user/changeSchedule`, { id, status: "Rejected" })
         .then((res)=>{
             console.log(res.data);
             toast.success("Request Rejected successfully");
