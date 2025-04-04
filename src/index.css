@@ -102,7 +102,7 @@ display: block;
 
 /* Global Input Field Background */
 
-input, textarea, select, button {
+input, textarea, select  {
   background-color: white;
 }
 
@@ -354,7 +354,7 @@ input:disabled, textarea:disabled, select:disabled {
 
 /* --------------- Add New User Styling ----------------- */
 
-body, input, select, textarea, button {
+body, input, select, textarea {
   font-family: var(--font-family-secondary);
 }
 
