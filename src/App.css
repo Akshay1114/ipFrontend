@@ -147,6 +147,20 @@
   cursor: pointer;
 }
 
+.adminScheduleReq{
+  display: flex;
+  justify-content: space-between;
+}
+.requestAdminApprove{
+  background: #E0F0FF;
+  color: #000;
+}
+.requestAdminReject{
+  background: #ffffff;
+  color: #000;
+  border: 1px solid;
+}
+
 /* Unread notifications */
 .notification-list li.unread {
   font-weight: bold;
