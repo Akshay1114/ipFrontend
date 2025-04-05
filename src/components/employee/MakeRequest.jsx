@@ -87,7 +87,7 @@ console.log("flightSelected ============>", flightSelected);
       </div>
 
       <div className="makeRequest-formGroup make-Request-inputField">
-        <label>Flight Number(If Assigned)</label>
+        <label>Flight Number</label>
         <Input value={flight} onChange={(e) => setFlight(e.target.value)} placeholder="Enter Flight Number" />
       </div>
 
@@ -102,8 +102,9 @@ console.log("flightSelected ============>", flightSelected);
       </div>
 
       <div className="makeRequest-formGroup makeRequest-textField">
-        <label>Attachments (Optional)</label>
+        {/* <label>Attachments (Optional)</label> */}
         <Dragger {...uploadProps}>
+          {/* <label>Attachments (Optional)</label> */}
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>

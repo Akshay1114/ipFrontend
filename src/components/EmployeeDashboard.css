@@ -143,7 +143,7 @@
     padding-left: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     overflow: hidden;
     /* CRITICAL: Prevent overflow here */
     min-width: 0;
@@ -278,6 +278,7 @@
     font-size: 2rem;
     font-weight: 600;
     margin-top: 0.5rem;
+    margin-bottom: .4rem;
 }
 
 .progress-bar {

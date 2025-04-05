@@ -2243,7 +2243,7 @@ h1 {
 
 
 .makeRequest-formGroup input, .makeRequest-dateRange, .makeRequest-textField, .makeRequest-Attachements {
-  margin-left: 15rem;
+  margin-left: 8rem;
 }
 
 .makeRequest-formGroup label {
@@ -2279,6 +2279,10 @@ h1 {
   gap: 15px;
   justify-content: space-between;
 
+}
+
+.makeRequest-formGroup.makeRequest-textField{
+  margin-top: 0;
 }
 
 .makeRequest-flex .ant-input {
@@ -2658,7 +2662,7 @@ font-size: 1rem;
 
 
 .tab1-schedule-card button {
-  margin-left: 85%;
+  margin-left: 80%;
   border-radius: 1rem;
   padding: 1rem 1rem 1rem 1rem;
   background-color: white;
