@@ -33,7 +33,7 @@ console.log("flightSelected ============>", flightSelected);
     // socket.emit("send_notification_to_admin", { message, recipient: 'admin', senderName: "john", senderID: employee_ID, scheduleID: "Schedule ID" });
     console.log(
    
-      "reason =>", name
+      "reason =>", value
     )
    const user = JSON.parse(name)
     const data = {
@@ -47,8 +47,8 @@ console.log("flightSelected ============>", flightSelected);
       status: "Pending"
     }
 
-    // axios.post("http://localhost:5001/api/user/requestChangeSchedule", data)
-    wingWiseApi.post("user/requestChangeSchedule", data)
+    axios.post("http://localhost:5001/api/user/requestChangeSchedule", data)
+    // wingWiseApi.post("user/requestChangeSchedule", data)
       .then((res) => {
         console.log(res.data);
         setMakeRequest(false);
