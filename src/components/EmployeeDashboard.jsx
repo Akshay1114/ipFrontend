@@ -22,8 +22,9 @@ function EmployeeDashboard() {
   const [userID, setUserID] = useState(sessionStorage.getItem("employee_ID") || "");
   const [sleepData, setSleepData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [flightSchedule, setFlightSchedule] = useState({});
   const dispatch = useDispatch();
-  const { flightSchedule, status, error } = useSelector((state) => state.employeeSchedule);
+  // const { flightSchedule, status, error } = useSelector((state) => state.employeeSchedule);
 
   // Add this new effect to control body overflow
   useEffect(() => {
@@ -35,13 +36,24 @@ function EmployeeDashboard() {
       document.body.classList.remove('dashboard-active');
     };
   }, []);
-
+  let getUser = sessionStorage.getItem('employee_ID');
   useEffect(() => {
-    dispatch(fetchData()); // Fetch employee schedule on component mount
-  }, [dispatch]);
+ // Set loading to false after data is fetched
+ wingWiseApi.get(`/user/crewSchedule?id=${getUser}`)
+      .then((res) => {
+        console.log(res.data);
+        setFlightSchedule(res.data.data[0]);
+        setLoading(false); // Set loading to false after data is fetched
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+        setLoading(false); // Set loading to false in case of error
+      });
+  }, []);
   console.log("flightSchedule =>", flightSchedule);
   let getToken = sessionStorage.getItem('token');
-  let getUser = sessionStorage.getItem('employee_ID');
+  
 
   useEffect(() => {
     console.log('EmployeeDashboard', getUser);
@@ -77,9 +89,9 @@ function EmployeeDashboard() {
             <div className="layout-grid">
               <div className="flight-list">
                 <h1>My Schedule</h1>
-                <p className="subtitle">Upcoming Flights ({flightSchedule.mergedFlights.length})</p>
+                <p className="subtitle">Upcoming Flights (3)</p>
 
-               { flightSchedule.mergedFlights.map((el, index) =><div className="flight-item">
+               {flightSchedule?.mergedFlights?.map((el, index) =><div className="flight-item">
                   <div className="date-box">
                     <p>FEB</p>
                     <h2>23</h2>
