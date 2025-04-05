@@ -138,7 +138,7 @@ function Navbar() {
               <Link to="/schedule">Schedule</Link>
             </li>
             {/* Changed text to Crew Insights, kept link /health-insights for now */}
-            <li className={pathname === "/health-insights" ? "active" : ""}>
+            <li className={pathname === "/health-insights" || pathname === "/display-sleep" ? "active" : ""}>
               <Link to="/health-insights">Health Insights</Link>
             </li>
           </ul>
