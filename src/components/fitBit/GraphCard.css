@@ -1,0 +1,28 @@
+/* GraphCard.css */
+.graph-card {
+    display: flex; /* Ensure flex properties work */
+    flex-direction: column;
+  }
+  
+  .graph-card .card-title {
+    flex-shrink: 0; /* Prevent title from shrinking */
+  }
+  
+  .graph-container {
+    flex-grow: 1;       /* Allow container to fill remaining vertical space */
+    min-height: 120px;  /* Minimum height for the graph */
+    width: 100%;        /* Ensure it takes full width */
+    position: relative; /* Needed if you add tooltips etc. later */
+  }
+  
+  /* Optional: Style axes */
+  .graph-container .x-axis text,
+  .graph-container .y-axis text {
+    font-size: 0.75em; /* Smaller axis labels */
+    fill: #666;
+  }
+  
+  /* Remove axis lines for cleaner look like the example image */
+  .graph-container .domain {
+    display: none;
+  }

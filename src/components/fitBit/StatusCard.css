@@ -1,0 +1,61 @@
+/* StatusCard.css */
+
+/* ... (keep existing styles for .status-card, .status-header, etc.) ... */
+
+.status-time {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 0;
+    margin-bottom: 15px; /* Adjusted margin */
+  }
+  
+  /* New container for relative positioning */
+  .status-bar-area {
+    position: relative;
+    padding-top: 10px; /* Add space above the bar for the indicator */
+    margin-bottom: 5px; /* Adjust spacing as needed */
+  }
+  
+  /* The indicator icon (downward pointing triangle) */
+  .status-bar-indicator {
+    position: absolute;
+    top: 0; /* Position it just above the bar area padding */
+    transform: translateX(-50%); /* Center the icon horizontally */
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent; /* Triangle sides */
+    border-right: 6px solid transparent; /* Triangle sides */
+    border-top: 8px solid #555; /* Triangle color and direction (pointing down) */
+    z-index: 1; /* Ensure it's above the bar */
+    transition: left 0.3s ease; /* Smooth transition if position changes */
+  }
+  
+  /* The Status Bar itself */
+  .status-bar {
+    display: flex;
+    height: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    /* margin-bottom: 8px; */ /* Moved margin/padding considerations to parent */
+  }
+  
+  .status-bar-segment {
+    transition: opacity 0.2s ease;
+  }
+  .status-bar-segment:hover {
+    opacity: 0.85;
+  }
+  
+  /* The Labels below the bar */
+  .status-bar-labels {
+    display: flex;
+    font-size: 0.75em;
+    color: #666;
+    text-align: center;
+    margin-top: 8px; /* Space between bar and labels */
+  }
+  
+  .status-bar-labels span {
+     /* flex-grow is set inline */
+     padding: 0 2px;
+  }

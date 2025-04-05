@@ -1,0 +1,49 @@
+/* MindfulnessCard.css */
+.mindfulness-card {
+    flex-direction: row; /* Arrange content and image side-by-side */
+    justify-content: space-between; /* Push content and image apart */
+    align-items: center; /* Vertically align items */
+  }
+  
+  .mindfulness-content {
+    flex: 1; /* Allow text content to take available space */
+    margin-right: 15px;
+  }
+  
+  .mindfulness-content .card-title {
+    margin-bottom: 8px;
+  }
+  
+  .mindfulness-text {
+    font-size: 0.9em;
+    color: #555;
+    line-height: 1.4;
+    margin: 0;
+  }
+  
+  .mindfulness-image-container {
+    flex-shrink: 0; /* Prevent image container from shrinking */
+  }
+  
+  /* Placeholder style - replace with img style */
+  .mindfulness-image-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: #ADD8E6; /* Light blue placeholder */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8em;
+    text-align: center;
+  }
+  /* Style for actual image if you use one */
+  /*
+  .mindfulness-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  */

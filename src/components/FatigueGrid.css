@@ -1,0 +1,65 @@
+/* StatusCard.css */
+.status-card {
+    /* Specific styles if needed beyond grid-card */
+  }
+  
+  .status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .status-main {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  .status-info-icon {
+    font-size: 1.1em;
+    color: #aaa;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+  }
+  
+  .status-time {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  .status-bar {
+    display: flex;
+    height: 15px; /* Bar height */
+    border-radius: 8px;
+    overflow: hidden; /* Clip segments to rounded corners */
+    margin-bottom: 8px;
+  }
+  
+  .status-bar-segment {
+    transition: opacity 0.2s ease;
+  }
+  .status-bar-segment:hover {
+    opacity: 0.85; /* Slight dim on hover */
+  }
+  
+  .status-bar-labels {
+    display: flex;
+    font-size: 0.75em;
+    color: #666;
+    text-align: center; /* Center labels */
+  }
+  
+  .status-bar-labels span {
+     /* flex-grow is set inline to match segments */
+     padding: 0 2px; /* Add slight horizontal padding */
+  }
