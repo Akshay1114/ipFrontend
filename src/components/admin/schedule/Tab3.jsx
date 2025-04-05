@@ -67,6 +67,9 @@ function Tab3() {
                     </button>
                     </div>
             </div>
+            <div>
+                <p><span className="request-name">Name : {ele.name}</span> | Flight : {ele.flightId} | Date: {ele.start_date} </p>
+                </div>
             <p className="request-item-description request-item-above">
                 {ele.reason}
             </p>
