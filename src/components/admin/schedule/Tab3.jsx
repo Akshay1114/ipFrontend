@@ -55,12 +55,42 @@ function Tab3() {
         allRequest
         .filter((ele) => ele.status === "Pending")
         .map((ele, index) => <div key={index} className="request-item animate-item">
-            <div className="request-item-header request-item-header1">
-                <p><strong>Type:</strong> {ele.leaveType}</p>
+
+        <h2><span className="request-name">{ele.name}</span>{ele.leaveType}</h2>
+            {/* <p className="request-item-description request-item-above">
+                {ele.reason}
+            </p> */}
+            {/* <div className="request-item-header request-item-header1">
+                <p> Flight : {ele.flightId} | Date: {ele.start_date} </p> */}
                 {/* <span className="request-status request-pending animate-item">{ele.status}</span> */}
                 
-            </div>
-            <div>
+            {/* </div> */}
+            <p className="request-item-description request-item-above">
+                                {ele.reason}
+                </p>
+                <div className='adminScheduleReq'>
+                    <p> Flight : {ele.flightId} | Date: {ele.start_date} </p>
+
+
+                        <div className='requestAdminBtn'>
+                            <button className='requestAdminApprove' onClick={()=>handleApprove(ele._id)}>
+                                Approve
+                            </button>
+                            <button className='requestAdminReject' onClick={()=>handleReject(ele._id)}>
+                                Reject
+                            </button>
+                        </div>
+                        
+                    </div>
+
+            {/* <div className="request-item-header request-item-header1">
+
+                
+                <p><strong>Type:</strong> {ele.leaveType}</p> */}
+                {/* <span className="request-status request-pending animate-item">{ele.status}</span> */}
+                
+            {/* </div> */}
+            {/* <div>
                 <p className="request-item-description request-item-above">
                                 {ele.reason}
                 </p>
@@ -78,7 +108,7 @@ function Tab3() {
                             </button>
                         </div>
                         
-                    </div>
+                    </div> */}
             
             
         </div>)
