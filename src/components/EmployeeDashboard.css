@@ -1,20 +1,21 @@
-
-
 /* src/components/EmployeeDashboard.css */
 
 
 
 .employee-deshboard-grid-container {
     display: grid;
-	grid-template-rows: repeat(6, 1fr);
-	grid-template-columns: repeat(6, 1fr);
-	gap: 15px;
-	height: calc(100vh - 100px); /* Assuming 80px navbar height */
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    height: calc(100vh - 100px);
+    /* Assuming 80px navbar height */
     padding: 1.5rem;
     /* REMOVED overflow-y: auto; */
-    overflow: hidden; /* Prevent this container itself from scrolling */
+    overflow: hidden;
+    /* Prevent this container itself from scrolling */
     box-sizing: border-box;
-    background-color: var(--color-background); /* Optional: Add background */
+    background-color: var(--color-background);
+    /* Optional: Add background */
 }
 
 /* --- Card Base Styles --- */
@@ -24,22 +25,33 @@
 .employee-dashboard-health-card,
 .employee-dashboard-recommendation-card {
     background-color: var(--color-white);
-    border-radius: 18px; /* Slightly smaller radius */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Subtle shadow */
-    padding: 1rem; /* Consistent padding */
-    overflow: hidden; /* CRITICAL: Prevent content spilling */
-    display: flex; /* Use flex for better internal control */
-    flex-direction: column; /* Stack content vertically */
+    border-radius: 18px;
+    /* Slightly smaller radius */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Subtle shadow */
+    padding: 1rem;
+    /* Consistent padding */
+    overflow: hidden;
+    /* CRITICAL: Prevent content spilling */
+    display: flex;
+    /* Use flex for better internal control */
+    flex-direction: column;
+    /* Stack content vertically */
 }
 
 
 
 .employee-dashboard-weather-card {
-    border-radius: 18px; /* Slightly smaller radius */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Subtle shadow */
-    overflow: hidden; /* CRITICAL: Prevent content spilling */
-    display: flex; /* Use flex for better internal control */
-    flex-direction: column; /* Stack content vertically */
+    border-radius: 18px;
+    /* Slightly smaller radius */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Subtle shadow */
+    overflow: hidden;
+    /* CRITICAL: Prevent content spilling */
+    display: flex;
+    /* Use flex for better internal control */
+    flex-direction: column;
+    /* Stack content vertically */
 }
 
 
@@ -48,70 +60,128 @@
 
 
 /* --- Grid Area Definitions --- */
-.employee-dashboard-schedule-card { grid-area: 1 / 1 / 4 / 5; }
-.employee-dashboard-weather-card { grid-area: 1 / 5 / 3 / 7; margin: 0; } /* Weather card might need its own padding/styles */
-.employee-dashboard-fatigue-card { grid-area: 3 / 5 / 5 / 7; }
-.employee-dashboard-sleep-card { grid-area: 4 / 1 / 7 / 3; }
-.employee-dashboard-health-card { grid-area: 4 / 3 / 7 / 5; }
-.employee-dashboard-recommendation-card { grid-area: 5 / 5 / 7 / 7; }
+.employee-dashboard-schedule-card {
+    grid-area: 1 / 1 / 4 / 5;
+}
+
+.employee-dashboard-weather-card {
+    grid-area: 1 / 5 / 3 / 7;
+    margin: 0;
+}
+
+/* Weather card might need its own padding/styles */
+.employee-dashboard-fatigue-card {
+    grid-area: 3 / 5 / 5 / 7;
+}
+
+.employee-dashboard-sleep-card {
+    grid-area: 4 / 1 / 7 / 3;
+}
+
+.employee-dashboard-health-card {
+    grid-area: 4 / 3 / 7 / 5;
+}
+
+.employee-dashboard-recommendation-card {
+    grid-area: 5 / 5 / 7 / 7;
+}
 
 /* --- Schedule Card Specific --- */
 .employee-dashboard-schedule-card .main-container {
-    flex-grow: 1; /* Allow container to fill space */
-    min-height: 0; /* Allow shrinking */
-    overflow: hidden; /* Hide overflow within main container */
-    display: flex; /* Use flex instead of grid inside */
+    flex-grow: 1;
+    /* Allow container to fill space */
+    min-height: 0;
+    /* Allow shrinking */
+    overflow: hidden;
+    /* Hide overflow within main container */
+    display: flex;
+    /* Use flex instead of grid inside */
     flex-direction: column;
 }
+
 .employee-dashboard-schedule-card .main-card {
     flex-grow: 1;
-    padding: 0; /* Remove padding if not needed */
-    overflow: hidden; /* Hide overflow within main card */
-    display: flex; /* Use flex */
+    padding: 0;
+    /* Remove padding if not needed */
+    overflow: hidden;
+    /* Hide overflow within main card */
+    display: flex;
+    /* Use flex */
     flex-direction: column;
 }
+
 .employee-dashboard-schedule-card .layout-grid {
-    /* display: grid; */ /* Changed to flex */
+    /* display: grid; */
+    /* Changed to flex */
     display: flex;
-    /* grid-template-columns: 1fr 1fr; */ /* Removed */
+    /* grid-template-columns: 1fr 1fr; */
+    /* Removed */
     gap: 1.5rem;
-    flex-grow: 1; /* Allow grid to fill space */
-    min-height: 0; /* Allow shrinking */
-    overflow: hidden; /* Hide overflow */
+    flex-grow: 1;
+    /* Allow grid to fill space */
+    min-height: 0;
+    /* Allow shrinking */
+    overflow: hidden;
+    /* Hide overflow */
 }
+
 .employee-dashboard-schedule-card .flight-list {
-    flex-basis: 50%; /* Approx 50% width */
-    overflow-y: auto; /* Allow only flight list to scroll if needed */
-    padding-right: 10px; /* Space for scrollbar */
-    min-width: 0; /* Allow shrinking */
+    flex-basis: 50%;
+    /* Approx 50% width */
+    overflow-y: auto;
+    /* Allow only flight list to scroll if needed */
+    padding-right: 10px;
+    /* Space for scrollbar */
+    min-width: 0;
+    /* Allow shrinking */
 }
+
 .employee-dashboard-schedule-card .metrics-panel {
-    flex-basis: 50%; /* Approx 50% width */
+    flex-basis: 50%;
+    /* Approx 50% width */
     border-left: 1px solid var(--gray-200);
     padding-left: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: hidden; /* CRITICAL: Prevent overflow here */
-    min-width: 0; /* Allow shrinking */
+    overflow: hidden;
+    /* CRITICAL: Prevent overflow here */
+    min-width: 0;
+    /* Allow shrinking */
 }
+
 .employee-dashboard-schedule-card .progress-container {
-    margin-top: 0.5rem; /* Reduced margin */
+    margin-top: 0.5rem;
+    /* Reduced margin */
 }
+
 .employee-dashboard-schedule-card .progress-container p {
-     margin-bottom: 0.1rem; /* Reduced margin */
-     font-size: 0.8rem; /* Smaller font */
+    margin-bottom: 0.1rem;
+    /* Reduced margin */
+    font-size: 0.8rem;
+    /* Smaller font */
 }
 
 /* --- Sleep & Health Card Specific (for Graph Containers) --- */
-.employee-dashboard-sleep-card > div, /* Target immediate div containing BarGraph */
-.employee-dashboard-health-card > div:last-child /* Target div containing HeartRateGraph (assuming it's last) */ {
-    flex-grow: 1; /* Allow graph container to fill vertical space */
-    min-height: 0; /* Allow graph container to shrink */
-    position: relative; /* Needed for some chart libraries */
+.employee-dashboard-sleep-card>div,
+/* Target immediate div containing BarGraph */
+.employee-dashboard-health-card>div:last-child
+
+/* Target div containing HeartRateGraph (assuming it's last) */
+    {
+    flex-grow: 1;
+    /* Allow graph container to fill vertical space */
+    min-height: 0;
+    /* Allow graph container to shrink */
+    position: relative;
+    /* Needed for some chart libraries */
     width: 100%;
-    height: 100%; /* Take full height of flex space */
-    overflow: hidden; /* Hide any overflow from the graph itself */
+    /* height: 100%; */
+    padding: 1rem 0 0 0;
+    align-items: center;
+    /* Take full height of flex space */
+    overflow: hidden;
+    /* Hide any overflow from the graph itself */
 }
 
 /* Reduce font sizes slightly in smaller cards */
@@ -119,36 +189,140 @@
 .employee-dashboard-sleep-card .header h2,
 .employee-dashboard-health-card .header h2,
 .employee-dashboard-recommendation-card .header h2 {
-    font-size: 1rem; /* Slightly smaller header */
+    font-size: 1rem;
+    /* Slightly smaller header */
     margin-bottom: 0.5rem;
 }
-.employee-dashboard-fatigue-card .percentage { font-size: 1.8rem; }
-.employee-dashboard-sleep-card .sleep-time { font-size: 1.3rem; }
-.employee-dashboard-health-card .insight .value { font-size: 1.3rem; }
-.employee-dashboard-recommendation-card .message { font-size: 0.9rem; }
+
+.employee-dashboard-fatigue-card .percentage {
+    font-size: 1.8rem;
+}
+
+.employee-dashboard-sleep-card .sleep-time {
+    font-size: 1.3rem;
+}
+
+.employee-dashboard-health-card .insight .value {
+    font-size: 1.3rem;
+}
+
+.employee-dashboard-recommendation-card .message {
+    font-size: 0.9rem;
+}
 
 /* Styles for flight items, progress bars etc. (Keep relevant ones) */
-.flight-list h1 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
-.subtitle { color: var(--gray-500); margin-bottom: 1rem; font-size: 0.9rem; }
-.flight-item { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
-.date-box h2 { font-size: 1.3rem; font-weight: 600; }
-.flight-details { flex: 1; background: var(--gray-100); border-radius: 0.5rem; padding: 0.8rem; }
-.flight-header { display: flex; justify-content: space-between; color: var(--gray-500); font-size: 0.8rem; }
-.timeline { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
-.time-block h3 { font-size: 1.1rem; font-weight: 600; }
-.duration-block { text-align: center; color: var(--gray-500); font-size: 0.8rem;}
-.metrics-header { display: flex; justify-content: space-between; align-items: center; color: var(--gray-500); }
-.percentage { font-size: 2rem; font-weight: 600; margin-top: 0.5rem; }
-.progress-bar { height: 0.5rem; background-color: var(--gray-200); border-radius: 9999px; overflow: hidden; margin: 0.25rem 0; width: 100%;}
-.progress-fill { height: 100%; background-color: var(--color-accent); border-radius: 9999px; }
-.fas { color: var(--gray-500); }
+.flight-list h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--gray-500);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.flight-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.date-box h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.flight-details {
+    flex: 1;
+    background: var(--gray-100);
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+}
+
+.flight-header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--gray-500);
+    font-size: 0.8rem;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.time-block h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.duration-block {
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 0.8rem;
+}
+
+.metrics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--gray-500);
+}
+
+.percentage {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.progress-bar {
+    height: 0.5rem;
+    background-color: var(--gray-200);
+    border-radius: 9999px;
+    overflow: hidden;
+    margin: 0.25rem 0;
+    width: 100%;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--color-accent);
+    border-radius: 9999px;
+}
+
+.fas {
+    color: var(--gray-500);
+}
 
 /* Fatigue Card specific styles (Keep/Refine) */
-.employee-dashboard-fatigue-card .risk-level { font-size: 0.75rem; }
-.employee-dashboard-fatigue-card .risk-bar { height: 6px; }
-.employee-dashboard-fatigue-card .status { font-size: 0.85rem; }
-.employee-dashboard-fatigue-card .details-button { padding: 0.4rem; font-size: 0.8rem; }
+.employee-dashboard-fatigue-card .risk-level {
+    font-size: 0.75rem;
+}
+
+.employee-dashboard-fatigue-card .risk-bar {
+    height: 6px;
+}
+
+.employee-dashboard-fatigue-card .status {
+    font-size: 0.85rem;
+}
+
+.employee-dashboard-fatigue-card .details-button {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+}
 
 /* Health Card specific styles */
-.employee-dashboard-health-card .insights-grid { gap: 0.5rem; } /* Reduce gap */
-.employee-dashboard-health-card .insight .label { font-size: 0.8rem; }
+.employee-dashboard-health-card .insights-grid {
+    gap: 0.5rem;
+}
+
+/* Reduce gap */
+.employee-dashboard-health-card .insight .label {
+    font-size: 0.8rem;
+}

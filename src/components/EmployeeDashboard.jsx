@@ -13,6 +13,8 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { wingWiseApi } from '../utils/AxiosInstance';
 import { fetchData } from '../features/api/escheduleSlice';
 import HeartRateGraph from './HeartRateGraph';
+import HeartRate from './fitBit/HeartRate';
+import SleepSummary from './fitBit/SleepSummery';
 
 const socket = io("http://localhost:5001/", { transports: ["websocket", "polling"] });
 // const socket = io("wss://rsinnovates.com/", { transports: ["websocket", "polling"] });
@@ -200,8 +202,9 @@ function EmployeeDashboard() {
         <div className="header">
           <h2>Sleep Data</h2>
         </div>
-        <div className="sleep-time">{sleepData?.deep_sleep}</div>
-        <BarGraph title ="Sleep Data"/>
+        {/* <div className="sleep-time">{sleepData?.deep_sleep}</div> */}
+        {/* <BarGraph title ="Sleep Data"/> */}
+        <SleepSummary/>
       </div>
       <div className="employee-dashboard-health-card">
         <div className="header">
@@ -213,7 +216,7 @@ function EmployeeDashboard() {
             <div className="label">Heart Rate</div>
           </div> */}
           <div className="insight">
-             <HeartRateGraph/>
+             <HeartRate/>
           </div>
         </div>
       </div>

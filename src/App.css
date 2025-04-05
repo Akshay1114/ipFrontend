@@ -353,7 +353,6 @@
 
 .insight {
   background-color: #f7fafc;
-  padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -448,3 +447,5 @@ border-radius: 24px;
     background: var(--color-primary)
   }
 }
+
+

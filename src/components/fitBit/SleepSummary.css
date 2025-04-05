@@ -1,0 +1,22 @@
+.employee-dashboard-sleep-card {
+    text-align: center;
+    position: relative;
+  }
+  
+  .employee-dashboard-sleep-card .header h2 {
+    margin-bottom: 20px;
+  }
+  
+  .employee-dashboard-sleep-card .total-sleep {
+    margin-top: 20px;
+  }
+  
+  .employee-dashboard-sleep-card .slice-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
