@@ -58,21 +58,29 @@ function Tab3() {
             <div className="request-item-header request-item-header1">
                 <p><strong>Type:</strong> {ele.leaveType}</p>
                 {/* <span className="request-status request-pending animate-item">{ele.status}</span> */}
-                <div className='adminScheduleReq'>
-                    <button className='requestAdminApprove' onClick={()=>handleApprove(ele._id)}>
-                        Approve
-                    </button>
-                    <button className='requestAdminReject' onClick={()=>handleReject(ele._id)}>
-                        Reject
-                    </button>
-                    </div>
+                
             </div>
             <div>
-                <p><span className="request-name">Name : {ele.name}</span> | Flight : {ele.flightId} | Date: {ele.start_date} </p>
-                </div>
-            <p className="request-item-description request-item-above">
-                {ele.reason}
-            </p>
+                <p className="request-item-description request-item-above">
+                                {ele.reason}
+                </p>
+            </div>
+                    <div className='adminScheduleReq'>
+                    <p><span className="request-name">Name : {ele.name}</span> | Flight : {ele.flightId} | Date: {ele.start_date} </p>
+
+
+                        <div className='requestAdminBtn'>
+                            <button className='requestAdminApprove' onClick={()=>handleApprove(ele._id)}>
+                                Approve
+                            </button>
+                            <button className='requestAdminReject' onClick={()=>handleReject(ele._id)}>
+                                Reject
+                            </button>
+                        </div>
+                        
+                    </div>
+            
+            
         </div>)
       }
       
