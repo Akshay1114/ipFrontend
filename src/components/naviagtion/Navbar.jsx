@@ -170,7 +170,7 @@ function Navbar() {
               {/* Profile Section */}
               <div className="profile-wrapper" ref={profileRef}>
                 <div className="profile-section" onClick={handleProfileClick}>
-                  <img src={ProfilePlaceholder} alt="Profile" className="profile-image" />
+                  <img src="https://randomuser.me/api/portraits/women/8.jpg"  alt="Profile" className="profile-image" />
                   <span className="profile-initials">JD</span>
                 </div>
                 {profileDropdownVisible && (

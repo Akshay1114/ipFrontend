@@ -33,7 +33,10 @@ function SendNotification() {
         value={recipient}
         onChange={(e) => setRecipient(e.target.value)}
       />
-      <button style={{'background':"#1677ff", 'color':'white'}} className='submit' onClick={sendNotification}>Send Notification</button>
+      <button className="submitNotification" onClick={sendNotification}>
+          Send Notification
+        </button>
+      {/* <button style={{'background':"#1677ff", 'color':'white'}} className='submit' onClick={sendNotification}>Send Notification</button> */}
       </div>
    
     </div>

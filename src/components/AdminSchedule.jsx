@@ -41,7 +41,7 @@ function AdminSchedule() {
         <div className="schedule-header">
           <h2>Schedule</h2>
           <button onClick = {handleOpenSchedule} type="submit" className="search-Schedule">
-            {generateSchedule ? "Return":<><i class="fa fa-plus"></i>
+            {generateSchedule ? <i class="fa fa-arrow-left" aria-hidden="true"></i> :<><i class="fa fa-plus"></i>
             Create Schedule</>}
           </button>
         </div>

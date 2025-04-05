@@ -143,6 +143,17 @@ function CreateSchedule() {
     setError(null);
   };
 
+  function getRandomApprovalDate() {
+    const start = new Date(2023, 0, 1); // Jan 1, 2023
+    const end = new Date(); // today
+    const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    return randomDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  }
+
   return (
     <div className="create-schedule-container">
       {loading && <Loader />}
@@ -208,9 +219,9 @@ function CreateSchedule() {
             </div> */ }
 
           <div className="button-group">
-            <button type="submit" className="generate-btn" disabled={loading}>
+            {/* <button type="submit" className="generate-btn" disabled={loading}>
               {loading ? 'Fetching...' : 'Generate AI Schedule'}
-            </button>
+            </button> */}
             <button
               type="button"
               className="display-full-btn"
@@ -250,20 +261,21 @@ function CreateSchedule() {
               {generatedSchedule.length > 0 ? (
                 generatedSchedule.map((schedule, index) => (
                   <tr key={index}>
+                    <td>{schedule.employee.id}</td>
                     <td>
                       <div className="employee-info">
                         <img
-                          src={schedule.employee.imageUrl}
+                          src={`https://randomuser.me/api/portraits/${Math.random() < 0.5 ? 'men' : 'women'}/${Math.floor(Math.random() * 90)}.jpg`}
                           alt={schedule.employee.name}
                           className="employee-image"
                         />
                         {schedule.employee.name}
                       </div>
                     </td>
-                    <td>{schedule.employee.id}</td>
+                    
                     <td className='fatigue-level-style'>
                                                 <div className="oval-border">
-                                                    <i className="fa fa-circle"><span> &nbsp; Approved</span></i>
+                                                    <span>{getRandomApprovalDate()}</span>
                                                 </div></td>
                     <td>
                       {schedule.timeRange === 'No flight scheduled' ? (
