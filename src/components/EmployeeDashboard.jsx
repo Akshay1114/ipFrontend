@@ -95,8 +95,8 @@ function EmployeeDashboard() {
 
                {flightSchedule?.mergedFlights?.map((el, index) =><div className="flight-item">
                   <div className="date-box">
-                    <p>FEB</p>
-                    <h2>23</h2>
+                    <p>{el.flightId}</p>
+                    {/* <h2>23</h2> */}
                   </div>
                   <div className="flight-details">
                     <div className="flight-header">
