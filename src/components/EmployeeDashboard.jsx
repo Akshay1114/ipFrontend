@@ -152,7 +152,7 @@ function EmployeeDashboard() {
                     <span>Flight Duty Time Limit <FontAwesomeIcon icon={faInfoCircle}/></span>
                     <i className="fas fa-expand-alt"></i>
                   </div>
-                  <div className="percentage">90%</div>
+                  <div className="percentage">25%</div>
                 </div>
 
                 <div>

@@ -55,8 +55,12 @@ function Tab3() {
         allRequest
         .filter((ele) => ele.status === "Pending")
         .map((ele, index) => <div key={index} className="request-item animate-item">
+            <h2><span className="request-name">{ele.name}</span>{ele.leaveType}</h2>
+            <p className="request-item-description request-item-above">
+                {ele.reason}
+            </p>
             <div className="request-item-header request-item-header1">
-                <p><strong>Type:</strong> {ele.leaveType}</p>
+                <p> Flight : {ele.flightId} | Date: {ele.start_date} </p>
                 {/* <span className="request-status request-pending animate-item">{ele.status}</span> */}
                 <div className='adminScheduleReq'>
                     <button className='requestAdminApprove' onClick={()=>handleApprove(ele._id)}>
@@ -68,11 +72,9 @@ function Tab3() {
                     </div>
             </div>
             <div>
-                <p><span className="request-name">Name : {ele.name}</span> | Flight : {ele.flightId} | Date: {ele.start_date} </p>
+                
                 </div>
-            <p className="request-item-description request-item-above">
-                {ele.reason}
-            </p>
+            
         </div>)
       }
       

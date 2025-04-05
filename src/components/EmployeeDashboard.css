@@ -91,7 +91,8 @@
     padding-left: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 1rem; /* Space between items */
+    /* justify-content: space-between; */
     overflow: hidden; /* CRITICAL: Prevent overflow here */
     min-width: 0; /* Allow shrinking */
 }

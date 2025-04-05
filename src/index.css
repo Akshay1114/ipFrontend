@@ -105,18 +105,20 @@ display: block;
 
 input, textarea, select  {
   background-color: white;
+  color: #000000;
 }
 
 input:focus, textarea:focus, select:focus {
   background-color: white;
+  color: #000000;
 }
 
 input:disabled, textarea:disabled, select:disabled {
-  background-color: #fffefe; 
+  /* background-color: #fffefe;  */
 }
 
 .navbar-bg{
-  background-color: #F1F6FF;
+  /* background-color: #F1F6FF; */
 }
 
 /* navbar */
@@ -2242,7 +2244,11 @@ h1 {
 
 
 .makeRequest-formGroup input, .makeRequest-dateRange, .makeRequest-textField, .makeRequest-Attachements {
-  margin-left: 15rem;
+  margin-left: 8rem;
+}
+
+.ant-upload-drag-icon h4{
+  text-align: start;
 }
 
 .makeRequest-formGroup label {
@@ -2657,7 +2663,10 @@ font-size: 1rem;
 
 
 .tab1-schedule-card button {
-  margin-left: 85%;
+  margin-left: 80%;
+  /* display: flex; */
+  /* align-content: end; */
+  /* justify-self: end; */
   border-radius: 1rem;
   padding: 1rem 1rem 1rem 1rem;
   background-color: white;
@@ -2820,6 +2829,9 @@ font-size: 1rem;
   border-bottom: 3.5px solid var(--color-border); 
 }
 
-.ant-modal-title{
-
+.EmployeeInsight-connectBit{
+  text-align: center;
+  height: 15rem;
+  align-content: center;
 }
+
