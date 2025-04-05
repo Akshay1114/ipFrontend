@@ -76,6 +76,7 @@ const DisplaySleep = () => {
 
   // Helper function to convert milliseconds to hours and minutes
   const formatDuration = (ms) => {
+    console.log("ms =>", ms);
     const hours = Math.floor(ms / (1000 * 60 * 60));
     const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
     return `${hours}h ${minutes}m`;
@@ -83,6 +84,7 @@ const DisplaySleep = () => {
 
   // Helper function to convert minutes to hours and minutes (e.g., "1h 19m")
   const formatMinutesToHM = (minutes) => {
+    console.log("minutes =>", minutes);
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return `${hours}h ${mins}m`;
@@ -141,12 +143,12 @@ const DisplaySleep = () => {
   // Process sleep summary for the D3.js pie chart
   const processSleepSummary = (summary, totalMinutes) => {
     if (!summary) return [];
-
+console.log("summary=>", summary);
     return [
-      { x: "Deep", y: (summary.deep.minutes / totalMinutes) * 100, color: "#1E3A8A" }, // Dark blue
-      { x: "REM", y: (summary.rem.minutes / totalMinutes) * 100, color: "#3B82F6" }, // Medium blue
-      { x: "Light", y: (summary.light.minutes / totalMinutes) * 100, color: "#93C5FD" }, // Light blue
-      { x: "Awake", y: (summary.wake.minutes / totalMinutes) * 100, color: "#ff812e" }, // Orange
+      { x: "Deep", y: (summary?.deep?.minutes / totalMinutes) * 100, color: "#1E3A8A" }, // Dark blue
+      { x: "REM", y: (summary?.rem?.minutes / totalMinutes) * 100, color: "#3B82F6" }, // Medium blue
+      { x: "Light", y: (summary?.light?.minutes / totalMinutes) * 100, color: "#93C5FD" }, // Light blue
+      { x: "Awake", y: (summary?.wake?.minutes / totalMinutes) * 100, color: "#ff812e" }, // Orange
     ];
   };
 
@@ -291,7 +293,7 @@ const DisplaySleep = () => {
 
     const latestSleep = sleepData[0];
     const sleepSummary = latestSleep.levels && latestSleep.levels.summary
-      ? processSleepSummary(latestSleep.levels.summary, latestSleep.minutesAsleep + latestSleep.levels.summary.wake.minutes)
+      ? processSleepSummary(latestSleep.levels.summary, latestSleep.minutesAsleep + latestSleep?.levels?.summary?.wake?.minutes)
       : [];
 
     if (!sleepSummary.length) return;
@@ -367,14 +369,14 @@ const DisplaySleep = () => {
 
   const latestSleep = sleepData[0] || {};
   const sleepSummary = latestSleep.levels && latestSleep.levels.summary
-    ? processSleepSummary(latestSleep.levels.summary, latestSleep.minutesAsleep + latestSleep.levels.summary.wake.minutes)
+    ? processSleepSummary(latestSleep.levels.summary, latestSleep.minutesAsleep + latestSleep?.levels?.summary?.wake?.minutes)
     : [];
 
   const sleepStages = [
-    { name: "Awake", duration: formatMinutesToHM(latestSleep.levels?.summary?.wake?.minutes || 0), color: "#ff812e" },
-    { name: "REM", duration: formatMinutesToHM(latestSleep.levels?.summary?.rem?.minutes || 0), color: "#3B82F6" },
-    { name: "Light", duration: formatMinutesToHM(latestSleep.levels?.summary?.light?.minutes || 0), color: "#93C5FD" },
-    { name: "Deep", duration: formatMinutesToHM(latestSleep.levels?.summary?.deep?.minutes || 0), color: "#1E3A8A" },
+    { name: "Awake", duration: formatMinutesToHM(latestSleep?.levels?.summary?.wake?.minutes || 0), color: "#ff812e" },
+    { name: "REM", duration: formatMinutesToHM(latestSleep?.levels?.summary?.rem?.minutes || 0), color: "#3B82F6" },
+    { name: "Light", duration: formatMinutesToHM(latestSleep?.levels?.summary?.light?.minutes || 0), color: "#93C5FD" },
+    { name: "Deep", duration: formatMinutesToHM(latestSleep?.levels?.summary?.deep?.minutes || 0), color: "#1E3A8A" },
   ];
 
   // Sleep summary labels with percentages
@@ -457,27 +459,18 @@ const DisplaySleep = () => {
                   Yearly
                 </button>
               </div>
-              {/* Remove navigation buttons */}
-              {/* <div className="navigation-buttons">
-                <button onClick={handlePreviousDay} className="nav-button">Previous Day</button>
-                <button onClick={handleNextDay} className="nav-button">Next Day</button>
-              </div> */}
               <div className="duration-info">
                 {sleepData.length > 0 ? (
                   <>
                     <p className="sleep-time">
                       {moment(latestSleep.startTime).format("h:mm A")} – {moment(latestSleep.endTime).format("h:mm A")}
                     </p>
-                    {/* Remove date display */}
-                    {/* <p className="sleep-date">
-                      {moment(latestSleep.dateOfSleep).format("MMMM D, YYYY")}
-                    </p> */}
+                    
                   </>
                 ) : (
                   <>
                     <p className="sleep-time">No Sleep Data Available</p>
-                    {/* Remove date display */}
-                    {/* <p className="sleep-date">{currentDate.format("MMMM D, YYYY")}</p> */}
+                    
                   </>
                 )}
               </div>
@@ -517,7 +510,7 @@ const DisplaySleep = () => {
                   <div className="donut-chart">
                     <svg ref={pieSvgRef}></svg>
                   </div>
-                  {/* Sleep Summary Labels Below Pie Chart */}
+              
                   <div className="sleep-summary-labels">
                     {sleepSummaryLabels.map((stage, index) => (
                       <div key={index} className="summary-label">
