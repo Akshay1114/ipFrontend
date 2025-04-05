@@ -12,7 +12,7 @@ const response = await wingWiseApi.get(`/user/crewSchedule?id=${employee_ID}`)
 const employeeScheduleSlice = createSlice({
   name: "employeeSchedule",
   initialState: {
-    flightSchedule: [],
+    flightSchedule: {},
     status: "idle", // idle | loading | succeeded | failed
     error: null,
   },
