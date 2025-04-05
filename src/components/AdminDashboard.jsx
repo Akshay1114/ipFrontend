@@ -237,14 +237,19 @@ function AdminDashboard() {
                         </div> */}
                         <WeatherCard />
                         <div className='MD-C3-UrgentLookOver cardUp'>
-                            <h2>Urgent Look-Over <CommonModal
-                            btnText="Annoucement" title="Event Details" btnClassName="details-btn"
+                            <h2>Urgent Look-Over &nbsp; <CommonModal
+                            btnText="Annoucement" title="" btnClassName="details-btn announcemnet-btn"
                             >
                                 <SendNotification/>
                                 </CommonModal></h2>
                             <div className='UrgentLookOver'>
                                 <div className="employee-image-container">
-                                     <div className="employee-image"></div>    
+                                     <div className="employee-image">
+                                     <img 
+                                        src="https://randomuser.me/api/portraits/men/32.jpg" 
+                                        alt="Employee" 
+                                        />
+                                    </div>    
                                 </div>
                                 <div>
                                     <h4>Crew Member: Mark Evans - FDTL Alert</h4>
@@ -255,7 +260,12 @@ function AdminDashboard() {
                             <hr />
                             <div className='UrgentLookOver'>
                                 <div className="employee-image-container">
-                                     <div className="employee-image"></div>    
+                                     <div className="employee-image">
+                                     <img 
+                                        src="https://randomuser.me/api/portraits/men/30.jpg" 
+                                        alt="Employee" 
+                                        />
+                                    </div>    
                                 </div>
                                 <div>
                                     <h4>Crew Pilot: Sarah Taylor - FDTL Alert</h4>
@@ -266,7 +276,12 @@ function AdminDashboard() {
                             <hr />
                             <div className='UrgentLookOver'>
                                 <div className="employee-image-container">
-                                     <div className="employee-image"></div>    
+                                     <div className="employee-image">
+                                     <img 
+                                        src="https://randomuser.me/api/portraits/women/23.jpg" 
+                                        alt="Employee" 
+                                        />
+                                    </div>    
                                 </div>
                                 <div>
                                     <h4>Manager: John Doe - FDTL Alert</h4>

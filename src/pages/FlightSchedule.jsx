@@ -101,11 +101,18 @@ function FlightSchedule() {
       }, {});
 
       // Convert grouped flights to an array for rendering
-      const sortedDates = Object.keys(groupedByDate).sort();
-      const flightsByDate = sortedDates.map((date) => ({
-        date: new Date(date),
-        flights: groupedByDate[date],
-      }));
+      const flightsByDate = [];
+
+        for (let i = 0; i < 7; i++) {
+          const date = new Date(weekStart);
+          date.setDate(weekStart.getDate() + i);
+          const dateStr = date.toISOString().split('T')[0];
+
+          flightsByDate.push({
+            date,
+            flights: groupedByDate[dateStr] || [], // Empty if no flights
+          });
+        }
 
       setFilteredFlights(flightsByDate);
     } catch (err) {
@@ -262,7 +269,10 @@ function FlightSchedule() {
             <div key={day.date.toISOString()} className="flightSchedule-day">
               <h3>{formatDate_day(day.date)}</h3>
               <div className="flightSchedule-list">
-                {day.flights.map((flight) => (
+                {day.flights.length === 0 ? (
+                    <p className="noFlightsMessage noFlightsCard ">No flights scheduled for this day.</p>
+                    ) : (
+                day.flights.map((flight) => (
                   <div className="flightSchedule-card" key={flight.flightId || flight.flightNumber || Math.random()}>
                     <div className="flightSchedule-flightHeader">
                       <span className="flightSchedule-flightNumber">
@@ -361,7 +371,7 @@ function FlightSchedule() {
                       </div>
                     </CommonModal>
                   </div>
-                ))}
+                )))}
               </div>
             </div>
           ))
