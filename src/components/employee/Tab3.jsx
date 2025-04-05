@@ -39,16 +39,16 @@ function Tab3() {
 
                 <div className="request-list">
                     <h4>All Requests</h4>
-               { allRequest.map((ele,index) => <div key={index} className="request-item animate-item">
+               { allRequest.length? allRequest.map((ele,index) => <div key={index} className="request-item animate-item">
 
                         <div className="request-item-header request-item-header1">
-                            <p><strong>Type:</strong> Fatigue Leave</p>
+                            <p><strong>Type:</strong> {ele.leaveType}</p>
                             <span className="request-status request-pending animate-item">{ele.status}</span>
                         </div>
                         <p className="request-item-description request-item-above">
-                            I’ve had several long shifts recently, and I need a break to recover from fatigue.
+                            {ele.reason}
                         </p>
-                    </div>)}
+                    </div>):"No Request found"}
 
                     {/* Fatigue Leave Request Section */}
                     <div className="request-item animate-item">
