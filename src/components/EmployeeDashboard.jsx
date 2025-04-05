@@ -77,9 +77,36 @@ function EmployeeDashboard() {
             <div className="layout-grid">
               <div className="flight-list">
                 <h1>My Schedule</h1>
-                <p className="subtitle">Upcoming Flights (3)</p>
+                <p className="subtitle">Upcoming Flights ({flightSchedule.mergedFlights.length})</p>
 
-                <div className="flight-item">
+               { flightSchedule.mergedFlights.map((el, index) =><div className="flight-item">
+                  <div className="date-box">
+                    <p>FEB</p>
+                    <h2>23</h2>
+                  </div>
+                  <div className="flight-details">
+                    <div className="flight-header">
+                      <span>Flight <strong>{el.flightId}</strong></span>
+                      <span>Fleet <strong>A320Neo</strong></span>
+                    </div>
+                    <div className="timeline">
+                      <div className="time-block">
+                        <h3>{new Date(el?.flightData?.departure).toLocaleDateString("en-US", { day: "numeric", month: "long" })}</h3>
+                        <p>{el.flightData.departureLocation}</p>
+                      </div>
+                      <div className="duration-block">
+                        <p>{el.flightData.duration} h</p>
+                        <FontAwesomeIcon icon={faPlane} />
+                      </div>
+                      <div className="time-block">
+                        <h3>{new Date(el?.flightData?.arrival).toLocaleDateString("en-US", { day: "numeric", month: "long" })}</h3>
+                        <p>{el.flightData.departureLocation}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>)}
+
+                {/* <div className="flight-item">
                   <div className="date-box">
                     <p>FEB</p>
                     <h2>23</h2>
@@ -104,34 +131,7 @@ function EmployeeDashboard() {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="flight-item">
-                  <div className="date-box">
-                    <p>FEB</p>
-                    <h2>23</h2>
-                  </div>
-                  <div className="flight-details">
-                    <div className="flight-header">
-                      <span>Flight <strong>#AFO374</strong></span>
-                      <span>Fleet <strong>A320Neo</strong></span>
-                    </div>
-                    <div className="timeline">
-                      <div className="time-block">
-                        <h3>15:05</h3>
-                        <p>YVR</p>
-                      </div>
-                      <div className="duration-block">
-                        <p>4h 55m</p>
-                        <FontAwesomeIcon icon={faPlane} />
-                      </div>
-                      <div className="time-block">
-                        <h3>21:00</h3>
-                        <p>NYC</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="metrics-panel">
