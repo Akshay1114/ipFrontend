@@ -1,5 +1,5 @@
 .weather-card {
-  background-color: #E0F0FF;
+  background: radial-gradient(circle, #E0F0FF 0%, #FFFFFF 100%);
   border-radius: 35px;
   padding: 20px;
   display: flex;
