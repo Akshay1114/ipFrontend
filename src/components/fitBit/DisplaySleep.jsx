@@ -3,61 +3,51 @@ import axios from "axios";
 import moment from "moment";
 import * as d3 from "d3";
 import { motion } from "framer-motion";
-import Loader from "../loader/Loader";
-import HeartRate from "./HeartRate"; // Import the new HeartRate component
-import noDataImage from "../../assets/images/no-data.png";
-import "./DisplaySleep.css";
-import { wingWiseApi } from "../../utils/AxiosInstance";
+import Loader from "../loader/Loader"; // Adjust path as needed
+import HeartRate from "./HeartRate"; // Adjust path as needed
+import noDataImage from "../../assets/images/no-data.png"; // Adjust path as needed
+import "./DisplaySleep.css"; // Ensure this CSS file exists
+import { wingWiseApi } from "../../utils/AxiosInstance"; // Adjust path as needed
 
 const DisplaySleep = () => {
+  // State declarations
   const [sleepData, setSleepData] = useState([]);
   const [heartRateData, setHeartRateData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("Sleep");
   const [timeFrame, setTimeFrame] = useState("Day");
-  // Remove currentDate state
-  // const [currentDate, setCurrentDate] = useState(moment());
+  const [currentIndex, setCurrentIndex] = useState(0); // For navigating days
+  const [selectedStage, setSelectedStage] = useState(null); // For popup
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // For popup visibility
 
-  const svgRef = useRef(null); // For the sleep stages graph
-  const pieSvgRef = useRef(null); // For the pie chart
+  // Refs for D3 charts
+  const svgRef = useRef(null); // Sleep stages graph
+  const pieSvgRef = useRef(null); // Pie chart
 
-  // Fetch data from the backend for the latest data
+  // Fetch sleep and heart rate data from the backend
   const fetchData = async () => {
     const accessToken = localStorage.getItem("fitbit_access_token");
-
     if (!accessToken) {
       setError("No access token found. Please connect your Fitbit account.");
       setLoading(false);
       return;
     }
-
     try {
       setLoading(true);
       setError(null);
-      const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", {
-        accessToken,
-        // Remove the date parameter
-      });
-      // const response = await axios.post("http://localhost:5001/api/sleepData/fetch-sleep-data", {
-      //    accessToken,
-      // });
-      console.log("response", response.data);
-
+      const response = await wingWiseApi.post("/sleepData/fetch-sleep-data", { accessToken });
       const { sleep, heartRate } = response.data;
-
       const sortedSleep = Array.isArray(sleep)
         ? sleep.sort((a, b) => new Date(b.dateOfSleep) - new Date(a.dateOfSleep))
         : sleep && sleep.dateOfSleep
         ? [sleep]
         : [];
-
       const sortedHeartRate = heartRate
-        ? (Array.isArray(heartRate)
-            ? heartRate.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
-            : [heartRate])
+        ? Array.isArray(heartRate)
+          ? heartRate.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
+          : [heartRate]
         : [];
-
       setSleepData(sortedSleep);
       setHeartRateData(sortedHeartRate);
       setLoading(false);
@@ -71,126 +61,94 @@ const DisplaySleep = () => {
   };
 
   useEffect(() => {
-    fetchData(); // Call fetchData once on component mount
+    fetchData();
   }, []);
 
-  // Helper function to convert milliseconds to hours and minutes
+  // Helper functions
   const formatDuration = (ms) => {
-    console.log("ms =>", ms);
     const hours = Math.floor(ms / (1000 * 60 * 60));
     const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
     return `${hours}h ${minutes}m`;
   };
 
-  // Helper function to convert minutes to hours and minutes (e.g., "1h 19m")
   const formatMinutesToHM = (minutes) => {
-    console.log("minutes =>", minutes);
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return `${hours}h ${mins}m`;
   };
 
-  // Process sleep stages for the D3.js graph
   const processSleepStages = (levels) => {
     if (!levels || !levels.data) return { stages: [], startTime: null, endTime: null };
-
     const stages = levels.data;
     const startTime = moment(stages[0].dateTime);
     const endTime = moment(stages[stages.length - 1].dateTime).add(stages[stages.length - 1].seconds, "seconds");
-
     const stageData = stages.map((stage) => {
       const stageStart = moment(stage.dateTime);
       const stageEnd = moment(stage.dateTime).add(stage.seconds, "seconds");
-
       let level, color, name;
       switch (stage.level) {
         case "wake":
           level = 4;
-          color = "#ff812e"; // Orange for Awake
+          color = "#ff812e";
           name = "Awake";
           break;
         case "light":
           level = 3;
-          color = "#93C5FD"; // Light blue for Light
+          color = "#93C5FD";
           name = "Light";
           break;
         case "rem":
           level = 2;
-          color = "#3B82F6"; // Medium blue for REM
+          color = "#3B82F6";
           name = "REM";
           break;
         case "deep":
           level = 1;
-          color = "#1E3A8A"; // Dark blue for Deep
+          color = "#1E3A8A";
           name = "Deep";
           break;
         default:
           return null;
       }
-
-      return {
-        start: stageStart.toDate(),
-        end: stageEnd.toDate(),
-        level,
-        color,
-        name,
-      };
+      return { start: stageStart.toDate(), end: stageEnd.toDate(), level, color, name };
     }).filter((d) => d !== null);
-
     return { stages: stageData, startTime, endTime };
   };
 
-  // Process sleep summary for the D3.js pie chart
   const processSleepSummary = (summary, totalMinutes) => {
     if (!summary) return [];
-console.log("summary=>", summary);
     return [
-      { x: "Deep", y: (summary?.deep?.minutes / totalMinutes) * 100, color: "#1E3A8A" }, // Dark blue
-      { x: "REM", y: (summary?.rem?.minutes / totalMinutes) * 100, color: "#3B82F6" }, // Medium blue
-      { x: "Light", y: (summary?.light?.minutes / totalMinutes) * 100, color: "#93C5FD" }, // Light blue
-      { x: "Awake", y: (summary?.wake?.minutes / totalMinutes) * 100, color: "#ff812e" }, // Orange
+      { x: "Deep", y: (summary?.deep?.minutes / totalMinutes) * 100, color: "#1E3A8A" },
+      { x: "REM", y: (summary?.rem?.minutes / totalMinutes) * 100, color: "#3B82F6" },
+      { x: "Light", y: (summary?.light?.minutes / totalMinutes) * 100, color: "#93C5FD" },
+      { x: "Awake", y: (summary?.wake?.minutes / totalMinutes) * 100, color: "#ff812e" },
     ];
   };
 
-  // Render the D3.js sleep stages graph
+  // D3 sleep stages graph
   useEffect(() => {
-    if (!svgRef.current || !sleepData.length) return;
-
-    const latestSleep = sleepData[0];
-    const { stages, startTime, endTime } = processSleepStages(latestSleep.levels);
-
+    if (!svgRef.current || !sleepData.length || !sleepData[currentIndex]) return;
+    const currentSleep = sleepData[currentIndex];
+    const { stages, startTime, endTime } = processSleepStages(currentSleep.levels);
     if (!stages.length) return;
-
     const sortedStages = stages.sort((a, b) => a.start - b.start);
-
     const margin = { top: 20, right: 20, bottom: 50, left: 60 };
     const width = 600 - margin.left - margin.right;
     const height = 200 - margin.top - margin.bottom;
-
     d3.select(svgRef.current).selectAll("*").remove();
-
     const svg = d3.select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
-
-    const xScale = d3.scaleTime()
-      .domain([startTime.toDate(), endTime.toDate()])
-      .range([0, width]);
-
-    const yScale = d3.scaleBand()
-      .domain([4, 3, 2, 1])
-      .range([0, height])
-      .padding(0.2);
-
+    const xScale = d3.scaleTime().domain([startTime.toDate(), endTime.toDate()]).range([0, width]);
+    const yScale = d3.scaleBand().domain([4, 3, 2, 1]).range([0, height]).padding(0.2);
     const yAxisLabels = [
       { level: 4, name: "Awake" },
       { level: 3, name: "Light" },
       { level: 2, name: "REM" },
       { level: 1, name: "Deep" },
     ];
-
     svg.selectAll(".y-axis-label")
       .data(yAxisLabels)
       .enter()
@@ -203,7 +161,6 @@ console.log("summary=>", summary);
       .style("font-size", "12px")
       .style("fill", "#333")
       .text((d) => d.name);
-
     const tooltip = d3.select("body")
       .append("div")
       .attr("class", "tooltip")
@@ -215,7 +172,6 @@ console.log("summary=>", summary);
       .style("box-shadow", "0 2px 4px rgba(0,0,0,0.1)")
       .style("pointer-events", "none")
       .style("opacity", 0);
-
     svg.selectAll(".bar")
       .data(sortedStages)
       .enter()
@@ -230,20 +186,16 @@ console.log("summary=>", summary);
       .attr("ry", 10)
       .on("mouseover", function (event, d) {
         d3.select(this).style("opacity", 0.8);
-        tooltip.transition()
-          .duration(200)
-          .style("opacity", 0.9);
-        tooltip.html(`${d.name.toUpperCase()} (${moment(d.start).format("h:mm A")} – ${moment(d.end).format("h:mm A")})`)
+        tooltip.transition().duration(200).style("opacity", 0.9);
+        tooltip
+          .html(`${d.name.toUpperCase()} (${moment(d.start).format("h:mm A")} – ${moment(d.end).format("h:mm A")})`)
           .style("left", event.pageX + 10 + "px")
           .style("top", event.pageY - 10 + "px");
       })
       .on("mouseout", function () {
         d3.select(this).style("opacity", 1);
-        tooltip.transition()
-          .duration(500)
-          .style("opacity", 0);
+        tooltip.transition().duration(500).style("opacity", 0);
       });
-
     svg.selectAll(".connecting-line")
       .data(sortedStages.slice(0, -1))
       .enter()
@@ -255,21 +207,17 @@ console.log("summary=>", summary);
       .attr("y2", (d, i) => yScale(sortedStages[i + 1].level) + yScale.bandwidth() / 2)
       .style("stroke", "#666")
       .style("stroke-width", 1);
-
     const middleTime = moment(startTime).add(endTime.diff(startTime) / 2, "milliseconds").toDate();
     const xAxis = d3.axisBottom(xScale)
       .tickValues([startTime.toDate(), middleTime, endTime.toDate()])
       .tickFormat(d3.timeFormat("%I:%M %p"));
-
     svg.append("g")
       .attr("transform", `translate(0,${height})`)
       .call(xAxis)
       .selectAll("text")
       .style("fill", "#666")
       .style("font-size", "10px");
-
     svg.select(".domain").remove();
-
     svg.selectAll(".grid-line")
       .data([4, 3, 2, 1])
       .enter()
@@ -281,105 +229,97 @@ console.log("summary=>", summary);
       .attr("y2", (d) => yScale(d) + yScale.bandwidth() / 2)
       .style("stroke", "#e0e0e0")
       .style("stroke-dasharray", "2,2");
-
     return () => {
       tooltip.remove();
     };
-  }, [sleepData]);
+  }, [sleepData, currentIndex]);
 
-  // Render the D3.js pie chart for Sleep Summary
+  // D3 pie chart for sleep summary
   useEffect(() => {
-    if (!pieSvgRef.current || !sleepData.length) return;
-
-    const latestSleep = sleepData[0];
-    const sleepSummary = latestSleep.levels && latestSleep.levels.summary
-      ? processSleepSummary(latestSleep.levels.summary, latestSleep.minutesAsleep + latestSleep?.levels?.summary?.wake?.minutes)
+    if (!pieSvgRef.current || !sleepData.length || !sleepData[currentIndex]) return;
+    const currentSleep = sleepData[currentIndex];
+    const sleepSummary = currentSleep.levels && currentSleep.levels.summary
+      ? processSleepSummary(currentSleep.levels.summary, currentSleep.minutesAsleep + currentSleep?.levels?.summary?.wake?.minutes)
       : [];
-
     if (!sleepSummary.length) return;
-
-    // Set up dimensions
     const width = 400;
     const height = 400;
     const radius = Math.min(width, height) / 2;
-
-    // Clear previous SVG content
     d3.select(pieSvgRef.current).selectAll("*").remove();
-
-    // Create SVG
     const svg = d3.select(pieSvgRef.current)
       .attr("width", width)
       .attr("height", height)
       .append("g")
       .attr("transform", `translate(${width / 2},${height / 2})`);
-
-    // Create pie generator
-    const pie = d3.pie()
-      .value((d) => d.y)
-      .sort(null);
-
-    // Create arc generator
-    const arc = d3.arc()
-      .innerRadius(radius * 0.5) // Inner radius for donut shape
-      .outerRadius(radius * 0.8);
-
-    // Generate pie chart slices
-    const arcs = svg.selectAll(".arc")
-      .data(pie(sleepSummary))
-      .enter()
-      .append("g")
-      .attr("class", "arc");
-
-    // Draw the slices
-    arcs.append("path")
-      .attr("d", arc)
-      .attr("fill", (d) => d.data.color);
-
-    // Add total sleep time in the center
+    const pie = d3.pie().value((d) => d.y).sort(null);
+    const arc = d3.arc().innerRadius(radius * 0.5).outerRadius(radius * 0.8);
+    const arcs = svg.selectAll(".arc").data(pie(sleepSummary)).enter().append("g").attr("class", "arc");
+    arcs.append("path").attr("d", arc).attr("fill", (d) => d.data.color);
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "-0.5em")
       .style("font-size", "20px")
       .style("fill", "#333")
-      .text(formatDuration(latestSleep.duration));
-
+      .text(formatDuration(currentSleep.duration));
     svg.append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "1em")
       .style("font-size", "12px")
       .style("fill", "#666")
       .text("Total Sleep");
-  }, [sleepData]);
+  }, [sleepData, currentIndex]);
 
-  // Remove handlePreviousDay function
-  // const handlePreviousDay = () => {
-  //   setCurrentDate((prevDate) => moment(prevDate).subtract(1, "day"));
-  // };
+  // Navigation handlers
+  const handlePrevious = () => {
+    if (currentIndex < sleepData.length - 1) setCurrentIndex(currentIndex + 1);
+  };
 
-  // Remove handleNextDay function
-  // const handleNextDay = () => {
-  //   const tomorrow = moment().add(1, "day");
-  //   if (moment(currentDate).isBefore(tomorrow, "day")) {
-  //     setCurrentDate((prevDate) => moment(prevDate).add(1, "day"));
-  //   }
-  // };
+  const handleNext = () => {
+    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+  };
 
-  if (loading) return <div><Loader /></div>;
+  // Popup handlers
+  const openPopup = (stageName) => {
+    setSelectedStage(stageName);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedStage(null);
+  };
+
+  // Sleep stage descriptions for popup
+  const getStageInfo = (stageName) => {
+    switch (stageName) {
+      case "Awake":
+        return "The Awake stage represents time spent restless or fully awake during the night. It shows how often your sleep was interrupted. Reducing awake time can lead to better sleep quality.";
+      case "REM":
+        return "REM (Rapid Eye Movement) sleep is when most dreaming occurs. It’s vital for memory consolidation, learning, and emotional balance. A healthy amount of REM sleep indicates good cognitive recovery.";
+      case "Light":
+        return "Light sleep is the transition stage between wakefulness and deeper sleep. It supports mental and physical recovery. Spending a significant portion of the night in light sleep is normal and shows a balanced sleep cycle.";
+      case "Deep":
+        return "Deep sleep is the most restorative stage, crucial for physical healing, immune function, and energy restoration. It reflects how well your body recovers overnight—a higher amount means better physical rejuvenation.";
+      default:
+        return "";
+    }
+  };
+
+  // Loading and error states
+  if (loading) return <Loader />;
   if (error) return <div className="error">Error: {error}</div>;
 
-  const latestSleep = sleepData[0] || {};
-  const sleepSummary = latestSleep.levels && latestSleep.levels.summary
-    ? processSleepSummary(latestSleep.levels.summary, latestSleep.minutesAsleep + latestSleep?.levels?.summary?.wake?.minutes)
+  // Current sleep data
+  const currentSleep = sleepData[currentIndex] || {};
+  const sleepSummary = currentSleep.levels && currentSleep.levels.summary
+    ? processSleepSummary(currentSleep.levels.summary, currentSleep.minutesAsleep + currentSleep?.levels?.summary?.wake?.minutes)
     : [];
-
   const sleepStages = [
-    { name: "Awake", duration: formatMinutesToHM(latestSleep?.levels?.summary?.wake?.minutes || 0), color: "#ff812e" },
-    { name: "REM", duration: formatMinutesToHM(latestSleep?.levels?.summary?.rem?.minutes || 0), color: "#3B82F6" },
-    { name: "Light", duration: formatMinutesToHM(latestSleep?.levels?.summary?.light?.minutes || 0), color: "#93C5FD" },
-    { name: "Deep", duration: formatMinutesToHM(latestSleep?.levels?.summary?.deep?.minutes || 0), color: "#1E3A8A" },
+    { name: "Awake", duration: formatMinutesToHM(currentSleep?.levels?.summary?.wake?.minutes || 0), color: "#ff812e" },
+    { name: "REM", duration: formatMinutesToHM(currentSleep?.levels?.summary?.rem?.minutes || 0), color: "#3B82F6" },
+    { name: "Light", duration: formatMinutesToHM(currentSleep?.levels?.summary?.light?.minutes || 0), color: "#93C5FD" },
+    { name: "Deep", duration: formatMinutesToHM(currentSleep?.levels?.summary?.deep?.minutes || 0), color: "#1E3A8A" },
   ];
-
-  // Sleep summary labels with percentages
   const sleepSummaryLabels = sleepSummary.map((stage) => ({
     name: stage.x,
     percentage: stage.y.toFixed(0),
@@ -396,35 +336,33 @@ console.log("summary=>", summary);
       >
         Health Insights
       </motion.h1>
-
       <div className="tabs">
-        <button
-          className={`tab ${activeTab === "Sleep" ? "active" : ""}`}
-          onClick={() => setActiveTab("Sleep")}
-        >
+        <button className={`tab ${activeTab === "Sleep" ? "active" : ""}`} onClick={() => setActiveTab("Sleep")}>
           Sleep
         </button>
-        <button
-          className={`tab ${activeTab === "Fatigue Risk" ? "active" : ""}`}
-          onClick={() => setActiveTab("Fatigue Risk")}
-        >
+        <button className={`tab ${activeTab === "Fatigue Risk" ? "active" : ""}`} onClick={() => setActiveTab("Fatigue Risk")}>
           Fatigue Risk
         </button>
-        <button
-          className={`tab ${activeTab === "Heart Rate" ? "active" : ""}`}
-          onClick={() => setActiveTab("Heart Rate")}
-        >
+        <button className={`tab ${activeTab === "Heart Rate" ? "active" : ""}`} onClick={() => setActiveTab("Heart Rate")}>
           Heart Rate
         </button>
       </div>
 
       {activeTab === "Sleep" && (
-        <motion.div
-          className="tab-content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div className="tab-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <div className="date-navigation">
+            <button onClick={handlePrevious} disabled={currentIndex >= sleepData.length - 1}>
+              Previous
+            </button>
+            <span>
+              {sleepData[currentIndex]
+                ? moment(sleepData[currentIndex].dateOfSleep).format("MMMM D, YYYY")
+                : "No Data"}
+            </span>
+            <button onClick={handleNext} disabled={currentIndex <= 0}>
+              Next
+            </button>
+          </div>
           <div className="cards-container">
             <motion.div
               className="card sleep-duration"
@@ -434,47 +372,30 @@ console.log("summary=>", summary);
             >
               <h2>Sleep Duration</h2>
               <div className="time-frame-tabs">
-                <button
-                  className={`time-frame-tab ${timeFrame === "Day" ? "active" : ""}`}
-                  onClick={() => setTimeFrame("Day")}
-                >
-                  Day
-                </button>
-                <button
-                  className={`time-frame-tab ${timeFrame === "Weekly" ? "active" : ""}`}
-                  onClick={() => setTimeFrame("Weekly")}
-                >
-                  Weekly
-                </button>
-                <button
-                  className={`time-frame-tab ${timeFrame === "Monthly" ? "active" : ""}`}
-                  onClick={() => setTimeFrame("Monthly")}
-                >
-                  Monthly
-                </button>
-                <button
-                  className={`time-frame-tab ${timeFrame === "Yearly" ? "active" : ""}`}
-                  onClick={() => setTimeFrame("Yearly")}
-                >
-                  Yearly
-                </button>
+                {["Day", "Weekly", "Monthly", "Yearly"].map((tf) => (
+                  <button
+                    key={tf}
+                    className={`time-frame-tab ${timeFrame === tf ? "active" : ""}`}
+                    onClick={() => setTimeFrame(tf)}
+                  >
+                    {tf}
+                  </button>
+                ))}
               </div>
               <div className="duration-info">
-                {sleepData.length > 0 ? (
+                {sleepData.length > 0 && currentSleep.startTime ? (
                   <>
-                    <p className="sleep-time">
-                      {moment(latestSleep.startTime).format("h:mm A")} – {moment(latestSleep.endTime).format("h:mm A")}
+                    <p className="sleep-date">
+                      {moment(currentSleep.dateOfSleep).format("MMMM D, YYYY")}
                     </p>
-                    
+                    <p className="sleep-time">
+                      {moment(currentSleep.startTime).format("h:mm A")} – {moment(currentSleep.endTime).format("h:mm A")}
+                    </p>
                   </>
                 ) : (
-                  <>
-                    <p className="sleep-time">No Sleep Data Available</p>
-                    
-                  </>
+                  <p className="sleep-time">No Sleep Data Available</p>
                 )}
               </div>
-
               {sleepData.length > 0 ? (
                 <>
                   <div className="sleep-stages-graph">
@@ -497,7 +418,6 @@ console.log("summary=>", summary);
                 </div>
               )}
             </motion.div>
-
             <motion.div
               className="card sleep-summary"
               initial={{ opacity: 0, x: 20 }}
@@ -510,7 +430,6 @@ console.log("summary=>", summary);
                   <div className="donut-chart">
                     <svg ref={pieSvgRef}></svg>
                   </div>
-              
                   <div className="sleep-summary-labels">
                     {sleepSummaryLabels.map((stage, index) => (
                       <div key={index} className="summary-label">
@@ -527,6 +446,36 @@ console.log("summary=>", summary);
               )}
             </motion.div>
           </div>
+
+          {/* Four Sleep Stage Cards in a Row */}
+          <div className="sleep-stage-cards">
+            {["Awake", "REM", "Light", "Deep"].map((stage, index) => (
+              <motion.div
+                key={index}
+                className="stage-card"
+                whileHover={{ scale: 1.05, boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)" }}
+                onClick={() => openPopup(stage)}
+              >
+                <h3>{stage}</h3>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Popup for Sleep Stage Details */}
+          {isPopupOpen && (
+            <motion.div
+              className="popup"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="popup-content">
+                <h2>{selectedStage}</h2>
+                <p>{getStageInfo(selectedStage)}</p>
+                <button onClick={closePopup}>Close</button>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
       )}
 
@@ -538,12 +487,7 @@ console.log("summary=>", summary);
       )}
 
       {activeTab === "Heart Rate" && (
-        <motion.div
-          className="tab-content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div className="tab-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <HeartRate heartRateData={heartRateData} />
         </motion.div>
       )}
