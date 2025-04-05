@@ -30,7 +30,7 @@ console.log("flightSelected ============>", flightSelected);
     const employee_ID = sessionStorage.getItem('employee_ID');
     const name = sessionStorage.getItem("user");
     const message = `Request for Schedule Change for Flight Number ${flight} on ${dateFrom} due to ${value}`;
-    // socket.emit("send_notification_to_admin", { message, recipient: 'admin', senderName: "john", senderID: employee_ID, scheduleID: "Schedule ID" });
+     socket.emit("send_notification_to_admin", { message, recipient: 'admin', senderName: "john", senderID: employee_ID, scheduleID: "Schedule ID" });
     console.log(
    
       "reason =>", value
@@ -47,8 +47,8 @@ console.log("flightSelected ============>", flightSelected);
       status: "Pending"
     }
 
-    axios.post("http://localhost:5001/api/user/requestChangeSchedule", data)
-    // wingWiseApi.post("user/requestChangeSchedule", data)
+    // axios.post("http://localhost:5001/api/user/requestChangeSchedule", data)
+    wingWiseApi.post("user/requestChangeSchedule", data)
       .then((res) => {
         console.log(res.data);
         setMakeRequest(false);

@@ -53,6 +53,7 @@ function Navbar() {
     console.log("Listening on socketId:", socketId);
 
     const handleMessage = (message) => {
+      console.log("New message received:", message);
       // console.log(socketId, message);
       setNewMsg(true);
       // Increment count instead of pushing messages here
@@ -66,19 +67,21 @@ function Navbar() {
     return () => {
       socket.off(socketId, handleMessage);
     };
-  }, [userID]);
+  }, []);
 
   // Effect for fetching initial notifications
   useEffect(() => {
     function getNotifications() {
       if (!userID) return;
+      console.log("Fetching notifications for userID:", userID);
       const endPoint = userID === "admin" ? "/getNotification/admin" : `/getNotification?userID=${userID}`;
       wingWiseApi
         .get(endPoint)
         .then((res) => {
+          console.log("Fetched notifications:", res.data);
            setNotifications(res.data || []); // Ensure it's an array
            setNewMsgCount(0); // Reset count after fetching
-           setNewMsg(false); // Assume fetched notifications are read initially unless logic dictates otherwise
+          //  setNewMsg(false); // Assume fetched notifications are read initially unless logic dictates otherwise
         })
         .catch((err) => {
           console.error("Error fetching notifications:", err);
@@ -86,7 +89,7 @@ function Navbar() {
         });
     }
     getNotifications();
-  }, [userID]); // Refetch if userID changes
+  }, [newMsg]); // Refetch if userID changes
 
   // Effect to handle clicks outside dropdowns
   useEffect(() => {
@@ -150,6 +153,7 @@ function Navbar() {
               <div className="notification-wrapper" ref={notificationRef}>
                  <div className="icon-container" onClick={handleNotificationClick}>
                    <BellFilled className="bell-icon" />
+                   {/* <span className="notification-dot"></span> */}
                    {newMsg && <span className="notification-dot"></span>}
                  </div>
                 {viewNotification && (
