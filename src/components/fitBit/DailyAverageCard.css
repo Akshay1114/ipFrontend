@@ -1,0 +1,40 @@
+/* DailyAverageCard.css */
+.daily-average-card .card-title {
+    margin-bottom: 10px; /* Adjust spacing */
+    color: #666; /* Lighter title color like image */
+    font-weight: normal;
+    font-size: 0.9em;
+  }
+  
+  .average-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Space between list items */
+    flex-grow: 1; /* Allow list to fill card */
+  }
+  
+  .average-list-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .average-item-visual {
+    width: 25px; /* Smaller width */
+    height: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  
+  .average-item-title {
+    flex-grow: 1;
+    font-size: 0.9em;
+    color: #444;
+  }
+  
+  .average-item-value {
+    font-size: 0.9em;
+    font-weight: 500; /* Slightly less bold */
+    color: #333;
+    margin-left: 10px;
+  }

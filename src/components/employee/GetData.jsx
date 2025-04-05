@@ -1,4 +1,6 @@
 import React from 'react'
+import Fatigue from '../fitBit/Fatigue';
+import YourParentComponent from '../fitBit/YourParentComponent';
 
 function GetData() {
     const handleLogin = () => {
@@ -6,7 +8,8 @@ function GetData() {
     };
   return (
     <div>
-      <button onClick={handleLogin}>Login with Fitbit</button>
+      {/* <button onClick={handleLogin}>Login with Fitbit</button> */}
+      <YourParentComponent/>
     </div>
   )
 }

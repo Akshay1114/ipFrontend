@@ -8,6 +8,7 @@ import HeartRate from "./HeartRate"; // Adjust path as needed
 import noDataImage from "../../assets/images/no-data.png"; // Adjust path as needed
 import "./DisplaySleep.css"; // Ensure this CSS file exists
 import { wingWiseApi } from "../../utils/AxiosInstance"; // Adjust path as needed
+import Fatigue from "./Fatigue";
 
 const DisplaySleep = () => {
   // State declarations
@@ -482,7 +483,7 @@ const DisplaySleep = () => {
       {activeTab === "Fatigue Risk" && (
         <div className="tab-content">
           <h2>Fatigue Risk</h2>
-          <p>Coming soon...</p>
+         <Fatigue />
         </div>
       )}
 
